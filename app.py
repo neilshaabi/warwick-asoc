@@ -301,3 +301,42 @@ def membership_select():
     # Request method is GET
     else:
         return render_template("membership.html", authenticated=current_user.is_authenticated)
+
+
+# Source: https://testdriven.io/blog/flask-stripe-tutorial/
+@app.route("/stripe-config")
+def get_publishable_key():
+    stripe_config = {"public_key" : stripe_keys["publishable_key"]}
+    return jsonify(stripe_config)
+
+
+@app.route("/create-checkout-session")
+def create_checkout_session():
+
+    domain_url = "http://127.0.0.1:5000/"
+    stripe.api_key = stripe_keys["secret_key"]
+
+    # Create new Checkout Session for the order
+    try:
+        # Stripe API docs: https://stripe.com/docs/api/checkout/sessions/create
+        checkout_session = stripe.checkout.Session.create(
+            mode = "payment",
+            payment_method_types = ["card"],
+            success_url = domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url = domain_url + "cancelled",            
+            line_items = [{
+                "quantity" : "1",
+                "price_data" : {
+                    "unit_amount" : "800",
+                    "currency" : "gbp",
+                    "product_data" : { 
+                        "name" : "Student Membership" 
+                    },
+                }
+            }]
+        )
+        return jsonify({"checkout_session_id" : checkout_session["id"]})
+
+    except Exception as e:
+        # render something bro
+        return jsonify(error=str(e))

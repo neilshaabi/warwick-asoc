@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-    
+
     // Toggle active state for navbar link when selected
     var pathname = window.location.pathname;
     var links = document.getElementsByTagName('a');
@@ -10,6 +10,18 @@ $(document).ready(function(){
             break;
         }
     }
+
+    var stripe;
+
+    // Stripe configuration
+    $.get(
+        '/stripe-config',
+        function(data) {
+
+            // Initialize Stripe.js
+            stripe = Stripe(data.public_key);
+        }
+    );
 
 
     // Zoom effect for hero image
@@ -150,8 +162,23 @@ $(document).ready(function(){
             if ((student_id < 1000000) || (student_id > 2200000)) {
                 $('#error-alert').html("Invalid student ID").show();
                 return;
-            } else {
+            } else {    
                 $('#error-alert').hide();
+                
+                // 
+                $.get(
+                    '/create-checkout-session',
+                    function(data) {
+            
+                        if (data.error) {
+                            $('#error-alert').html("Something went wrong: " + data.error).show();
+                            return;
+                        } else {
+                            // Redirect to Stripe Checkout
+                            return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
+                        }
+                    }
+                );
             }
        
         } else { 
@@ -159,12 +186,11 @@ $(document).ready(function(){
         }
 
         // AJAX post request to handle membership selection
-        $.post(
-            '/membership', 
-            {'membership_type' : membership_type, 'student_id' : student_id}, 
-            function(data) {
-                return;
-            });        
-    });
-    
+        // $.post(
+        //     '/membership', 
+        //     {'membership_type' : membership_type, 'student_id' : student_id}, 
+        //     function(data) {
+        //         return;
+        //     });        
+    });    
 });
