@@ -1,5 +1,5 @@
 
 .DS_Store
-asoc.sqlite
 __pycache__/*
 .venv/*
+asoc.sqlite
