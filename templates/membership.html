@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Membership
+{% endblock %}
+
+{% block main %}
+
+    <h2 class="white">Annual Membership</h2>
+
+    <div class="container-login">
+        <div class="membership-toggles">
+            <button id="student-toggle" class="toggle active-toggle">Student</button>
+            <button id="associate-toggle" class="toggle">Associate</button>
+        </div>
+        
+        <!-- Student membership info -->
+        <div id="student-info" class="membership-info">
+            <p>Eligibility: Current University of Warwick students</p>
+            <div class="form-floating">
+                <input type="text" id="student_id" name="student_id" placeholder="Student ID" class="form-control">
+                <label for="student_id">Student ID</label>
+            </div>
+        </div>
+
+        <!-- Associate membership info -->
+        <div id="associate-info" class="membership-info hidden">
+            <p>Eligibility: Public</p>
+        </div>
+
+        <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+        <button type="button" id="select-membership-btn" class="btn btn-dark" data-authenticated="{{ authenticated }}" >Select</button>
+    </div>
+
+{% endblock %}

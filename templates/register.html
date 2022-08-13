@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+    <div class="container-login">
+        <h3>Create account</h3>
+        <p>Have an account? <a href="/login">Sign in</a></p>
+        <form id="register-form">
+            <div class="form-floating">
+                <input type="text" id="first_name" placeholder="First name" class="form-control">
+                <label for="first_name">First name</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" id="last_name" placeholder="Last name" class="form-control">
+                <label for="last_name">Last name</label>
+            </div>
+            <div class="form-floating">
+                <input type="email" id="email" placeholder="Email address" class="form-control">
+                <label for="email">Email</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" id="password" placeholder="Password" class="form-control">
+                <label for="password">Password</label>
+            </div>
+            <div class="description">At least 8 characters, 1 uppercase letter, 1 lowercase letter and 1 number</div>
+            <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+            <button type="submit" class="btn btn-dark">Register</button>
+        </form>
+    </div>
+
+{% endblock %}

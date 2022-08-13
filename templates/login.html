@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign in
+{% endblock %}
+
+{% block main %}
+
+    <div class="container-login">
+        <h3>Sign in</h3>
+        <p>Don't have an account? <a href="/register">Sign up</a></p>
+        <form id="login-form">
+            <div class="form-floating">
+                <input type="email" id="email" placeholder="Email address" class="form-control">
+                <label for="email">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" id="password" placeholder="Password" class="form-control">
+                <label for="password">Password</label>
+            </div>
+            <div class="description"><a href="/reset-password">Forgot password?</div>
+            <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+            <button type="submit" class="btn btn-dark">Continue</button>
+        </form>
+    </div>
+
+{% endblock %}
