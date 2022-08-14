@@ -1,8 +1,3 @@
-# # macOS commands to setup flask
-# python3 -m venv .venv
-# source .venv/bin/activate
-# flask run
-
 import os
 import stripe
 
