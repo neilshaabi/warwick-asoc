@@ -14,14 +14,14 @@ $(document).ready(function(){
     var stripe;
 
     // Stripe configuration
-    $.get(
-        '/stripe-config',
-        function(data) {
+    // $.get(
+    //     '/stripe-config',
+    //     function(data) {
 
-            // Initialize Stripe.js
-            stripe = Stripe(data.public_key);
-        }
-    );
+    //         // Initialize Stripe.js
+    //         stripe = Stripe(data.public_key);
+    //     }
+    // );
 
 
     // Zoom effect for hero image
@@ -152,7 +152,7 @@ $(document).ready(function(){
         }
 
         // Handles student membership selection
-        else if ($('#student-info').is(":visible")) {
+        if ($('#student-info').is(":visible")) {
             
             var membership_type = 'student';
 
@@ -165,32 +165,50 @@ $(document).ready(function(){
             } else {    
                 $('#error-alert').hide();
                 
-                // 
-                $.get(
-                    '/create-checkout-session',
-                    function(data) {
+                // COMMENT HERE
+                // $.get(
+                //     '/create-checkout-session',
+                //     function(data) {
             
-                        if (data.error) {
-                            $('#error-alert').html("Something went wrong: " + data.error).show();
-                            return;
-                        } else {
-                            // Redirect to Stripe Checkout
-                            return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
-                        }
-                    }
-                );
+                //         if (data.error) {
+                //             $('#error-alert').html("Something went wrong: " + data.error).show();
+                //             return;
+                //         } else {
+                //             // Redirect to Stripe Checkout
+                //             return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
+                //         }
+                //     }
+                // );
             }
        
         } else { 
             var membership_type = 'associate';
         }
 
-        // AJAX post request to handle membership selection
-        // $.post(
-        //     '/membership', 
-        //     {'membership_type' : membership_type, 'student_id' : student_id}, 
-        //     function(data) {
-        //         return;
-        //     });        
-    });    
+        // Source for Stripe integration: https://testdriven.io/blog/flask-stripe-tutorial/
+    
+        // Get Stripe publishable key
+        fetch("/stripe-config")
+        .then((result) => { return result.json(); })
+        .then((data) => {
+         
+            // Initialize Stripe.js
+            const stripe = Stripe(data.public_key);
+
+            // Get Checkout Session ID
+            fetch("/create-checkout-session")
+            .then((result) => { return result.json(); })
+            .then((data) => {
+
+                if (data.error) {
+                    $('#error-alert').html("Something went wrong: " + data.error).show();
+                    return;
+                } else {
+                    // Redirect to Stripe Checkout
+                    return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
+                }
+            });
+        });
+    });
+
 });

@@ -311,9 +311,10 @@ def create_checkout_session():
     domain_url = "http://127.0.0.1:5000/"
     stripe.api_key = stripe_keys["secret_key"]
 
-    # Create new Checkout Session for the order
+    # Create new Checkout Session to handle membership purchases
     try:
-        # Stripe API docs: https://stripe.com/docs/api/checkout/sessions/create
+        
+        # See Stripe API docs: https://stripe.com/docs/api/checkout/sessions/create
         checkout_session = stripe.checkout.Session.create(
             mode = "payment",
             payment_method_types = ["card"],
@@ -333,5 +334,4 @@ def create_checkout_session():
         return jsonify({"checkout_session_id" : checkout_session["id"]})
 
     except Exception as e:
-        # render something bro
         return jsonify(error=str(e))
