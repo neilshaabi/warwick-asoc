@@ -154,7 +154,7 @@ $(document).ready(function(){
         // Handles student membership selection
         if ($('#student-info').is(":visible")) {
             
-            var membership_type = 'student';
+            var membership_type = 'Student';
 
             // Validate student ID
             var student_id = Number($('#student_id').val());
@@ -182,7 +182,7 @@ $(document).ready(function(){
             }
        
         } else { 
-            var membership_type = 'associate';
+            var membership_type = 'Associate';
         }
 
         // Source for Stripe integration: https://testdriven.io/blog/flask-stripe-tutorial/
@@ -195,19 +195,21 @@ $(document).ready(function(){
             // Initialize Stripe.js
             const stripe = Stripe(data.public_key);
 
-            // Get Checkout Session ID
-            fetch("/create-checkout-session")
-            .then((result) => { return result.json(); })
-            .then((data) => {
-
-                if (data.error) {
-                    $('#error-alert').html("Something went wrong: " + data.error).show();
-                    return;
-                } else {
-                    // Redirect to Stripe Checkout
-                    return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
+            // Get Checkout Session ID and redirect to Stripe Checkout
+            $.post(
+                '/membership',
+                {'membership_type' : membership_type, 'student_id' : student_id},
+                function(data) {
+                    
+                    // Display error message if unsuccessful
+                    if (data.error) {
+                        $('#error-alert').html("Something went wrong: " + data.error).show();
+                        return;
+                    } else {
+                        return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
+                    }
                 }
-            });
+            );
         });
     });
 

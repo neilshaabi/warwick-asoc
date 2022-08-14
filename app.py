@@ -278,20 +278,37 @@ def index():
 
 # Allows users to select a membership to purchase
 @app.route("/membership", methods=["GET", "POST"])
-def membership_select():
+def membership():
 
     if request.method == 'POST':
-        
-        membership_type = request.form.get('membership_type')
+    
+        domain_url = "http://127.0.0.1:5000/"
+        stripe.api_key = stripe_keys["secret_key"]
 
-        if membership_type == "student":
-            student_id = request.form.get('student_id')
+        # Create new Checkout Session to handle membership purchases
+        try:
             
-            print(student_id)
-        else:
-            print("associate la bro")
-        
-        return "hello"
+            # See Stripe API docs: https://stripe.com/docs/api/checkout/sessions/create
+            checkout_session = stripe.checkout.Session.create(
+                mode = "payment",
+                payment_method_types = ["card"],
+                success_url = domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
+                cancel_url = domain_url + "cancelled",            
+                line_items = [{
+                    "quantity" : "1",
+                    "price_data" : {
+                        "unit_amount" : "800",
+                        "currency" : "gbp",
+                        "product_data" : { 
+                            "name" : (request.form.get('membership_type') + " Membership")
+                        },
+                    }
+                }]
+            )
+            return jsonify({"checkout_session_id" : checkout_session["id"]})
+
+        except Exception as e:
+            return jsonify(error=str(e))
 
     # Request method is GET
     else:
@@ -303,35 +320,3 @@ def membership_select():
 def get_publishable_key():
     stripe_config = {"public_key" : stripe_keys["publishable_key"]}
     return jsonify(stripe_config)
-
-
-@app.route("/create-checkout-session")
-def create_checkout_session():
-
-    domain_url = "http://127.0.0.1:5000/"
-    stripe.api_key = stripe_keys["secret_key"]
-
-    # Create new Checkout Session to handle membership purchases
-    try:
-        
-        # See Stripe API docs: https://stripe.com/docs/api/checkout/sessions/create
-        checkout_session = stripe.checkout.Session.create(
-            mode = "payment",
-            payment_method_types = ["card"],
-            success_url = domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url = domain_url + "cancelled",            
-            line_items = [{
-                "quantity" : "1",
-                "price_data" : {
-                    "unit_amount" : "800",
-                    "currency" : "gbp",
-                    "product_data" : { 
-                        "name" : "Student Membership" 
-                    },
-                }
-            }]
-        )
-        return jsonify({"checkout_session_id" : checkout_session["id"]})
-
-    except Exception as e:
-        return jsonify(error=str(e))
