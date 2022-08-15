@@ -16,20 +16,15 @@ app = Flask(__name__)
 
 # Randomly generated with os.urandom(12).hex()
 app.config["SECRET_KEY"] = "538270fea6c657529ee5c3fc"
-
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-
-# Select the database filename
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///asoc.sqlite"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Initialise the database so it can connect with our app
 db.init_app(app)
 
-# Avoid resetting the database every time this app is restarted
-resetdb = True
-
 # Drop and create all tables, insert dummy data
+resetdb = True
 if resetdb:
     with app.app_context():        
         db.drop_all()
@@ -63,14 +58,13 @@ mail = Mail(app)
 # Instantiate serialiser for email verification
 s = URLSafeTimedSerializer(app.config["SECRET_KEY"])
 
-
 # Set up stripe payment gateway
 stripe_keys = {
     "secret_key": os.environ["STRIPE_SECRET_KEY"],
     "publishable_key": os.environ["STRIPE_PUBLISHABLE_KEY"],
+    "endpoint_secret": os.environ["STRIPE_ENDPOINT_SECRET"]
 }
 stripe.api_key = stripe_keys["secret_key"]
-
 
 
 # Logs user out
@@ -282,6 +276,8 @@ def membership():
 
     if request.method == 'POST':
     
+        membership_type = request.form.get('membership_type')
+        student_id = request.form.get('student_id') or "none"
         domain_url = "http://127.0.0.1:5000/"
         stripe.api_key = stripe_keys["secret_key"]
 
@@ -292,7 +288,7 @@ def membership():
             checkout_session = stripe.checkout.Session.create(
                 mode = "payment",
                 payment_method_types = ["card"],
-                success_url = domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
+                success_url = domain_url + "success?session_id={CHECKOUT_SESSION_ID}&membership_type=" + membership_type + "&student_id=" + student_id,
                 cancel_url = domain_url + "cancelled",            
                 line_items = [{
                     "quantity" : "1",
@@ -300,7 +296,7 @@ def membership():
                         "unit_amount" : "800",
                         "currency" : "gbp",
                         "product_data" : { 
-                            "name" : (request.form.get('membership_type') + " Membership")
+                            "name" : membership_type + " Membership"
                         },
                     }
                 }]
@@ -308,11 +304,13 @@ def membership():
             return jsonify({"checkout_session_id" : checkout_session["id"]})
 
         except Exception as e:
+            print(e)
             return jsonify(error=str(e))
 
     # Request method is GET
     else:
-        return render_template("membership.html", authenticated=current_user.is_authenticated)
+        membership = User.query.filter_by(id=current_user.id).first().membership
+        return render_template("membership.html", authenticated=current_user.is_authenticated, membership=membership)
 
 
 # Source: https://testdriven.io/blog/flask-stripe-tutorial/
@@ -320,3 +318,54 @@ def membership():
 def get_publishable_key():
     stripe_config = {"public_key" : stripe_keys["publishable_key"]}
     return jsonify(stripe_config)
+
+
+# Successful payments
+@app.route("/success")
+def success():
+    
+    # TODO: prevent anyone from accessing this page
+    # TODO: how to use the webhook to actually check if the payment went through - update a global variable?
+
+    membership_type = request.args.get('membership_type')
+    student_id = int(request.args.get('student_id')) if membership_type == 'Student' else None
+
+    user = User.query.filter_by(id=current_user.id).first()
+    user.membership = membership_type
+    user.student_id = student_id
+    db.session.commit()
+
+    flash("Success! Membership purchased")
+    return redirect('/')
+
+
+# Cancellation of payments
+@app.route("/cancelled")
+def cancelled():
+    flash("Membership purchase request cancelled")
+    return redirect('/')
+
+# Endpoint to confirm successful payments
+@app.route("/webhook", methods=["POST"])
+def stripe_webhook():
+
+    payload = request.get_data(as_text=True)
+    sig_header = request.headers.get("Stripe-Signature")
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, stripe_keys["endpoint_secret"]
+        )
+
+    except ValueError as e:
+        return "Invalid payload", 400
+
+    except stripe.error.SignatureVerificationError as e:
+        return "Invalid signature", 400
+
+    # Handle the checkout.session.completed event
+    if event["type"] == "checkout.session.completed":
+        print("\nPAYMENT SUCCESSFUL.\n")
+        # TODO: run some custom code here
+
+    return "Success", 200

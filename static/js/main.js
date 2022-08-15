@@ -145,9 +145,12 @@ $(document).ready(function(){
     // Handles membership selection
     $('#select-membership-btn').on('click', function(event) {
         
-        // Displays error message if user is not logged in
+        // Displays error message if user is not logged in or already a member
         if ($(event.target).attr('data-authenticated') == "False") {
             $('#error-alert').html("Please <a href='/login'>sign in</a> to purchase a membership").show();
+            return;
+        } else if ($(event.target).attr('data-membership') != "None") {
+            $('#error-alert').html("You have already purchased a membership").show();
             return;
         }
 
@@ -158,29 +161,13 @@ $(document).ready(function(){
 
             // Validate student ID
             var student_id = Number($('#student_id').val());
-
             if ((student_id < 1000000) || (student_id > 2200000)) {
                 $('#error-alert').html("Invalid student ID").show();
                 return;
             } else {    
                 $('#error-alert').hide();
-                
-                // COMMENT HERE
-                // $.get(
-                //     '/create-checkout-session',
-                //     function(data) {
-            
-                //         if (data.error) {
-                //             $('#error-alert').html("Something went wrong: " + data.error).show();
-                //             return;
-                //         } else {
-                //             // Redirect to Stripe Checkout
-                //             return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
-                //         }
-                //     }
-                // );
             }
-       
+
         } else { 
             var membership_type = 'Associate';
         }
@@ -203,7 +190,7 @@ $(document).ready(function(){
                     
                     // Display error message if unsuccessful
                     if (data.error) {
-                        $('#error-alert').html("Something went wrong: " + data.error).show();
+                        $('#error-alert').html("Error: " + data.error).show();
                         return;
                     } else {
                         return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })

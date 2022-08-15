@@ -1,7 +1,6 @@
 /* Custom variables */
 :root {
-    --my-grey: #5f5f5f;
-    --my-blue: #3f80ea;
+    --primary-color: black;
 }
 
 * {
@@ -44,6 +43,7 @@ nav {
 }
 
 nav .dropdown-menu-dark {
+    border: solid 1px #222;
     background: black;
 }
 
@@ -80,7 +80,7 @@ label {
 
 .form-control:focus,
 .btn:focus {
-    border: solid 1px black;
+    border: solid 1px var(--primary-color);
     outline: none;
     box-shadow: none;
 }
@@ -93,8 +93,8 @@ label {
 
 .btn-dark {
     color: white;
-    background: black;
-    border: solid 1px black;
+    background: var(--primary-color);
+    border: solid 1px var(--primary-color);
 }
 
 .btn-dark:hover {
@@ -123,15 +123,6 @@ label {
     margin-bottom: 10px;
 }
 
-.container-login a {
-    /* color: #555; */
-    text-decoration: none;
-}
-
-.container-login a:hover {
-    /* color: black; */
-}
-
 .container-login .btn {
     width: 100%;
     height: calc(3.5rem + 2px);
@@ -154,11 +145,10 @@ label {
     background-image: url("../img/hero-img.jpg");
     background-position: top;
     background-repeat: no-repeat;
-    /* background-size: cover; */
+    background-size: 100%;
     display: flex;
     text-align: center;
     justify-content: center;
-    background-size: 100%;
 }
 
 .hero-text {
@@ -207,7 +197,6 @@ label {
     border-bottom: 2px solid #e0e0e0;
     padding: 7px;
     margin-top: -7px;
-    /* margin-bottom: 20px; */
 }
 
 .membership-toggles .active-toggle {
@@ -257,6 +246,6 @@ main > h2 {
     margin-top: 60px;
 }
 
-a .btn {
+a {
     text-decoration: none;
 }
