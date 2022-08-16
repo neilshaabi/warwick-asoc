@@ -171,33 +171,23 @@ $(document).ready(function(){
         } else { 
             var membership_type = 'Associate';
         }
-
-        // Source for Stripe integration: https://testdriven.io/blog/flask-stripe-tutorial/
-    
-        // Get Stripe publishable key
-        fetch("/stripe-config")
-        .then((result) => { return result.json(); })
-        .then((data) => {
-         
-            // Initialize Stripe.js
-            const stripe = Stripe(data.public_key);
-
-            // Get Checkout Session ID and redirect to Stripe Checkout
-            $.post(
-                '/membership',
-                {'membership_type' : membership_type, 'student_id' : student_id},
-                function(data) {
-                    
-                    // Display error message if unsuccessful
-                    if (data.error) {
-                        $('#error-alert').html("Error: " + data.error).show();
-                        return;
-                    } else {
-                        return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
-                    }
+     
+        // Get Checkout Session ID and redirect to Stripe Checkout
+        $.post(
+            '/membership',
+            {'membership_type' : membership_type, 'student_id' : student_id},
+            function(data) {
+                
+                // Display error message if unsuccessful
+                if (data.error) {
+                    $('#error-alert').html("Error: " + data.error).show();
+                    return;
+                } else {
+                    const stripe = Stripe(data.checkout_public_key);
+                    return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
                 }
-            );
-        });
+            }
+        );
     });
 
 });
