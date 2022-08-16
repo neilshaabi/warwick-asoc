@@ -139,13 +139,14 @@ label {
     
     /* Necessary for zoom effect */
     /* min-height: 90%; */
+    /* background-size: 100%; */
 
     position: relative;
     padding: 20vh 30vw;
     background-image: url("../img/hero-img.jpg");
     background-position: top;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
     display: flex;
     text-align: center;
     justify-content: center;
