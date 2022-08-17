@@ -47,8 +47,13 @@ nav .dropdown-menu-dark {
     background: black;
 }
 
-nav .dropdown-menu-dark .dropdown-item:hover {
-    background: #222;
+nav .dropdown-menu .dropdown-item:hover {
+    background: #222 !important;
+}
+
+nav .dropdown-menu .dropdown-item.active, 
+nav .dropdown-menu .dropdown-item:active  {
+    background: inherit;
 }
 
 main {
