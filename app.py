@@ -10,7 +10,7 @@ from markupsafe import escape
 from datetime import date
 from db_schema import db, User, dbinit
 
-from utils import isValidPassword, sendVerificationEmail, sendResetEmail
+from utils import isValidID, isValidPassword, sendVerificationEmail, sendPasswordResetEmail
 
 app = Flask(__name__)
 
@@ -205,7 +205,7 @@ def reset_request():
             
             # Send reset email
             else:
-                sendResetEmail(s, mail, user)
+                sendPasswordResetEmail(s, mail, user)
                 flash('Password reset instructions sent to {}'.format(email))
                 return url_for('index')
 
@@ -369,3 +369,63 @@ def stripe_webhook():
         db.session.commit()
  
     return "Success", 200
+
+
+# View and edit account details
+@app.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+
+    user = User.query.filter_by(id=current_user.id).first()
+
+    if request.method == "POST":
+
+        # Get form data
+        first_name = escape(request.form.get("first_name"))
+        last_name = escape(request.form.get("last_name"))
+        email = request.form.get("email")
+        student_id = request.form.get("student_id")
+
+        # Ensure full name was entered
+        if not first_name or not last_name:
+            error = "Please enter your full name"
+
+        # Ensure email was entered
+        elif not email:
+            error = "Please enter your email"
+
+        # Ensure a valid student ID was entered if the user holds a student membership
+        elif (user.membership == 'Student') and (not isValidID(student_id)):
+            error = "Invalid student ID"
+        
+        # Ensure a different user with same email does not already exist
+        elif (email != user.email) and (User.query.filter_by(email=email.lower()).first() is not None):
+            error = "This email address is already in use"
+
+        # Successful update
+        else:
+            
+            # Update user's info into database
+            user.first_name = first_name
+            user.last_name = last_name
+            user.student_id = student_id
+            db.session.commit()
+            
+            # Send verification email if user changes email
+            if email != user.email:
+                user.email = email
+                user.verified = False
+                db.session.commit()
+                sendVerificationEmail(s, mail, user)
+                flash('Email verification link sent to {}'.format(email))
+                return url_for('index')
+            
+            else:
+                flash('Success! Profile details updated')
+                return url_for('index')
+
+        return jsonify({'error' : error})
+    
+    # Request method is GET
+    else:
+        return render_template("profile.html", user=user)

@@ -11,19 +11,6 @@ $(document).ready(function(){
         }
     }
 
-    var stripe;
-
-    // Stripe configuration
-    // $.get(
-    //     '/stripe-config',
-    //     function(data) {
-
-    //         // Initialize Stripe.js
-    //         stripe = Stripe(data.public_key);
-    //     }
-    // );
-
-
     // Zoom effect for hero image
     $(window).scroll(function() {
         var scroll = $(window).scrollTop();
@@ -101,7 +88,7 @@ $(document).ready(function(){
     });
 
 
-    // Password reset request handler using AJAX
+    // Password reset handler using AJAX
     $('#reset-password-form').on('submit', function(event) {
 
         $.post(
@@ -116,6 +103,35 @@ $(document).ready(function(){
             } 
             
             // Redirect to home page if successful
+            else {
+                window.location = data;
+            }
+        });
+        event.preventDefault();
+    });
+
+
+    // Profile edits handler using AJAX
+    $('#profile-form').on('submit', function(event) {
+
+        // Get student ID if it exists
+        var student_id = null;
+        if ($('#membership').val() == 'Student') {
+            student_id = $('#student_id').val();
+        }
+
+        $.post(
+            '/profile', 
+            {'first_name' : $('#first_name').val(), 'last_name' : $('#last_name').val(), 
+             'email' : $('#email').val(), 'student_id' : student_id}, 
+            function(data) {
+            
+            // Display error message if unsuccessful
+            if (data.error) {
+                 $('#error-alert').html(data.error).show();
+            } 
+            
+            // Reload page if successful
             else {
                 window.location = data;
             }

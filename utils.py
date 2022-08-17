@@ -26,7 +26,7 @@ def sendVerificationEmail(s, mail, user):
     mail.send(msg)
 
 
-def sendResetEmail(s, mail, user):
+def sendPasswordResetEmail(s, mail, user):
     
     # Generate email verification link
     token = s.dumps(user.email)
@@ -36,3 +36,17 @@ def sendResetEmail(s, mail, user):
     msg = Message("Password Reset", recipients=[user.email])
     msg.html = render_template('mails/reset-password-email.html', first_name=user.first_name, reset_link=link)
     mail.send(msg)
+
+
+def isValidID(id_str):
+
+    try:
+        student_id = int(id_str)
+        
+        if (student_id < 1000000) or (student_id > 2200000):
+            return False
+        else:
+            return True
+    
+    except:
+        return False
