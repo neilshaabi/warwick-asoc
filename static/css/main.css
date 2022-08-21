@@ -90,6 +90,10 @@ label {
     box-shadow: none;
 }
 
+.col-form-label {
+    margin-right: 1px;
+}
+
 .btn {
     /* font-size: 0.9rem; */
     /* border-radius: 0; */

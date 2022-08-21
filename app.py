@@ -243,7 +243,6 @@ def reset_request():
     
     # Request method is GET
     else:
-        logout_user()
         return render_template("reset-request.html")
 
 
@@ -287,7 +286,7 @@ def membership():
             checkout_session = stripe.checkout.Session.create(
                 mode = "payment",
                 payment_method_types = ["card"],
-                success_url = (url_for("success", _external=True) + "?session_id={CHECKOUT_SESSION_ID}"),
+                success_url = (url_for("success", _external=True) + "?session_id={CHECKOUT_SESSION_ID}" + "&membership=" + membership_type),
                 cancel_url = url_for("cancelled", _external=True),
                 client_reference_id = current_user.id,
                 line_items = [{
@@ -315,23 +314,9 @@ def membership():
 
     # Request method is GET
     else:
-        membership = User.query.filter_by(id=current_user.id).first().membership
+        if current_user.is_authenticated:
+            membership = User.query.filter_by(id=current_user.id).first().membership
         return render_template("membership.html", authenticated=current_user.is_authenticated, membership=membership)
-
-
-# Successful payments
-@app.route("/success")
-@login_required
-def success():
-    flash("Success! Membership purchased")
-    return redirect('/')
-
-
-# Cancellation of payments
-@app.route("/cancelled")
-def cancelled():
-    flash("Membership purchase request cancelled")
-    return redirect('/')
 
 
 # Endpoint to handle successful payments
@@ -355,6 +340,8 @@ def stripe_webhook():
 
     # If checkout was successful
     if event["type"] == "checkout.session.completed":
+        
+        print("\nSUCCESSFUL PAYMENT:")
 
         # Retrieve checkout info
         session = event["data"]["object"]
@@ -363,12 +350,31 @@ def stripe_webhook():
 
         # Update user's membership status in database
         user = User.query.filter_by(id=session['client_reference_id']).first()
+
+        print("\nUSER: " + user.first_name)
+
         user.membership = membership_type
         if membership_type == 'Student':
             user.student_id = session['metadata']['student_id']
         db.session.commit()
  
     return "Success", 200
+
+
+# Successful payments
+@app.route("/success")
+@login_required
+def success():
+    membership_type = request.args.get("membership")
+    flash("Success! " + membership_type + " membership purchased")
+    return redirect('/')
+
+
+# Cancellation of payments
+@app.route("/cancelled")
+def cancelled():
+    flash("Membership purchase request cancelled")
+    return redirect('/')
 
 
 # View and edit account details

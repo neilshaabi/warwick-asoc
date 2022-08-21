@@ -158,14 +158,17 @@ $(document).ready(function(){
     });
 
     
-    // Handles membership selection
-    $('#select-membership-btn').on('click', function(event) {
+    // Membership selection handler using AJAX
+    $('#membership-form').on('submit', function(event) {
+
+        event.preventDefault();
+        var btn = ('#membership-btn');
         
         // Displays error message if user is not logged in or already a member
-        if ($(event.target).attr('data-authenticated') == "False") {
+        if ($(btn).attr('data-authenticated') == "False") {
             $('#error-alert').html("Please <a href='/login'>sign in</a> to purchase a membership").show();
             return;
-        } else if ($(event.target).attr('data-membership') != "None") {
+        } else if ($(btn).attr('data-membership') != "None") {
             $('#error-alert').html("You have already purchased a membership").show();
             return;
         }
@@ -177,7 +180,8 @@ $(document).ready(function(){
 
             // Validate student ID
             var student_id = Number($('#student_id').val());
-            if ((student_id < 1000000) || (student_id > 2200000)) {
+            if ((student_id < 1000000) || (student_id > 2200000)
+                || !(Number.isInteger(student_id))) {
                 $('#error-alert').html("Invalid student ID").show();
                 return;
             } else {    
