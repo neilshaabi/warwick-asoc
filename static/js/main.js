@@ -116,7 +116,7 @@ $(document).ready(function(){
 
         // Get student ID if it exists
         var student_id = null;
-        if ($('#membership').val() == 'Student') {
+        if ($('#membership-type').html() == 'Student') {
             student_id = $('#student_id').val();
         }
 

@@ -414,7 +414,7 @@ def profile():
             # Update user's info into database
             user.first_name = first_name
             user.last_name = last_name
-            user.student_id = student_id
+            user.student_id = int(student_id)
             db.session.commit()
             
             # Send verification email if user changes email
