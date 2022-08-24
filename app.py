@@ -292,7 +292,7 @@ def membership():
                 line_items = [{
                     "quantity" : "1",
                     "price_data" : {
-                        "unit_amount" : "800",
+                        "unit_amount" : "500",
                         "currency" : "gbp",
                         "product_data" : { 
                             "name" : membership_type + " Membership"
