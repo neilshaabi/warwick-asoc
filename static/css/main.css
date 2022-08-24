@@ -233,6 +233,10 @@ label {
     transform: translateX(-50%);
 }
 
+.alert {
+    margin-bottom: 10px;
+}
+
 .alert-primary {
     color: black;
     background: white;

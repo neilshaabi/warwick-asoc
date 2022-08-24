@@ -111,8 +111,8 @@ $(document).ready(function(){
     });
 
 
-    // Profile edits handler using AJAX
-    $('#profile-form').on('submit', function(event) {
+    // Account settings edits handler using AJAX
+    $('#settings-form').on('submit', function(event) {
 
         // Get student ID if it exists
         var student_id = null;
@@ -121,7 +121,7 @@ $(document).ready(function(){
         }
 
         $.post(
-            '/profile', 
+            '/settings', 
             {'first_name' : $('#first_name').val(), 'last_name' : $('#last_name').val(), 
              'email' : $('#email').val(), 'student_id' : student_id}, 
             function(data) {

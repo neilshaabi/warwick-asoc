@@ -378,9 +378,9 @@ def cancelled():
 
 
 # View and edit account details
-@app.route("/profile", methods=["GET", "POST"])
+@app.route("/settings", methods=["GET", "POST"])
 @login_required
-def profile():
+def settings():
 
     user = User.query.filter_by(id=current_user.id).first()
 
@@ -427,11 +427,11 @@ def profile():
                 return url_for('index')
             
             else:
-                flash('Success! Profile details updated')
+                flash('Success! Account details updated')
                 return url_for('index')
 
         return jsonify({'error' : error})
     
     # Request method is GET
     else:
-        return render_template("profile.html", user=user)
+        return render_template("settings.html", user=user)
