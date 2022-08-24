@@ -269,6 +269,12 @@ def index():
     return render_template("index.html")
 
 
+# Displays team page
+@app.route("/team")
+def team():
+    return render_template("team.html")
+
+
 # Allows users to select a membership to purchase
 @app.route("/membership", methods=["GET", "POST"])
 def membership():

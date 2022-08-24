@@ -30,6 +30,7 @@ body {
     min-height: 100vh;
     width: 100vw;
     max-width: 100%;
+    /* overflow-x: hidden; */
     background: black;
 }
 
@@ -262,4 +263,45 @@ main > h2 {
 
 a {
     text-decoration: none;
+}
+
+.list-group {
+    position: fixed;
+    top: 100;
+    right: 100px;
+    /* width: 1000px; */
+}
+
+.team-page {
+    height: calc(100vh - 56px); /* DON'T HARDCODE 56PX */
+    max-width: 100vw;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+}
+
+.team-page .team-header {
+    position: fixed;
+    top: calc(56px + 60px);
+    width: 100%;
+}
+
+.team-page section {
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    padding: 25vh 20vw;
+}
+
+.team-page .card {
+    color: black;
+    width: 18rem;
+    margin: auto;
+}
+
+.team-page .card img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
 }
