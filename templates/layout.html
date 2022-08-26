@@ -12,6 +12,9 @@
         <!-- Font Awesome Icons CDN -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
+        <!-- Swiper CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper-bundle.min.css') }}" type="text/css">
+        
         <!-- Bootstrap stylesheet -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
         
@@ -32,7 +35,7 @@
 
         {% block head %}{% endblock %}
 
-        <title>{% block title %}{% endblock %} • Warwick Asian Society</title>
+        <title>{% block title %}{% endblock %} | Warwick ASOC</title>
         <!-- <link rel="icon" type="image/svg" href="static/logo.svg"> -->
 
     </head>
@@ -55,9 +58,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Gallery</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/team">Our Team</a>
@@ -108,8 +108,9 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 
-        <!-- Custom JavaScript -->
+        <!-- Custom JavaScript files -->
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/swiper-bundle.min.js') }}"></script>
         
     </body>
 

@@ -8,94 +8,123 @@
 
     <div class="team-page">
 
+        <!-- Sidebar with team list -->
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">ASOC Teams</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="nav flex-column">
+                    <a href="#presidents" class="sidebar-link active" aria-current="page">Presidents</a>
+                    <a href="#vp-treasurer" class="sidebar-link">Secretary / Treasurer</a>
+                    <a href="#ball-careers" class="sidebar-link">Ball & Careers</a>
+                    <a href="#charities" class="sidebar-link">Charities</a>
+                    <a href="#diversity" class="sidebar-link">Diversity</a>
+                    <a href="#events" class="sidebar-link">Events</a>
+                    <a href="#marketing" class="sidebar-link">Marketing</a>
+                    <a href="#speakers" class="sidebar-link">Speakers</a>
+                    <a href="#sports" class="sidebar-link">Sports</a>
+                    <a href="#technology" class="sidebar-link">Technology</a>
+                    <a href="#tour" class="sidebar-link">Tour</a>
+                    <a href="#welfare" class="sidebar-link">Welfare</a>
+                </div>
+            </div>
+        </div>
+
         <div class="team-header">
             <h2 class="white">Meet the Team</h2>
-            <p class="white">Get to know the faces behind Warwick ASOC this year</p>
+            <p class="white">Get to know the faces behind Warwick ASOC</p>
+            <button id="sidebar-toggler" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                View Teams
+            </button>
         </div>
 
-        <div class="list-group">
-            <a href="#senior" class="list-group-item list-group-item-action active" aria-current="true">
-                Senior Exec
-            </a>
-            <a href="#vp-treasurer" class="list-group-item list-group-item-action">VP / Treasurer</a>
-            <a href="#technology" class="list-group-item list-group-item-action">Technology</a>
-            <a href="#sports" class="list-group-item list-group-item-action">Sports</a>
-            <a href="#events" class="list-group-item list-group-item-action">Events</a>
-            <!-- <a href="#" class="list-group-item list-group-item-action">Charities</a>
-            <a href="#" class="list-group-item list-group-item-action">Careers</a>
-            <a href="#" class="list-group-item list-group-item-action">Marketing</a>
-            <a href="#" class="list-group-item list-group-item-action">Speakers</a>
-            <a href="#" class="list-group-item list-group-item-action">Ball</a>
-            <a href="#" class="list-group-item list-group-item-action">Tour</a>
-            <a href="#" class="list-group-item list-group-item-action">Welfare</a>
-            <a href="#" class="list-group-item list-group-item-action">Diversity</a> -->
-        </div>
+        <section id="presidents">
+            <div class="swiper team-swiper-3">
+                <div class="swiper-wrapper">
 
-    
-        <section id="senior">
-            <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <img src="../static/img/exec/neil.jpg" class="card-img-top" alt="Neil Shaabi">
-                        <div class="card-body">
-                            <h5 class="card-title">Rishi Jopanputra</h5>
-                            <p class="card-text">Co-President</p>
+                    <div class="swiper-slide">
+                        <div class="content card">
+                            <img class="card-img-top" src="static/img/exec/neil.jpg" alt="Rishi Jobanputra">
+                            <div class="card-body">
+                                <h5 class="card-title">Rishi Jobanputra</h5>
+                                <p class="card-text">Co-President</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="../static/img/exec/adam.jpg" class="card-img-top" alt="Neil Shaabi">
-                        <div class="card-body">
-                            <h5 class="card-title">Vishali Poojara</h5>
-                            <p class="card-text">Co-President</p>
+
+                    <div class="swiper-slide">
+                        <div class="content card">
+                            <img class="card-img-top" src="static/img/exec/adam.jpg" alt="Vishali Poojara">
+                            <div class="card-body">
+                                <h5 class="card-title">Vishali Poojara</h5>
+                                <p class="card-text">Co-President</p>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="swiper-slide">
+                        <div class="content card">
+                            <img class="card-img-top" src="static/img/exec/neil.jpg" alt="Bela Bhagat">
+                            <div class="card-body">
+                                <h5 class="card-title">Bela Bhagat</h5>
+                                <p class="card-text">Vice-President and Secretary</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
         </section>
-        <section id="vp-treasurer">
-            <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <img src="../static/img/exec/neil.jpg" class="card-img-top" alt="Neil Shaabi">
-                        <div class="card-body">
-                            <h5 class="card-title">Bela Bhagat</h5>
-                            <p class="card-text">Vice-President and Secretary</p>
+
+        <section id="ball-careers">
+            <div class="swiper team-swiper-4">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="content card">
+                            <img class="card-img-top" src="static/img/exec/neil.jpg" alt="Rishi Jobanputra">
+                            <div class="card-body">
+                                <h5 class="card-title">Rishi Jobanputra</h5>
+                                <p class="card-text">Co-President</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="../static/img/exec/adam.jpg" class="card-img-top" alt="Neil Shaabi">
-                        <div class="card-body">
-                            <h5 class="card-title">Gaurav Pant</h5>
-                            <p class="card-text">Treasurer</p>
+
+                    <div class="swiper-slide">
+                        <div class="content card">
+                            <img class="card-img-top" src="static/img/exec/adam.jpg" alt="Vishali Poojara">
+                            <div class="card-body">
+                                <h5 class="card-title">Vishali Poojara</h5>
+                                <p class="card-text">Co-President</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        <section id="technology">
-            <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <img src="../static/img/exec/neil.jpg" class="card-img-top" alt="Neil Shaabi">
-                        <div class="card-body">
-                            <h5 class="card-title">Neil Shaabi</h5>
-                            <p class="card-text">Technology Coordinator</p>
+
+                    <div class="swiper-slide">
+                        <div class="content card">
+                            <img class="card-img-top" src="static/img/exec/neil.jpg" alt="Neil Shaabi">
+                            <div class="card-body">
+                                <h5 class="card-title">Neil Shaabi</h5>
+                                <p class="card-text">Technology Coordinator</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="../static/img/exec/adam.jpg" class="card-img-top" alt="Neil Shaabi">
-                        <div class="card-body">
-                            <h5 class="card-title">Adam Syed</h5>
-                            <p class="card-text">Technology Coordinator</p>
+
+                    <div class="swiper-slide">
+                        <div class="content card">
+                            <img class="card-img-top" src="static/img/exec/adam.jpg" alt="Adam Syed">
+                            <div class="card-body">
+                                <h5 class="card-title">Adam Syed</h5>
+                                <p class="card-text">Technology Coordinator</p>
+                            </div>
                         </div>
                     </div>
+
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
         </section>
 

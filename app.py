@@ -106,7 +106,8 @@ def register():
         else:
             
             # Insert new user into database
-            user = User(email.lower(), generate_password_hash(password), first_name.capitalize(), last_name.capitalize(), date.today(), None, None, False)
+            email = email.lower()
+            user = User(email, generate_password_hash(password), first_name.capitalize(), last_name.capitalize(), date.today(), None, None, False)
             db.session.add(user)
             db.session.commit()
 
@@ -142,7 +143,7 @@ def login():
         
         # Check if user's email has been verified
         elif not user.verified:
-            error = "Email not verified, resending verification link"
+            error = "Email not verified, verification link resent"
             sendVerificationEmail(s, mail, user)
         
         # Log user in and redirect to home page
@@ -194,10 +195,10 @@ def reset_request():
         if request.form.get("form-type") == "request":
         
             # Get form data
-            email = request.form.get("email")
+            email = request.form.get("email").lower()
             
             # Find user with this email
-            user = User.query.filter_by(email=email.lower()).first()
+            user = User.query.filter_by(email=email).first()
 
             # Check if user with this email does not exist
             if user is None:
@@ -257,7 +258,7 @@ def reset_password(token):
         email = s.loads(token, max_age=86400) # Each token is valid for 24 hours
         return render_template("reset-password.html", email=email)
 
-    # Invalid/expired token
+    # Invalid/expired token©
     except:
         flash("Invalid or expired reset link, please request another password reset")
         return redirect('/')
@@ -322,6 +323,9 @@ def membership():
     else:
         if current_user.is_authenticated:
             membership = User.query.filter_by(id=current_user.id).first().membership
+        else:
+            membership = None
+
         return render_template("membership.html", authenticated=current_user.is_authenticated, membership=membership)
 
 
@@ -395,7 +399,7 @@ def settings():
         # Get form data
         first_name = escape(request.form.get("first_name"))
         last_name = escape(request.form.get("last_name"))
-        email = request.form.get("email")
+        email = request.form.get("email").lower()
         student_id = request.form.get("student_id")
 
         # Ensure full name was entered

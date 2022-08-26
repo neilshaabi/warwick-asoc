@@ -24,6 +24,8 @@ $(document).ready(function(){
     // Registration handler using AJAX
     $('#register-form').on('submit', function(event) {
 
+        showLoadingBtn(true);
+
         $.post(
             '/register', 
             {'first_name' : $('#first_name').val(), 'last_name' : $('#last_name').val(), 
@@ -32,8 +34,9 @@ $(document).ready(function(){
             
             // Display error message if unsuccessful
             if (data.error) {
-                 $('#error-alert').html(data.error).show();
-            } 
+                showLoadingBtn(false);
+                $('#error-alert').html(data.error).show();
+            }
             
             // Redirect to home page if successful
             else {
@@ -47,6 +50,8 @@ $(document).ready(function(){
     // Login handler using AJAX
     $('#login-form').on('submit', function(event) {
 
+        showLoadingBtn(true);
+
         $.post(
             '/login', 
             {'email' : $('#email').val(), 'password' : $('#password').val()}, 
@@ -54,6 +59,7 @@ $(document).ready(function(){
             
             // Display error message if unsuccessful
             if (data.error) {
+                showLoadingBtn(false);
                  $('#error-alert').html(data.error).show();
             } 
             
@@ -69,6 +75,8 @@ $(document).ready(function(){
     // Password reset request handler using AJAX
     $('#reset-request-form').on('submit', function(event) {
 
+        showLoadingBtn(true);
+        
         $.post(
             '/reset-password', 
             {'form-type' : 'request', 'email' : $('#email').val()}, 
@@ -76,7 +84,8 @@ $(document).ready(function(){
             
             // Display error message if unsuccessful
             if (data.error) {
-                 $('#error-alert').html(data.error).show();
+                showLoadingBtn(false);
+                $('#error-alert').html(data.error).show();
             } 
             
             // Redirect to home page if successful
@@ -209,5 +218,76 @@ $(document).ready(function(){
             }
         );
     });
+
+
+    // Team page swipers
+    const teamSwiper3 = new Swiper('.team-swiper-3', {
+        
+        direction: 'horizontal',
+        // loop: true,
+        grabCursor: 'true',
+        spaceBetween: 24,
+        slidesPerView: 4,
+    
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            600: {
+                slidesPerView: 2
+            },
+            1000: {
+                slidesPerView: 3
+            }
+        }
+    });
+    
+    const teamSwiper4 = new Swiper('.team-swiper-4', {
+        
+        direction: 'horizontal',
+        // loop: true,
+        grabCursor: 'true',
+        spaceBetween: 24,
+        slidesPerView: 4,
+    
+        pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true,
+            clickable: true,
+        },
+
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            600: {
+                slidesPerView: 2
+            },
+            1000: {
+                slidesPerView: 3
+            },
+            1400: {
+                slidesPerView: 4
+            }
+        }
+    });
+
+    function showLoadingBtn(loading) {
+        if (loading == true) {
+            $(':input[type="submit"]').prop('disabled', true);
+            $('.btn-text').hide();
+            $('.spinner-border').show();
+        } else {
+            $(':input[type="submit"]').prop('disabled', false);
+            $('.btn-text').show();
+            $('.spinner-border').hide();
+        }
+        return;
+    }
 
 });
