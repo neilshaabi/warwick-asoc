@@ -161,13 +161,16 @@ $(document).ready(function(){
     $('#membership-form').on('submit', function(event) {
 
         event.preventDefault();
-        var btn = ('#membership-btn');
+        showLoadingBtn(true);
+        $('#error-alert').hide();
         
         // Displays error message if user is not logged in or already a member
-        if ($(btn).attr('data-authenticated') == "False") {
+        if ($('#membership-btn').attr('data-authenticated') == "False") {
             $('#error-alert').html("Please <a href='/login'>sign in</a> to purchase a membership").show();
+            showLoadingBtn(false);
             return;
-        } else if ($(btn).attr('data-membership') != "None") {
+        } else if ($('#membership-btn').attr('data-membership') != "None") {
+            showLoadingBtn(false);
             $('#error-alert').html("You have already purchased a membership").show();
             return;
         }
@@ -178,14 +181,14 @@ $(document).ready(function(){
             var membership_type = 'Student';
 
             // Validate student ID
-            var student_id = Number($('#student_id').val());
-            if ((student_id < 1000000) || (student_id > 2200000)
-                || !(Number.isInteger(student_id))) {
-                $('#error-alert').html("Invalid student ID").show();
-                return;
-            } else {    
-                $('#error-alert').hide();
-            }
+            // var student_id = Number($('#student_id').val());
+            // if ((student_id < 1000000) || (student_id > 2200000)
+            //     || !(Number.isInteger(student_id))) {
+            //     $('#error-alert').html("Invalid student ID").show();
+            //     return;
+            // } else {    
+            //     $('#error-alert').hide();
+            // }
 
         } else { 
             var membership_type = 'Associate';
@@ -199,7 +202,7 @@ $(document).ready(function(){
                 
                 // Display error message if unsuccessful
                 if (data.error) {
-                    $('#error-alert').html("Error: " + data.error).show();
+                    $('#error-alert').html(data.error).show();
                     return;
                 } else {
                     const stripe = Stripe(data.checkout_public_key);

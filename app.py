@@ -286,6 +286,9 @@ def membership():
         student_id = request.form.get("student_id") or "none"
         stripe.api_key = stripe_keys["secret_key"]
 
+        if membership_type == "Student" and not isValidID(student_id):
+            return jsonify(error="Invalid Student ID")
+
         # Create new Checkout Session to handle membership purchases
         try:
             

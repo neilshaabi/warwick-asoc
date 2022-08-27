@@ -2,8 +2,9 @@
 :root {
     --accent-color: #ff4545;
     --dark-accent: #dd2323;
-    --mid-grey: #212121;
+    --mid-grey: #222;
     --dark-grey: #111;
+    --grey-font: rgba(255, 255, 255, 0.55);
 }
 
 * {
@@ -56,12 +57,12 @@ nav .active {
 
 
 nav .dropdown-menu-dark {
-    border: solid 1px #222;
+    border: solid 1px var(--mid-grey);
     background: var(--dark-grey);
 }
 
 nav .dropdown-menu .dropdown-item:hover {
-    background: #222 !important;
+    background: var(--mid-grey) !important;
 }
 
 nav .dropdown-menu .dropdown-item.active, 
@@ -85,57 +86,78 @@ main {
 }
 
 .form-control {
+    color: white;
+    background: var(--mid-grey);
     font-size: 0.9rem;
     margin: 10px 0;
+    border-color: var(--grey-font);
 }
 
-.form-control:focus,
-.btn:focus {
+.form-control:focus {
+    color: white;
+    background: var(--mid-grey);
+    background-color: var(--mid-grey);
+    border-color: white;
     outline: none;
     box-shadow: none;
 }
 
+input:-webkit-autofill{
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 50px white inset;
+}
+
 .btn {
     padding: 10px 30px;
+    border: none;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+    border: inherit;
+}
+
+.btn:active,
+.btn:focus-visible {
+    box-shadow: none;
 }
 
 .btn-primary {
     color: white;
     background: var(--accent-color);
-    border: solid 1px var(--accent-color);
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:disabled {
     background: var(--dark-accent);
-    border: solid 1px var(--dark-accent);
 }
 
-.btn:focus {
-    border: inherit;
+.btn-primary:focus,
+.btn-primary:active  {
+    background-color: var(--dark-accent);
 }
 
 .btn-white {
     color: #000;
     mix-blend-mode: screen;
     background: white;
-    border: solid 1px white;
 }
 
 .btn-white:hover {
     color: #000;
     mix-blend-mode: screen;
     background: #ddd;
-    border: solid 1px #ddd;
 }
 
 
 /* Containers */
 
-.container-login {
+.container {
     width: 30%;
     padding: 40px;
-    background: white;
-    text-align: center;
+    background: var(--mid-grey);
+    color: white;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -145,18 +167,24 @@ main {
 
 @media only screen and (max-width: 768px) {
     
-    .container-login {
+    .container {
         width: 85%;
     }
 }
 
-.container-login .description {
+.container .description,
+.container .description a {
+    color: var(--grey-font);
     text-align: left;
     font-size: 0.8rem;
     margin-bottom: 10px;
 }
 
-.container-login .btn {
+.description a:hover {
+    color: white;
+}
+
+.container .btn {
     width: 100%;
     height: calc(3.5rem + 2px);
 }
@@ -221,18 +249,17 @@ main {
 .membership-toggles .toggle {
     height: auto; 
     width: 50%; 
-    color: #616161;
-    background: white;
-    border: solid 1px black;
+    color: var(--grey-font);
+    background: inherit;
     border: 2px solid transparent;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 2px solid var(--grey-font);
     padding: 7px;
     margin-top: -7px;
 }
 
 .membership-toggles .active-toggle {
-    color: black;
-    border-bottom: 2px solid black;
+    color: white;
+    border-bottom: 2px solid white;
 }
 
 .membership-info {
@@ -300,7 +327,7 @@ main {
 }
 
 .team-swiper .swiper-slide .swiper-text .role {
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--grey-font);
     font-size: 1rem;
     font-weight: 400;
 }
@@ -323,6 +350,7 @@ main {
 
 .alert {
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .alert-primary {
@@ -335,16 +363,17 @@ i {
     margin-right: 7px;
 }
 
-.white {
-    color: white;
-}
-
 h1 {
     font-weight: 600;
     font-size: 3rem;
 }
 
 h2 {
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.4rem;
     font-weight: 600;
 }
 
@@ -355,6 +384,7 @@ p {
 a {
     color: var(--accent-color);
     text-decoration: none;
+    transition: all .15s ease;
 }
 
 a:hover {

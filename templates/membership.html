@@ -8,7 +8,7 @@
 
     <h2 class="white">Annual Membership</h2>
 
-    <div class="container-login container-membership">
+    <div class="container container-membership">
         
         <div class="membership-toggles">
             <button id="student-toggle" class="toggle active-toggle">Student</button>
@@ -32,7 +32,9 @@
             </div>
 
             <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
-            <button type="submit" id="membership-btn" class="btn btn-dark" data-authenticated="{{ authenticated }}" data-membership="{{ membership }}">Select</button>
+            <button type="submit" id="membership-btn" class="btn btn-primary" data-authenticated="{{ authenticated }}" data-membership="{{ membership }}">
+                Select 
+            </button>
         </form>
     </div>
 

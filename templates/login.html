@@ -6,7 +6,7 @@
 
 {% block main %}
 
-    <div class="container-login">
+    <div class="container">
         <h3>Sign in</h3>
         <p>Don't have an account? <a href="/register">Sign up</a></p>
         <form id="login-form">
@@ -18,7 +18,9 @@
                 <input type="password" id="password" placeholder="Password" class="form-control">
                 <label for="password">Password</label>
             </div>
-            <div class="description"><a href="/reset-password">Forgot password?</div>
+            <div class="description">
+                <a href="/reset-password">Forgot password?</a>
+            </div>
             <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
             <button type="submit" class="btn btn-primary">
                 <span class="btn-text">Continue</span>
