@@ -1,6 +1,7 @@
 /* Custom variables */
 :root {
     --primary-color: black;
+    --dark-grey: #111;
 }
 
 * {
@@ -26,21 +27,18 @@
 
 html, 
 body {
-    height: 100%;
+    max-width: 100%;
     min-height: 100vh;
     width: 100vw;
-    max-width: 100%;
-    /* overflow-x: hidden; */
-    background: black;
+    height: 100%;
+    background: var(--dark-grey);
 }
 
 nav {
     width: 100%;
-    /* height: 56px; */ /* DOES NOT ALLOW FOR NAV LINKS TO WORK WHEN IN MOBILE */
     position: absolute;
     top: 0;
     left: 0;
-    background: black;
 }
 
 nav .dropdown-menu-dark {
@@ -59,9 +57,8 @@ nav .dropdown-menu .dropdown-item:active  {
 
 main {
     width: 100%;
-    min-height: calc(100vh - 56px); /* DON'T HARDCODE 56PX */
+    height: calc(100vh - 56px); /* DON'T HARDCODE 56PX */
     position: absolute;
-    top: 56;
     left: 0;
     text-align: center;
 }
@@ -127,7 +124,7 @@ label {
     border-radius: 5px;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
     
     .container-login {
         width: 85%;
@@ -231,6 +228,71 @@ label {
     padding-top: 20px;
 }
 
+
+/* Team page */
+
+.team-page {
+    width: 100%;
+    height: 100%;
+    padding: 0 calc(20px + 10vw);
+}
+
+.team-page .team-header {
+    color: white;
+    padding-top: 50px;
+}
+
+.team-swiper {
+    margin: 30px 0;
+    padding-bottom: 40px;
+}
+
+.team-swiper .swiper-pagination-bullet {
+    background: white;
+}
+
+.team-swiper .swiper-slide {
+    width: 100px;
+}
+
+.team-swiper .swiper-slide .content {
+    color: white;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* CHANGE TO ROW WHEN VH IS A CERTAIN SIZE - LIKE WDSS */
+    justify-content: center;
+    align-items: center;
+}
+
+.team-swiper .swiper-slide .content .swiper-img {
+    height: 50vh;
+    width: 100%;
+}
+
+.team-swiper .swiper-slide .swiper-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.team-swiper .swiper-slide .swiper-text {
+    width: 100%;
+    padding: 14px 0;
+    text-align: left;
+}
+
+.team-swiper .swiper-slide .swiper-text .name {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.team-swiper .swiper-slide .swiper-text .role {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+
 /* Miscellaneous */
 
 .hidden {
@@ -266,124 +328,9 @@ i {
 
 h2 {
     font-weight: 600;
-    margin-top: 55px;
 }
 
 a {
     text-decoration: none;
 }
 
-.team-page {
-    height: calc(100vh - 56px); /* DON'T HARDCODE 56PX */
-    max-width: 100vw;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-}
-
-.team-page section {
-    width: 100%;
-    height: 100%;
-    scroll-snap-align: start;
-    padding: 60px 20vw;
-}
-
-.team-page .team-header {
-    position: fixed;
-    width: 100%;
-}
-
-.team-page .card {
-    color: black;
-    width: 50vw;
-    margin: auto;
-}
-
-.team-page .card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-.offcanvas {
-    width: calc(var(--bs-offcanvas-width) - 70px) !important;
-}
-
-.text-bg-dark {
-    background: black !important;
-    border: solid 1px #222 !important;
-}
-
-.offcanvas .offcanvas-body {
-    padding: 0;
-    text-align: left;
-}
-
-.sidebar-link {
-    font-size: 1.2rem;
-    color: white;
-    padding: 8px 16px;
-}
-
-.sidebar-link:hover {
-    color: white;
-    background: #222 !important;
-}
-
-
-    
-
-.swiper {
-    margin-top: 160px;
-}
-
-.swiper .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30vw;
-    /* height: 90%; */
-    /* padding: 30px; */
-    /* border-radius: 15px; */
-}
-
-.swiper .swiper-pagination-bullet {
-    background: white;
-}
-
-.swiper .swiper-slide img {
-    height: 30vh;
-}
-
-/* .swiper .swiper-slide .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: white;
-}
-
-.swiper .swiper-slide .content .img {
-    height: 180px;
-    width: 180px;
-    margin-bottom: 14px;
-}
-
-.swiper .swiper-slide .img img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-} */
-
-/* .swiper .swiper-slide .name {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 2px;
-}
-
-.swiper .swiper-slide .role {
-    font-size: 1rem;
-    font-weight: 400;
-    padding: 0 10px;
-} */
