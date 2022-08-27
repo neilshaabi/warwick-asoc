@@ -11,6 +11,16 @@ $(document).ready(function(){
         }
     }
 
+    // Zoom effect for hero image
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+        $(".hero-img").css({
+        backgroundSize: (100 + scroll/10)  + "%",
+        top: -(scroll/10)  + "%",
+            });
+        });
+
+
     // Registration handler using AJAX
     $('#register-form').on('submit', function(event) {
 
@@ -210,19 +220,40 @@ $(document).ready(function(){
     });
 
 
-    // Team page swiper
-    const teamSwiper = new Swiper('.team-swiper', {
+    // Team page swipers
+    const teamSwiper3 = new Swiper('.team-swiper-3', {
         
         direction: 'horizontal',
+        // loop: true,
         grabCursor: 'true',
-        spaceBetween: 20,
-        slidesPerView: 3,
-        loop: true,
-
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
+        spaceBetween: 24,
+        slidesPerView: 4,
+    
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
+
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            600: {
+                slidesPerView: 2
+            },
+            1000: {
+                slidesPerView: 3
+            }
+        }
+    });
+    
+    const teamSwiper4 = new Swiper('.team-swiper-4', {
+        
+        direction: 'horizontal',
+        // loop: true,
+        grabCursor: 'true',
+        spaceBetween: 24,
+        slidesPerView: 4,
     
         pagination: {
             el: '.swiper-pagination',
@@ -234,15 +265,17 @@ $(document).ready(function(){
             0: {
                 slidesPerView: 1
             },
-            850: {
+            600: {
                 slidesPerView: 2
             },
-            1150: {
+            1000: {
                 slidesPerView: 3
+            },
+            1400: {
+                slidesPerView: 4
             }
         }
     });
-
 
     function showLoadingBtn(loading) {
         if (loading == true) {
@@ -254,6 +287,7 @@ $(document).ready(function(){
             $('.btn-text').show();
             $('.spinner-border').hide();
         }
+        return;
     }
 
 });
