@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 
     // Toggle active state for navbar link when selected
@@ -8,6 +7,19 @@ $(document).ready(function(){
         if (pathname == links[i].getAttribute('href')) {
             links[i].classList.add('active');
             break;
+        }
+    }
+
+    // Toggles loading button
+    function showLoadingBtn(isLoading) {
+        if (isLoading == true) {
+            $(':input[type="submit"]').prop('disabled', true);
+            $('.btn-text').hide();
+            $('.spinner-border').show();
+        } else {
+            $(':input[type="submit"]').prop('disabled', false);
+            $('.btn-text').show();
+            $('.spinner-border').hide();
         }
     }
 
@@ -174,22 +186,10 @@ $(document).ready(function(){
             return;
         }
 
-        // Handles student membership selection
+        // Handles selection of each membership type
         if ($('#student-info').is(":visible")) {
-            
             var membership_type = 'Student';
             var student_id = $('#student_id').val();
-
-            // Validate student ID
-            // var student_id = Number($('#student_id').val());
-            // if ((student_id < 1000000) || (student_id > 2200000)
-            //     || !(Number.isInteger(student_id))) {
-            //     $('#error-alert').html("Invalid student ID").show();
-            //     return;
-            // } else {    
-            //     $('#error-alert').hide();
-            // }
-
         } else { 
             var membership_type = 'Associate';
         }
@@ -247,18 +247,5 @@ $(document).ready(function(){
             }
         }
     });
-
-
-    function showLoadingBtn(loading) {
-        if (loading == true) {
-            $(':input[type="submit"]').prop('disabled', true);
-            $('.btn-text').hide();
-            $('.spinner-border').show();
-        } else {
-            $(':input[type="submit"]').prop('disabled', false);
-            $('.btn-text').show();
-            $('.spinner-border').hide();
-        }
-    }
 
 });
