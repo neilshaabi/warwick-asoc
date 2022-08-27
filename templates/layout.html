@@ -36,7 +36,7 @@
         {% block head %}{% endblock %}
 
         <title>{% block title %}{% endblock %} | Warwick ASOC</title>
-        <!-- <link rel="icon" type="image/svg" href="static/logo.svg"> -->
+        <link rel="icon" type="image/svg" href="../static/img/hero-img.jpg">
 
     </head>
     <body>
@@ -104,7 +104,21 @@
         </nav>
 
         <main>
+            
             {% block main %}{% endblock %} 
+            
+            <!-- Flashed messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-primary alert-dismissible fade show flashed-msg" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
         </main>
     
         <!-- Bootstrap CDN -->

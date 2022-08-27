@@ -162,7 +162,6 @@ $(document).ready(function(){
 
         event.preventDefault();
         showLoadingBtn(true);
-        $('#error-alert').hide();
         
         // Displays error message if user is not logged in or already a member
         if ($('#membership-btn').attr('data-authenticated') == "False") {
@@ -179,6 +178,7 @@ $(document).ready(function(){
         if ($('#student-info').is(":visible")) {
             
             var membership_type = 'Student';
+            var student_id = $('#student_id').val();
 
             // Validate student ID
             // var student_id = Number($('#student_id').val());
@@ -203,8 +203,10 @@ $(document).ready(function(){
                 // Display error message if unsuccessful
                 if (data.error) {
                     $('#error-alert').html(data.error).show();
+                    showLoadingBtn(false);
                     return;
                 } else {
+                    $('#error-alert').hide();
                     const stripe = Stripe(data.checkout_public_key);
                     return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
                 }
@@ -237,7 +239,7 @@ $(document).ready(function(){
             0: {
                 slidesPerView: 1
             },
-            850: {
+            700: {
                 slidesPerView: 2
             },
             1150: {

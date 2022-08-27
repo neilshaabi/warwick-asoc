@@ -94,13 +94,13 @@ def register():
         elif not email:
             error = "Please enter your email"
 
-        # Ensure a valid password was entered
-        elif not isValidPassword(password):
-            error = "Please enter a valid password"
-        
         # Ensure user with same email does not already exist
         elif User.query.filter_by(email=email.lower()).first() is not None:
             error = "This email address is already in use"
+
+        # Ensure a valid password was entered
+        elif not isValidPassword(password):
+            error = "Please enter a valid password"
 
         # Successful registration
         else:
@@ -138,13 +138,16 @@ def login():
         user = User.query.filter_by(email=email.lower()).first()
 
         # Check if user with this email does not exist or if password is incorrect
-        if user is None or not check_password_hash(user.password_hash, password):
-            error = "Incorrect email/password"
+        if user is None:
+            error = "Incorrect email address"
         
         # Check if user's email has been verified
         elif not user.verified:
             error = "Email not verified, verification link resent"
             sendVerificationEmail(s, mail, user)
+
+        elif not check_password_hash(user.password_hash, password):
+            error = "Incorrect password"
         
         # Log user in and redirect to home page
         else:

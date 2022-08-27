@@ -102,9 +102,13 @@ main {
     box-shadow: none;
 }
 
-input:-webkit-autofill{
-    background-color: transparent !important;
-    -webkit-box-shadow: 0 0 0 50px white inset;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: all 0s 50000s;
 }
 
 .btn {
@@ -112,15 +116,12 @@ input:-webkit-autofill{
     border: none;
 }
 
-.btn:focus {
+.btn:focus,
+.btn:active,
+.btn:focus-visible {
     outline: none;
     box-shadow: none;
     border: inherit;
-}
-
-.btn:active,
-.btn:focus-visible {
-    box-shadow: none;
 }
 
 .btn-primary {
@@ -278,12 +279,12 @@ input:-webkit-autofill{
 .team-page .team-header {
     color: white;
     padding-top: 50px;
+    padding-bottom: 30px;
     text-align: center;
 }
 
 .team-swiper {
-    margin: 30px 0;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
 }
 
 .team-swiper .swiper-pagination-bullet {
@@ -343,20 +344,12 @@ input:-webkit-autofill{
     z-index: 99;
     position: fixed;
     bottom: 0;
-    width: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
 }
 
 .alert {
     margin-bottom: 10px;
     text-align: center;
-}
-
-.alert-primary {
-    color: black;
-    background: white;
-    border: white;
 }
 
 i {
