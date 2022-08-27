@@ -174,7 +174,7 @@ main {
     align-items: center;
     justify-content: left;
     text-align: left;
-    background-image: url("../img/background.jpg");
+    background-image: url("../img/background1.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -185,7 +185,7 @@ main {
 #home-page .home-container {
     padding: 60px;
     position: absolute;
-    top: 45%;
+    top: 50%;
     transform: translateY(-50%);
 }
 
