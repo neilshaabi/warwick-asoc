@@ -148,6 +148,7 @@ input:-webkit-autofill:focus {
 .btn {
     padding: 10px 30px;
     border: none;
+    margin-bottom: 1rem;
 }
 
 .btn:focus,
@@ -249,7 +250,7 @@ input:-webkit-autofill:focus {
 }
 
 #home-page .social-icons {
-    margin-top: 80px;
+    margin-top: 70px;
 }
 
 #home-page .social-link i {
@@ -270,12 +271,6 @@ input:-webkit-autofill:focus {
     list-style-type: none;
     text-align: center;
     padding-left: 0;
-}
-
-#membership-page ul {
-    list-style-type: none;
-    text-align: center;
-    margin-top: 15px;
 }
 
 #membership-page ul li {

@@ -163,14 +163,14 @@ def login():
 
 # TODO: comment la oei
 @app.route("/verify-email", methods=["GET", "POST"])
-def verify_email(email):
+def verify_email():
 
     if request.method == 'POST':
         email = request.form.get('email')
         user = User.query.filter_by(email=email).first()
         sendVerificationEmail(s, mail, user)
     else:
-        return render_template("verify-email.html", email=email)
+        return render_template("verify-email.html", email="testing@gmail.com")
     
 
 
