@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Verify Email
+{% endblock %}
+
+{% block main %}
+
+    <div class="page-header">
+        <p class="invisible">space</p>
+    </div>
+    
+    <div class="container">
+        <h3>Verify your email</h3>
+        <p>Check <strong id="email">{{ email }}</strong> to verify your account and get started</p>
+        <p class="description">Need help? <a href='#'>Contact us</a></p>
+        <form id="verify-email-form">
+            <button type="submit" class="btn btn-primary">Resend Email</button>
+        </form>
+    </div>
+
+{% endblock %}

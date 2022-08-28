@@ -32,8 +32,8 @@ class User(UserMixin, db.Model):
 # Insert dummy data into tables
 def dbinit():
     user_list = [
-        # User('neilshaabi@gmail.com', generate_password_hash('n'), 'Neil', 'Shaabi', date.today(), None, None, True)
-        User('neilshaabi@gmail.com', generate_password_hash('n'), 'Neil', 'Shaabi', date.today(), "Student", 2138843, True)
+        User('neilshaabi@gmail.com', generate_password_hash('n'), 'Neil', 'Shaabi', date.today(), None, None, True)
+        # User('neilshaabi@gmail.com', generate_password_hash('n'), 'Neil', 'Shaabi', date.today(), "Student", 2138843, True)
     ]
     db.session.add_all(user_list)
     

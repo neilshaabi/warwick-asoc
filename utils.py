@@ -18,11 +18,11 @@ def sendVerificationEmail(s, mail, user):
     
     # Generate email verification link
     token = s.dumps(user.email)
-    link = url_for('verify_email', token=token, _external=True)
+    link = url_for('email_verification', token=token, _external=True)
 
     # Send email with verification link
     msg = Message("Email Verification", recipients=[user.email])
-    msg.html = render_template('mails/verify-email.html', first_name=user.first_name, verification_link=link)
+    msg.html = render_template('mails/email-verification.html', first_name=user.first_name, verification_link=link)
     mail.send(msg)
 
 

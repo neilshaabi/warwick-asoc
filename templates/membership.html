@@ -6,38 +6,52 @@
 
 {% block main %}
 
-    <h2 class="white">Annual Membership</h2>
+    <div id="membership-page">
 
-    <div class="container container-membership">
-        
-        <div class="membership-toggles">
-            <button id="student-toggle" class="toggle active-toggle">Student</button>
-            <button id="associate-toggle" class="toggle">Associate</button>
+        <div class="page-header">
+            <h2>Annual Membership</h2>
+            <p>Become part of the Warwick ASOC family</p>
         </div>
         
-        <form id="membership-form">
+        <div class="container">
 
-            <!-- Student membership info -->
-            <div id="student-info" class="membership-info">
-                <p>Eligibility: Current University of Warwick students</p>
-                <div class="form-floating">
-                    <input type="text" id="student_id" name="student_id" placeholder="Student ID" class="form-control">
-                    <label for="student_id">Student ID</label>
+            <div class="membership-toggles">
+                <button id="student-toggle" class="toggle active-toggle">Student</button>
+                <button id="associate-toggle" class="toggle">Associate</button>
+            </div>
+            
+            <form id="membership-form">
+
+                <!-- Student membership info -->
+                <div id="student-info" class="membership-info">
+                    <p><strong>Eligibility:</strong> Current Uni of Warwick students</p>
+                    <p><strong>Price:</strong> £5.00</p>
+                    <div class="form-floating">
+                        <input type="text" id="student_id" name="student_id" placeholder="Student ID" class="form-control">
+                        <label for="student_id">Student ID</label>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Associate membership info -->
-            <div id="associate-info" class="membership-info hidden">
-                <p>Eligibility: Public</p>
-            </div>
+                <!-- Associate membership info -->
+                <div id="associate-info" class="membership-info hidden">
+                    <p><strong>Eligibility:</strong> All applicants</p>
+                    <p><strong>Price:</strong> £5.00</p>
+                </div>
 
-            <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
-            <button type="submit" id="membership-btn" class="btn btn-primary" data-authenticated="{{ authenticated }}" data-membership="{{ membership }}">
-                <span class="btn-text">Select</span>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
-                <span class="visually-hidden">Loading...</span>
-            </button>
-        </form>
+                <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+                <button type="submit" id="membership-btn" class="btn btn-primary" data-authenticated="{{ authenticated }}" data-membership="{{ membership }}">
+                    <span class="btn-text">Select</span>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                    <span class="visually-hidden">Loading...</span>
+                </button>
+            </form>
+            <ul>
+                <li>Discounted event tickets</li>
+                <li>Exclusive social events</li>
+                <li style="border-bottom: none;">Valid for this academic year</li>
+            </ul>
+        </div>
+    
     </div>
 
 {% endblock %}

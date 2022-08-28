@@ -113,7 +113,9 @@ def register():
 
             # Send verification email and redirect to home page
             sendVerificationEmail(s, mail, user)
-            flash('Email verification link sent to {}'.format(email))
+
+            # return render_template("verify-email.html", email=email)
+            # return url_for('verify_email', email=email)
             return url_for('index')
             
         return jsonify({'error' : error})
@@ -131,23 +133,20 @@ def login():
     if request.method == "POST":
 
         # Get form data
-        email = request.form.get("email")
+        email = request.form.get("email").lower()
         password = request.form.get("password")
         
         # Find user with this email
-        user = User.query.filter_by(email=email.lower()).first()
+        user = User.query.filter_by(email=email).first()
 
         # Check if user with this email does not exist or if password is incorrect
-        if user is None:
-            error = "Incorrect email address"
+        if user is None or not check_password_hash(user.password_hash, password):
+            error = "Incorrect email/password"
         
         # Check if user's email has been verified
         elif not user.verified:
-            error = "Email not verified, verification link resent"
-            sendVerificationEmail(s, mail, user)
-
-        elif not check_password_hash(user.password_hash, password):
-            error = "Incorrect password"
+            error = "TEMPORARY ERROR: EMAIL NOT VERIFIED"
+            # return render_template("verify-email.html", email=email)
         
         # Log user in and redirect to home page
         else:
@@ -162,9 +161,22 @@ def login():
         return render_template("login.html")
 
 
+# TODO: comment la oei
+@app.route("/verify-email", methods=["GET", "POST"])
+def verify_email(email):
+
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user = User.query.filter_by(email=email).first()
+        sendVerificationEmail(s, mail, user)
+    else:
+        return render_template("verify-email.html", email=email)
+    
+
+
 # COMMENT HERE
-@app.route("/verify-email/<token>")
-def verify_email(token):
+@app.route("/email-verification/<token>")
+def email_verification(token):
 
     logout_user()
     
@@ -179,7 +191,7 @@ def verify_email(token):
 
         # Log in user
         login_user(user)
-        flash('Success! Your email address has been verified.')
+        flash('Success! Your email address has been verified')
 
     # Invalid/expired token
     except:
@@ -261,7 +273,7 @@ def reset_password(token):
         email = s.loads(token, max_age=86400) # Each token is valid for 24 hours
         return render_template("reset-password.html", email=email)
 
-    # Invalid/expired token©
+    # Invalid/expired token
     except:
         flash("Invalid or expired reset link, please request another password reset")
         return redirect('/')
@@ -322,7 +334,6 @@ def membership():
                 })
 
         except Exception as e:
-            print(e)
             return jsonify(error=str(e))
 
     # Request method is GET
@@ -356,8 +367,6 @@ def stripe_webhook():
 
     # If checkout was successful
     if event["type"] == "checkout.session.completed":
-        
-        print("\nSUCCESSFUL PAYMENT:")
 
         # Retrieve checkout info
         session = event["data"]["object"]
@@ -366,8 +375,6 @@ def stripe_webhook():
 
         # Update user's membership status in database
         user = User.query.filter_by(id=session['client_reference_id']).first()
-
-        print("\nUSER: " + user.first_name)
 
         user.membership = membership_type
         if membership_type == 'Student':
@@ -439,7 +446,7 @@ def settings():
                 user.verified = False
                 db.session.commit()
                 sendVerificationEmail(s, mail, user)
-                flash('Email verification link sent to {}'.format(email))
+                # return render_template("verify-email.html", email=email)
                 return url_for('index')
             
             else:
