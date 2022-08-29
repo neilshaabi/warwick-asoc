@@ -34,7 +34,7 @@ def sendEmail(s, mail, user, subject):
     msgInfo = getMsg(subject, token)
 
     msg = Message(subject, recipients=[user.email])
-    msg.html = render_template('mail.html', first_name=user.first_name, body=msgInfo[0], btn_link=msgInfo[1], btn_text=msgInfo[2])
+    msg.html = render_template('email.html', first_name=user.first_name, body=msgInfo[0], btn_link=msgInfo[1], btn_text=msgInfo[2])
     mail.send(msg)
 
 
