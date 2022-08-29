@@ -34,6 +34,7 @@ $(document).ready(function(){
                 // Reload page if successful
                 else {
                     window.location = data;
+                    
                 }
             }
         );
