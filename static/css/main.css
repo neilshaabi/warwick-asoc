@@ -5,6 +5,7 @@
     --mid-grey: #222;
     --dark-grey: #111;
     --grey-font: rgba(255, 255, 255, 0.55);
+    --content-width: 80%;
 }
 
 * {
@@ -168,7 +169,7 @@ input:-webkit-autofill:focus {
 @media only screen and (max-width: 992px) {
 
     .container {
-        width: 80%;
+        width: var(--content-width);
     }
 }
 
@@ -238,6 +239,7 @@ input:-webkit-autofill:focus {
     list-style-type: none;
     text-align: center;
     padding-left: 0;
+    margin-bottom: 0;
 }
 
 #membership-page ul li {
@@ -272,24 +274,24 @@ input:-webkit-autofill:focus {
     padding-top: 20px;
 }
 
+#membership-page .container .membership-info p {
+    margin-bottom: 0.6rem;
+}
+
 
 /* Events page */
 
 #events-page .calendar-container {
     margin: 0 auto; 
-    width: 80%; 
+    width: var(--content-width); 
 }
 
 
 /* Team page */
 
-#team-page {
-    width: 100%;
-    height: 100%;
-    padding: 0 calc(20px + 10vw);
-}
-
 #team-page .team-swiper {
+    width: var(--content-width);
+    margin: 0 auto;
     padding-bottom: 50px;
 }
 
@@ -306,7 +308,7 @@ input:-webkit-autofill:focus {
     height: 100%;
     width: 100%;
     display: flex;
-     /* CHANGE TO ROW WHEN VH IS A CERTAIN SIZE - LIKE WDSS */
+    /* CHANGE TO ROW WHEN VH IS A CERTAIN SIZE - LIKE WDSS */
     flex-direction: column;
     justify-content: center;
     align-items: center;
