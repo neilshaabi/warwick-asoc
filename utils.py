@@ -10,43 +10,47 @@ def isValidPassword(password):
         not any(char.isupper() for char in password)) or (
         not any(char.islower() for char in password)):
         return False
-        
-    return True
+    else:   
+        return True
 
 
-def sendVerificationEmail(s, mail, user):
-    
-    # Generate email verification link
-    token = s.dumps(user.email)
-    link = url_for('email_verification', token=token, _external=True)
-
-    # Send email with verification link
-    msg = Message("Email Verification", recipients=[user.email])
-    msg.html = render_template('mails/email-verification.html', first_name=user.first_name, verification_link=link)
-    mail.send(msg)
-
-
-def sendPasswordResetEmail(s, mail, user):
-    
-    # Generate email verification link
-    token = s.dumps(user.email)
-    link = url_for('reset_password', token=token, _external=True)
-
-    # Send email with verification link
-    msg = Message("Password Reset", recipients=[user.email])
-    msg.html = render_template('mails/reset-password-email.html', first_name=user.first_name, reset_link=link)
-    mail.send(msg)
-
-
+# Returns if a given string of a student ID is valid
 def isValidID(id_str):
-
     try:
         student_id = int(id_str)
-        
         if (student_id < 1000000) or (student_id > 2200000):
             return False
         else:
             return True
-    
     except:
         return False
+
+
+# Sends an email with a given subject to the user
+def sendEmail(s, mail, user, subject):
+    
+    # Generate email contents based on subject
+    token = s.dumps(user.email)
+    msgInfo = getMsg(subject, token)
+
+    msg = Message(subject, recipients=[user.email])
+    msg.html = render_template('mail.html', first_name=user.first_name, body=msgInfo[0], btn_link=msgInfo[1], btn_text=msgInfo[2])
+    mail.send(msg)
+
+
+# Returns a dictionary with text to include in an email depending on the subject
+def getMsg(subject, token):
+
+    if subject == "Email Verification":
+        body = "Thanks for joining the Warwick ASOC community! To access your account, please verify your email address using the link below."
+        route = "email_verification"
+        btn_text = "Verify Email"
+
+    elif subject == "Password Reset":
+        body = "Please click the link below to reset your Warwick ASOC account password."
+        route = "reset_password"
+        btn_text = "Reset Password"
+
+    link = url_for(route, token=token, _external=True)
+
+    return [body, link, btn_text]

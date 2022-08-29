@@ -10,7 +10,7 @@ from markupsafe import escape
 from datetime import date
 from db_schema import db, User, dbinit
 
-from utils import isValidID, isValidPassword, sendVerificationEmail, sendPasswordResetEmail
+from utils import isValidID, isValidPassword, sendEmail
 
 app = Flask(__name__)
 
@@ -48,9 +48,9 @@ app.config.update(dict(
     MAIL_PORT = 465,
     MAIL_USE_SSL = True,
     MAIL_USE_TLS = False,
-    MAIL_USERNAME = 'admin@warwick-congress.org',
+    MAIL_USERNAME = 'no-reply@warwick-asoc.co.uk',
     MAIL_PASSWORD = os.environ["MAIL_PASSWORD"],
-    MAIL_DEFAULT_SENDER = 'admin@warwick-congress.org',
+    MAIL_DEFAULT_SENDER = 'no-reply@warwick-asoc.co.uk',
     MAIL_SUPPRESS_SEND = False
 ))
 mail = Mail(app)
@@ -112,8 +112,8 @@ def register():
             db.session.commit()
 
             # Send verification email and redirect to home page
-            sendVerificationEmail(s, mail, user)
-            flash('Email verification link sent to {}'.format(email))
+            sendEmail(s, mail, user, "Email Verification")
+            flash('Success! Email verification instructions sent to {}'.format(email))
             return url_for('index')
             # return render_template("verify-email.html", email=email)
             
@@ -145,7 +145,7 @@ def login():
         # Check if user's email has been verified
         elif not user.verified:
             error = "Email not verified, verification link resent"
-            sendVerificationEmail(s, mail, user)
+            sendEmail(s, mail, user, "Email Verification")
             # return render_template("verify-email.html", email=email)
         
         # Log user in and redirect to home page
@@ -168,7 +168,7 @@ def login():
 #     if request.method == 'POST':
 #         email = request.form.get('email')
 #         user = User.query.filter_by(email=email).first()
-#         sendVerificationEmail(s, mail, user)
+#         sendEmail(s, mail, user, "Email Verification")
 #     else:
 #         return render_template("verify-email.html", email="testing@gmail.com")
     
@@ -218,15 +218,15 @@ def reset_request():
             
             # Send reset email
             else:
-                sendPasswordResetEmail(s, mail, user)
+                sendEmail(s, mail, user, "Password Reset")
                 flash('Password reset instructions sent to {}'.format(email))
                 return url_for('index')
 
             return jsonify({'error' : error})
 
         # Form submitted to reset password
-        else:
-            
+        elif request.form.get("form-type") == "reset":
+
             # Get form data
             email = request.form.get("email")
             password = request.form.get("password")
@@ -244,8 +244,8 @@ def reset_request():
             else:
 
                 # Update user's password in database
-                user = User.query.filter_by(email=email.lower()).first()
-                user.password = generate_password_hash(password)
+                user = User.query.filter_by(email=email).first()
+                user.password_hash = generate_password_hash(password)
                 db.session.commit()
 
                 # Redirect to login page
@@ -446,8 +446,8 @@ def settings():
                 db.session.commit()
                 
                 logout_user()
-                sendVerificationEmail(s, mail, user)
-                flash('Email verification link sent to {}'.format(email))
+                sendEmail(s, mail, user, "Email Verification")
+                flash('Success! Email verification instructions sent to {}'.format(email))
                 return url_for('index')
                 # return render_template("verify-email.html", email=email)
             
