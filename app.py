@@ -161,7 +161,7 @@ def login():
         return render_template("login.html")
 
 
-# TODO: comment la oei
+# TODO: comment 
 @app.route("/verify-email", methods=["GET", "POST"])
 def verify_email():
 
@@ -174,7 +174,7 @@ def verify_email():
     
 
 
-# COMMENT HERE
+# TODO: comment 
 @app.route("/email-verification/<token>")
 def email_verification(token):
 
@@ -200,7 +200,7 @@ def email_verification(token):
     return redirect('/')
      
 
-# COMMENT HERE
+# TODO: comment 
 @app.route("/reset-password", methods=["GET", "POST"])
 def reset_request():
 
@@ -262,7 +262,7 @@ def reset_request():
         return render_template("reset-request.html")
 
 
-# COMMENT HERE
+# TODO: comment 
 @app.route("/reset-password/<token>")
 def reset_password(token):
 
