@@ -25,17 +25,18 @@ $(document).ready(function(){
              'email' : $('#email').val(), 'password' : $('#password').val()}, 
             function(data) {
             
-            // Display error message if unsuccessful
-            if (data.error) {
-                showLoadingBtn(false);
-                $('#error-alert').html(data.error).show();
-            } 
-            
-            // Reload page if successful
-            else {
-                window.location = data;
+                // Display error message if unsuccessful
+                if (data.error) {
+                    showLoadingBtn(false);
+                    $('#error-alert').html(data.error).show();
+                } 
+                
+                // Reload page if successful
+                else {
+                    window.location = data;
+                }
             }
-        });
+        );
         event.preventDefault();
     });
     
@@ -50,17 +51,18 @@ $(document).ready(function(){
             {'email' : $('#email').val(), 'password' : $('#password').val()}, 
             function(data) {
             
-            // Display error message if unsuccessful
-            if (data.error) {
-                showLoadingBtn(false);
-                 $('#error-alert').html(data.error).show();
-            } 
-            
-            // Redirect to home page if successful
-            else {
-                window.location = data;
+                // Display error message if unsuccessful
+                if (data.error) {
+                    showLoadingBtn(false);
+                    $('#error-alert').html(data.error).show();
+                } 
+                
+                // Redirect to home page if successful
+                else {
+                    window.location = data;
+                }
             }
-        });
+        );
         event.preventDefault();
     });
 
@@ -75,7 +77,8 @@ $(document).ready(function(){
             {'email' : $('#email').val()}, 
             function(data) {
                 showLoadingBtn(false);
-            });
+            }
+        );
         event.preventDefault();
     });
 
@@ -90,17 +93,18 @@ $(document).ready(function(){
             {'form-type' : 'request', 'email' : $('#email').val()}, 
             function(data) {
             
-            // Display error message if unsuccessful
-            if (data.error) {
-                showLoadingBtn(false);
-                $('#error-alert').html(data.error).show();
-            } 
-            
-            // Redirect to home page if successful
-            else {
-                window.location = data;
+                // Display error message if unsuccessful
+                if (data.error) {
+                    showLoadingBtn(false);
+                    $('#error-alert').html(data.error).show();
+                } 
+                
+                // Redirect to home page if successful
+                else {
+                    window.location = data;
+                }
             }
-        });
+        );
         event.preventDefault();
     });
 
@@ -114,16 +118,17 @@ $(document).ready(function(){
              'password' : $('#password').val(), 'password_confirmation' : $('#password-confirmation').val()}, 
             function(data) {
             
-            // Display error message if unsuccessful
-            if (data.error) {
-                 $('#error-alert').html(data.error).show();
-            } 
-            
-            // Redirect to home page if successful
-            else {
-                window.location = data;
+                // Display error message if unsuccessful
+                if (data.error) {
+                    $('#error-alert').html(data.error).show();
+                } 
+                
+                // Redirect to home page if successful
+                else {
+                    window.location = data;
+                }
             }
-        });
+        );
         event.preventDefault();
     });
 
@@ -143,16 +148,17 @@ $(document).ready(function(){
              'email' : $('#email').val(), 'student_id' : student_id}, 
             function(data) {
             
-            // Display error message if unsuccessful
-            if (data.error) {
-                 $('#error-alert').html(data.error).show();
-            } 
-            
-            // Reload page if successful
-            else {
-                window.location = data;
+                // Display error message if unsuccessful
+                if (data.error) {
+                    $('#error-alert').html(data.error).show();
+                } 
+                
+                // Reload page if successful
+                else {
+                    window.location = data;
+                }
             }
-        });
+        );
         event.preventDefault();
     });
 
