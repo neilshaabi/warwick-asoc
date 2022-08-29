@@ -15,19 +15,6 @@
     box-sizing: border-box;
 }
 
-/* Hidden form label for accessibility purposes
-(from https://www.w3.org/WAI/tutorials/forms/labels/) */
-.visually-hidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
 html, 
 body {
     max-width: 100%;
@@ -53,14 +40,6 @@ nav {
     top: 0;
     left: 0;
 }
-
-/* nav .nav-link {
-    color: white;
-}
-
-nav .active {
-    color: var(--accent-color) !important;
-} */
 
 
 nav .dropdown-menu-dark {
@@ -174,18 +153,6 @@ input:-webkit-autofill:focus {
     background-color: var(--dark-accent);
 }
 
-/* .btn-white {
-    color: #000;
-    mix-blend-mode: screen;
-    background: white;
-}
-
-.btn-white:hover {
-    color: #000;
-    mix-blend-mode: screen;
-    background: #ddd;
-} */
-
 
 /* Containers */
 
@@ -201,7 +168,7 @@ input:-webkit-autofill:focus {
 @media only screen and (max-width: 992px) {
 
     .container {
-        width: 85%;
+        width: 80%;
     }
 }
 
@@ -303,6 +270,14 @@ input:-webkit-autofill:focus {
 
 #membership-page .container .membership-info {
     padding-top: 20px;
+}
+
+
+/* Events page */
+
+#events-page .calendar-container {
+    margin: 0 auto; 
+    width: 80%; 
 }
 
 

@@ -389,6 +389,12 @@ def cancelled():
     return redirect('/')
 
 
+# Displays home page
+@app.route("/events")
+def events():
+    return render_template("events.html")
+
+
 # Displays team page
 @app.route("/team")
 def team():
