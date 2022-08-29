@@ -173,7 +173,6 @@ def login():
 #         return render_template("verify-email.html", email="testing@gmail.com")
     
 
-
 # TODO: comment 
 @app.route("/email-verification/<token>")
 def email_verification(token):
