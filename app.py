@@ -113,10 +113,9 @@ def register():
 
             # Send verification email and redirect to home page
             sendVerificationEmail(s, mail, user)
-
-            # return render_template("verify-email.html", email=email)
-            # return url_for('verify_email', email=email)
+            flash('Email verification link sent to {}'.format(email))
             return url_for('index')
+            # return render_template("verify-email.html", email=email)
             
         return jsonify({'error' : error})
     
@@ -145,7 +144,8 @@ def login():
         
         # Check if user's email has been verified
         elif not user.verified:
-            error = "TEMPORARY ERROR: EMAIL NOT VERIFIED"
+            error = "Email not verified, verification link resent"
+            sendVerificationEmail(s, mail, user)
             # return render_template("verify-email.html", email=email)
         
         # Log user in and redirect to home page
@@ -161,24 +161,22 @@ def login():
         return render_template("login.html")
 
 
-# TODO: comment 
-@app.route("/verify-email", methods=["GET", "POST"])
-def verify_email():
+# # TODO: comment 
+# @app.route("/verify-email", methods=["GET", "POST"])
+# def verify_email():
 
-    if request.method == 'POST':
-        email = request.form.get('email')
-        user = User.query.filter_by(email=email).first()
-        sendVerificationEmail(s, mail, user)
-    else:
-        return render_template("verify-email.html", email="testing@gmail.com")
+#     if request.method == 'POST':
+#         email = request.form.get('email')
+#         user = User.query.filter_by(email=email).first()
+#         sendVerificationEmail(s, mail, user)
+#     else:
+#         return render_template("verify-email.html", email="testing@gmail.com")
     
 
 
 # TODO: comment 
 @app.route("/email-verification/<token>")
 def email_verification(token):
-
-    logout_user()
     
     # Get email from token
     try:
@@ -266,8 +264,6 @@ def reset_request():
 @app.route("/reset-password/<token>")
 def reset_password(token):
 
-    logout_user()
-
     # Get email from token
     try:
         email = s.loads(token, max_age=86400) # Each token is valid for 24 hours
@@ -283,12 +279,6 @@ def reset_password(token):
 @app.route("/")
 def index():
     return render_template("index.html")
-
-
-# Displays team page
-@app.route("/team")
-def team():
-    return render_template("team.html")
 
 
 # Allows users to select a membership to purchase
@@ -398,6 +388,12 @@ def success():
 def cancelled():
     flash("Membership purchase request cancelled")
     return redirect('/')
+
+
+# Displays team page
+@app.route("/team")
+def team():
+    return render_template("team.html")
 
 
 # View and edit account details
