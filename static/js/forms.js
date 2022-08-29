@@ -113,6 +113,8 @@ $(document).ready(function(){
     // Password reset handler using AJAX
     $('#reset-password-form').on('submit', function(event) {
 
+        showLoadingBtn(true)
+
         $.post(
             '/reset-password', 
             {'form-type' : 'reset', 'email' : $('#email').val(),
@@ -121,6 +123,7 @@ $(document).ready(function(){
             
                 // Display error message if unsuccessful
                 if (data.error) {
+                    showLoadingBtn(false)
                     $('#error-alert').html(data.error).show();
                 } 
                 
