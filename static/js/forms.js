@@ -116,7 +116,7 @@ $(document).ready(function(){
         $.post(
             '/reset-password', 
             {'form-type' : 'reset', 'email' : $('#email').val(),
-             'password' : $('#password').val(), 'password_confirmation' : $('#password-confirmation').val()}, 
+             'password' : $('#password').val(), 'password_confirmation' : $('#password_confirmation').val()}, 
             function(data) {
             
                 // Display error message if unsuccessful
@@ -137,6 +137,8 @@ $(document).ready(function(){
     // Account settings edits handler using AJAX
     $('#settings-form').on('submit', function(event) {
 
+        showLoadingBtn(true)
+
         // Get student ID if it exists
         var student_id = null;
         if ($('#membership-type').html() == 'Student') {
@@ -146,11 +148,13 @@ $(document).ready(function(){
         $.post(
             '/settings', 
             {'first_name' : $('#first_name').val(), 'last_name' : $('#last_name').val(), 
-             'email' : $('#email').val(), 'student_id' : student_id}, 
+             'email' : $('#email').val(), 'email_confirmation' : $('#email_confirmation').val(), 
+             'student_id' : student_id}, 
             function(data) {
             
                 // Display error message if unsuccessful
                 if (data.error) {
+                    showLoadingBtn(false);
                     $('#error-alert').html(data.error).show();
                 } 
                 
@@ -172,8 +176,8 @@ $(document).ready(function(){
         
         // Displays error message if user is not logged in or already a member
         if ($('#membership-btn').attr('data-authenticated') == "False") {
-            $('#error-alert').html("Please <a href='/login'>sign in</a> to purchase a membership").show();
             showLoadingBtn(false);
+            $('#error-alert').html("Please <a href='/login'>sign in</a> to purchase a membership").show();
             return;
         } else if ($('#membership-btn').attr('data-membership') != "None") {
             showLoadingBtn(false);
@@ -197,8 +201,8 @@ $(document).ready(function(){
                 
                 // Display error message if unsuccessful
                 if (data.error) {
-                    $('#error-alert').html(data.error).show();
                     showLoadingBtn(false);
+                    $('#error-alert').html(data.error).show();
                     return;
                 } else {
                     $('#error-alert').hide();

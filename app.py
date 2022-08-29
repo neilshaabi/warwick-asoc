@@ -408,6 +408,7 @@ def settings():
         first_name = escape(request.form.get("first_name"))
         last_name = escape(request.form.get("last_name"))
         email = request.form.get("email").lower()
+        email_confirmation = request.form.get("email_confirmation").lower()
         student_id = request.form.get("student_id")
 
         # Ensure full name was entered
@@ -417,6 +418,9 @@ def settings():
         # Ensure email was entered
         elif not email:
             error = "Please enter your email"
+
+        elif email != email_confirmation:
+            error = "Emails do not match"
 
         # Ensure a valid student ID was entered if the user holds a student membership
         elif (user.membership == 'Student') and (not isValidID(student_id)):
@@ -432,7 +436,7 @@ def settings():
             # Update user's info into database
             user.first_name = first_name
             user.last_name = last_name
-            user.student_id = int(student_id)
+            user.student_id = int(student_id) if student_id else None
             db.session.commit()
             
             # Send verification email if user changes email
@@ -440,9 +444,12 @@ def settings():
                 user.email = email
                 user.verified = False
                 db.session.commit()
+                
+                logout_user()
                 sendVerificationEmail(s, mail, user)
-                # return render_template("verify-email.html", email=email)
+                flash('Email verification link sent to {}'.format(email))
                 return url_for('index')
+                # return render_template("verify-email.html", email=email)
             
             else:
                 flash('Success! Account details updated')
