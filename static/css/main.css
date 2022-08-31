@@ -171,6 +171,14 @@ input:-webkit-autofill:focus {
     .container {
         width: var(--content-width);
     }
+
+    .calendar-month {
+        display: none;
+    }
+
+    .calendar-agenda {
+        display: block !important;
+    }
 }
 
 .container .description,
@@ -219,17 +227,6 @@ input:-webkit-autofill:focus {
 
 #home-page .social-icons {
     margin-top: 70px;
-}
-
-#home-page .social-link i {
-    color: white;
-    font-size: 1.5rem;
-    margin-right: 15px;
-    transition: all 0.3s ease;
-}
-
-#home-page .social-link i:hover {
-    transform: translateY(-5px);
 }
 
 
@@ -282,8 +279,12 @@ input:-webkit-autofill:focus {
 /* Events page */
 
 #events-page .calendar-container {
-    margin: 0 auto; 
+    margin: 0 auto;
     width: var(--content-width); 
+}
+
+#events-page .calendar-agenda {
+    display: none;
 }
 
 
@@ -343,6 +344,19 @@ input:-webkit-autofill:focus {
 }
 
 
+/* Contact page */
+
+#contact-page {
+    padding-bottom: 20px;
+}
+
+#contact-page .social-icons {
+    margin: 30px auto;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+
 /* Miscellaneous */
 
 .hidden {
@@ -362,8 +376,8 @@ input:-webkit-autofill:focus {
 
 .page-header {
     color: white;
+    padding: 30px;
     padding-top: 50px;
-    padding-bottom: 30px;
     text-align: center;
 }
 
@@ -388,4 +402,15 @@ input:-webkit-autofill:focus {
 
 i {
     margin-right: 7px;
+}
+
+.social-link i {
+    color: white;
+    font-size: 1.5rem;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.social-link i:hover {
+    transform: translateY(-5px);
 }
