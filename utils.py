@@ -34,7 +34,7 @@ def sendEmailWithToken(s, mail, name, email, subject):
     msgInfo = getMsg(token, subject)
 
     msg = Message(subject, recipients=[email])
-    msg.html = render_template('email.html', name=name, body=msgInfo[0], btn_link=msgInfo[1], btn_text=msgInfo[2])
+    msg.html = render_template("email.html", name=name, body=msgInfo[0], btn_link=msgInfo[1], btn_text=msgInfo[2])
     mail.send(msg)
 
 
@@ -52,12 +52,11 @@ def getMsg(token, subject):
         btn_text = "Reset Password"
 
     link = url_for(route, token=token, _external=True)
-
     return [body, link, btn_text]
 
 # Sends an email with a token-generated link
 def sendContactEmail(mail, name, email, subject, body):
 
-    msg = Message(("Contact Form Submission: " + subject), recipients=[email], bcc=["neilshaabi@gmail.com"]) # bcc=["officialwarwickasiansociety@gmail.com"], #TODO: make reply_to work
-    msg.html = render_template('email.html', name=name, body=body, contact=True)
+    msg = Message(("Contact Form Submission: " + subject), recipients=[email], bcc=["neil.shaabi@warwick.ac.uk"]) # bcc=["officialwarwickasiansociety@gmail.com"], #TODO: make reply_to work
+    msg.html = render_template("email.html", name=name, body=body, contact=True)
     mail.send(msg)
