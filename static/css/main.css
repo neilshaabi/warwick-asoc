@@ -309,10 +309,22 @@ input:-webkit-autofill:focus {
     height: 100%;
     width: 100%;
     display: flex;
-    /* CHANGE TO ROW WHEN VH IS A CERTAIN SIZE - LIKE WDSS */
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+@media only screen and (max-height: 415px) {
+    
+    #team-page .team-swiper .swiper-slide .content {
+        flex-direction: row;
+    }
+
+    #team-page .team-swiper .swiper-slide .swiper-text {
+        padding: 14px !important;
+    }
+
+
 }
 
 #team-page .team-swiper .swiper-slide .content .swiper-img {
