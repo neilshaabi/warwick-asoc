@@ -26,20 +26,20 @@ def isValidID(id_str):
         return False
 
 
-# Sends an email with a given subject to the user
-def sendEmail(s, mail, user, subject):
+# Sends an email with a token-generated link
+def sendEmailWithToken(s, mail, name, email, subject):
     
     # Generate email contents based on subject
-    token = s.dumps(user.email)
-    msgInfo = getMsg(subject, token)
+    token = s.dumps(email)
+    msgInfo = getMsg(token, subject)
 
-    msg = Message(subject, recipients=[user.email])
-    msg.html = render_template('email.html', first_name=user.first_name, body=msgInfo[0], btn_link=msgInfo[1], btn_text=msgInfo[2])
+    msg = Message(subject, recipients=[email])
+    msg.html = render_template('email.html', name=name, body=msgInfo[0], btn_link=msgInfo[1], btn_text=msgInfo[2])
     mail.send(msg)
 
 
 # Returns a dictionary with text to include in an email depending on the subject
-def getMsg(subject, token):
+def getMsg(token, subject):
 
     if subject == "Email Verification":
         body = "Thanks for joining the Warwick ASOC community! To access your account, please verify your email address using the link below."
@@ -47,10 +47,17 @@ def getMsg(subject, token):
         btn_text = "Verify Email"
 
     elif subject == "Password Reset":
-        body = "Please click the link below to reset your Warwick ASOC account password."
+        body = "Please use the link below to reset your account password."
         route = "reset_password"
         btn_text = "Reset Password"
 
     link = url_for(route, token=token, _external=True)
 
     return [body, link, btn_text]
+
+# Sends an email with a token-generated link
+def sendContactEmail(mail, name, email, subject, body):
+
+    msg = Message(("Contact Form Submission: " + subject), recipients=[email], bcc=["neilshaabi@gmail.com"]) # bcc=["officialwarwickasiansociety@gmail.com"], #TODO: make reply_to work
+    msg.html = render_template('email.html', name=name, body=body, contact=True)
+    mail.send(msg)
