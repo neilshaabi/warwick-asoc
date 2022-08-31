@@ -1,7 +1,7 @@
 import os
 import stripe
 
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from flask_mail import Mail
@@ -10,7 +10,7 @@ from markupsafe import escape
 from datetime import date
 from db_schema import db, User, dbinit
 
-from utils import isValidID, isValidPassword, sendEmail
+from utils import isValidID, isValidPassword, sendEmailWithToken, sendContactEmail
 
 app = Flask(__name__)
 
@@ -70,6 +70,7 @@ stripe.api_key = stripe_keys["secret_key"]
 # Logs user out
 @app.route("/logout")
 def logout():
+    session.clear()
     logout_user()
     return redirect("/")
 
@@ -87,11 +88,11 @@ def register():
         password = request.form.get("password")
 
         # Ensure full name was entered
-        if not first_name or not last_name:
+        if (not first_name or first_name.isspace()) or (not last_name or last_name.isspace()):
             error = "Please enter your full name"
 
         # Ensure email was entered
-        elif not email:
+        elif not email or email.isspace():
             error = "Please enter your email"
 
         # Ensure user with same email does not already exist
@@ -112,10 +113,11 @@ def register():
             db.session.commit()
 
             # Send verification email and redirect to home page
-            sendEmail(s, mail, user, "Email Verification")
-            flash('Success! Email verification instructions sent to {}'.format(email))
-            return url_for('index')
-            # return render_template("verify-email.html", email=email)
+            sendEmailWithToken(s, mail, user.first_name, user.email, "Email Verification")
+            # flash('Success! Email verification instructions sent to {}'.format(email))
+            # return url_for('index')
+            session["email"] = email
+            return url_for('verify_email')
             
         return jsonify({'error' : error})
     
@@ -144,9 +146,9 @@ def login():
         
         # Check if user's email has been verified
         elif not user.verified:
-            error = "Email not verified, verification link resent"
-            sendEmail(s, mail, user, "Email Verification")
-            # return render_template("verify-email.html", email=email)
+            # error = "Email not verified, verification link resent"
+            session["email"] = email
+            return url_for('verify_email')
         
         # Log user in and redirect to home page
         else:
@@ -161,16 +163,21 @@ def login():
         return render_template("login.html")
 
 
-# # TODO: comment 
-# @app.route("/verify-email", methods=["GET", "POST"])
-# def verify_email():
+# TODO: comment 
+@app.route("/verify-email", methods=["GET", "POST"])
+def verify_email():
 
-#     if request.method == 'POST':
-#         email = request.form.get('email')
-#         user = User.query.filter_by(email=email).first()
-#         sendEmail(s, mail, user, "Email Verification")
-#     else:
-#         return render_template("verify-email.html", email="testing@gmail.com")
+    # TODO: comment    
+    user = User.query.filter_by(email=session["email"]).first() if "email" in session else None
+    if not user or user.verified:
+        return redirect('/')
+
+    # TODO: HAVE A SEPARATE ROUTE WHICH ONLY SENDS THE EMAIL AND REDIRECTS TO THIS PAGE, HAVE THIS PAGE ONLY ACCCEPT GET REQUESTS, STORE THE USER'S NAME IN THE SESSION TOO
+    if request.method == 'POST':
+        sendEmailWithToken(s, mail, user.first_name, user.email, "Email Verification")
+        return ""
+    else:
+        return render_template("verify-email.html", email=session["email"])
     
 
 # TODO: comment 
@@ -218,7 +225,7 @@ def reset_request():
             
             # Send reset email
             else:
-                sendEmail(s, mail, user, "Password Reset")
+                sendEmailWithToken(s, mail, user.first_name, user.email, "Password Reset")
                 flash('Password reset instructions sent to {}'.format(email))
                 return url_for('index')
 
@@ -285,13 +292,16 @@ def index():
 def membership():
 
     if request.method == "POST":
-    
+        
+        # Get form data
         membership_type = request.form.get("membership_type")
         student_id = request.form.get("student_id") or "none"
-        stripe.api_key = stripe_keys["secret_key"]
 
+        # Validate student ID
         if membership_type == "Student" and not isValidID(student_id):
             return jsonify(error="Invalid Student ID")
+        
+        stripe.api_key = stripe_keys["secret_key"]
 
         # Create new Checkout Session to handle membership purchases
         try:
@@ -389,7 +399,7 @@ def cancelled():
     return redirect('/')
 
 
-# Displays home page
+# Displays events page
 @app.route("/events")
 def events():
     return render_template("events.html")
@@ -399,6 +409,44 @@ def events():
 @app.route("/team")
 def team():
     return render_template("team.html")
+
+
+# Displays contact page
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    
+    if request.method == "POST":
+
+        # Get form data
+        name = request.form.get("name").title()
+        email = request.form.get("email").lower()
+        subject = request.form.get("subject").title()
+        message = request.form.get("message")
+
+        if not name or name.isspace():
+            error = "Please enter your full name"
+
+        elif not email or email.isspace():
+            error = "Please enter your email"
+        
+        elif not subject or subject.isspace():
+            error = "Please enter a subject"
+        
+        elif not message or message.isspace():
+            error = "Please enter a message"
+
+        # Successful form submission
+        else:
+            
+            # Send email and redirect to home page
+            sendContactEmail(mail, name, email, subject, message)
+            flash('Success! Message sent from {}'.format(email))
+            return url_for('index')
+        
+        return jsonify({'error' : error})
+
+    else:
+        return render_template("contact.html")
 
 
 # View and edit account details
@@ -417,12 +465,10 @@ def settings():
         email_confirmation = request.form.get("email_confirmation").lower()
         student_id = request.form.get("student_id")
 
-        # Ensure full name was entered
-        if not first_name or not last_name:
+        if (not first_name or first_name.isspace()) or (not last_name or last_name.isspace()):
             error = "Please enter your full name"
 
-        # Ensure email was entered
-        elif not email:
+        elif not email or email.isspace():
             error = "Please enter your email"
 
         elif email != email_confirmation:
@@ -452,11 +498,13 @@ def settings():
                 db.session.commit()
                 
                 logout_user()
-                sendEmail(s, mail, user, "Email Verification")
-                flash('Success! Email verification instructions sent to {}'.format(email))
-                return url_for('index')
-                # return render_template("verify-email.html", email=email)
+                sendEmailWithToken(s, mail, user.first_name, user.email, "Email Verification")
+                # flash('Success! Email verification instructions sent to {}'.format(email))
+                # return url_for('index')
+                session["email"] = email
+                return url_for('verify_email')
             
+            # Flash success message and redirect to home page
             else:
                 flash('Success! Account details updated')
                 return url_for('index')

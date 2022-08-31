@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Contact Us
+{% endblock %}
+
+{% block main %}
+
+    <div id="contact-page">
+
+        <div class="page-header">
+            <h2>Contact Us</h2>
+            <p>Get in touch on social media or using the form below</p>
+        </div>
+
+        <div class="container">
+            <form id="contact-form">
+                <div class="form-floating">
+                    <input type="text" id="name" placeholder="Full name" class="form-control">
+                    <label for="name">Full name</label>
+                </div>
+                <div class="form-floating">
+                    <input type="email" id="email" placeholder="Email address" class="form-control">
+                    <label for="email">Email</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" id="subject" placeholder="Subject" class="form-control">
+                    <label for="subject">Subject</label>
+                </div>
+                <div class="form-floating">
+                    <textarea type="text" id="message" placeholder="Message" class="form-control"></textarea>
+                    <label for="message">Message</label>
+                </div>
+                <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Submit</span>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                    <span class="visually-hidden">Loading...</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="social-icons">
+            <a class="social-link" href="https://m.facebook.com/warwickasiansociety"><i class="fa-brands fa-facebook-f"></i></a>
+            <a class="social-link" href="https://www.linkedin.com/company/university-of-warwick-asian-society/"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a class="social-link" href="https://www.instagram.com/warwickasiansociety/"><i class="fa-brands fa-instagram"></i></a>
+            <a class="social-link" href="mailto:officialwarwickasiansociety@gmail.com"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+        <div style="color:white; text-align:center; margin: 0 auto;">
+            <p>&copy; 2022 Warwick Asian Society. All Rights Reserved.</p>
+        </div>
+        
+    
+    </div>
+
+{% endblock %}

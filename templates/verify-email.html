@@ -12,11 +12,15 @@
     
     <div class="container">
         <h3>Verify your email</h3>
-        <p>Check <strong id="email">{{ email }}</strong> to verify your account and get started</p>
+        <p>Check <strong>{{ email }}</strong> to verify your account and get started</p>
         <form id="verify-email-form">
-            <button type="submit" class="btn btn-primary">Resend Email</button>
+            <button type="submit" class="btn btn-primary">
+                <span class="btn-text">Resend Email</span>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                <span class="visually-hidden">Loading...</span>
+            </button>
         </form>
-        <p class="description">Need help? <a href='#'>Contact us</a></p>
+        <p class="description">Need help? <a href='/contact'>Contact us</a></p>
     </div>
 
 {% endblock %}

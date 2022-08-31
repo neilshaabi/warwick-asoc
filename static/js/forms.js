@@ -75,7 +75,7 @@ $(document).ready(function(){
 
         $.post(
             '/verify-email', 
-            {'email' : $('#email').val()}, 
+            {}, 
             function(data) {
                 showLoadingBtn(false);
             }
@@ -214,6 +214,32 @@ $(document).ready(function(){
                 }
             }
         );
+    });
+
+    // Password reset handler using AJAX
+    $('#contact-form').on('submit', function(event) {
+
+        showLoadingBtn(true)
+
+        $.post(
+            '/contact', 
+            {'name' : $('#name').val(), 'email' : $('#email').val(),
+             'subject' : $('#subject').val(), 'message' : $('#message').val()}, 
+            function(data) {
+            
+                // Display error message if unsuccessful
+                if (data.error) {
+                    showLoadingBtn(false)
+                    $('#error-alert').html(data.error).show();
+                } 
+                
+                // Redirect to home page if successful
+                else {
+                    window.location = data;
+                }
+            }
+        );
+        event.preventDefault();
     });
 
 });
