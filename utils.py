@@ -54,6 +54,7 @@ def getMsg(token, subject):
     link = url_for(route, token=token, _external=True)
     return [body, link, btn_text]
 
+
 # Sends an email with a token-generated link
 def sendContactEmail(mail, name, email, subject, body):
 
