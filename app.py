@@ -1,6 +1,6 @@
-import os
 import stripe
 
+from os import environ
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
@@ -14,23 +14,36 @@ from utils import isValidID, isValidPassword, sendEmailWithToken, sendContactEma
 
 app = Flask(__name__)
 
-# Randomly generated with os.urandom(12).hex()
-app.config["SECRET_KEY"] = "538270fea6c657529ee5c3fc"
-app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///asoc.sqlite"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config.update(
+    SECRET_KEY = environ["SECRET_KEY"], # Randomly generated with os.urandom(12).hex()
+    TEMPLATES_AUTO_RELOAD = True,
+    SQLALCHEMY_DATABASE_URI = "sqlite:///asoc.sqlite",
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+)
 
-# Initialise the database so it can connect with our app
-db.init_app(app)
+# Set up Flask mail
+app.config.update(
+    MAIL_SERVER = 'smtppro.zoho.eu',
+    MAIL_PORT = 465,
+    MAIL_USE_SSL = True,
+    MAIL_USE_TLS = False,
+    MAIL_USERNAME = 'no-reply@warwick-asoc.co.uk',
+    MAIL_PASSWORD = environ["MAIL_PASSWORD"],
+    MAIL_DEFAULT_SENDER = 'no-reply@warwick-asoc.co.uk',
+    MAIL_SUPPRESS_SEND = False
+)
+mail = Mail(app)
 
-# Drop and create all tables, insert dummy data
-resetdb = True
-if resetdb:
-    with app.app_context():        
-        db.drop_all()
-        db.create_all()
-        dbinit()
+# Instantiate serialiser for email verification
+s = URLSafeTimedSerializer(app.config["SECRET_KEY"])
 
+# Set up Stripe payment gateway
+app.config.update(
+    STRIPE_SECRET_KEY = environ["STRIPE_SECRET_KEY"],
+    STRIPE_PUBLISHABLE_KEY = environ["STRIPE_PUBLISHABLE_KEY"],
+    STRIPE_ENDPOINT_SECRET = environ["STRIPE_ENDPOINT_SECRET"]
+)
+stripe.api_key = app.config["STRIPE_SECRET_KEY"]
 
 # Set up flask login manager
 login_manager = LoginManager()
@@ -42,30 +55,16 @@ login_manager.login_message = None
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Set up flask mail
-app.config.update(dict(
-    MAIL_SERVER = 'smtppro.zoho.eu',
-    MAIL_PORT = 465,
-    MAIL_USE_SSL = True,
-    MAIL_USE_TLS = False,
-    MAIL_USERNAME = 'no-reply@warwick-asoc.co.uk',
-    MAIL_PASSWORD = os.environ["MAIL_PASSWORD"],
-    MAIL_DEFAULT_SENDER = 'no-reply@warwick-asoc.co.uk',
-    MAIL_SUPPRESS_SEND = False
-))
-mail = Mail(app)
+# Initialise the database so it can connect with our app
+db.init_app(app)
 
-# Instantiate serialiser for email verification
-s = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-
-
-# Set up Stripe payment gateway
-app.config.update(dict(
-    STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"],
-    STRIPE_PUBLISHABLE_KEY = os.environ["STRIPE_PUBLISHABLE_KEY"],
-    STRIPE_ENDPOINT_SECRET = os.environ["STRIPE_ENDPOINT_SECRET"]
-))
-stripe.api_key = app.config["STRIPE_SECRET_KEY"]
+# Reset database - drop and create all tables, insert test data
+resetdb = True
+if resetdb:
+    with app.app_context():        
+        db.drop_all()
+        db.create_all()
+        dbinit()
 
 
 # Logs user out
