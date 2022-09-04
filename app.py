@@ -1,5 +1,3 @@
-import stripe
-
 from os import environ
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -9,8 +7,13 @@ from itsdangerous import URLSafeTimedSerializer
 from markupsafe import escape
 from datetime import date
 
+import stripe
+
 from db_schema import db, User, dbinit
 from utils import isValidID, isValidPassword, sendEmailWithToken, sendContactEmail
+
+
+#-------------------------------- SETUP & CONFIG --------------------------------#
 
 app = Flask(__name__)
 
@@ -67,6 +70,8 @@ if resetdb:
         dbinit()
 
 
+#-------------------------------- ROUTES --------------------------------#
+
 # Logs user out
 @app.route("/logout")
 def logout():
@@ -114,8 +119,6 @@ def register():
 
             # Send verification email and redirect to home page
             sendEmailWithToken(s, mail, user.first_name, user.email, "Email Verification")
-            # flash('Success! Email verification instructions sent to {}'.format(email))
-            # return url_for('index')
             session["email"] = email
             return url_for('verify_email')
             
@@ -146,7 +149,6 @@ def login():
         
         # Check if user's email has been verified
         elif not user.verified:
-            # error = "Email not verified, verification link resent"
             session["email"] = email
             return url_for('verify_email')
         
