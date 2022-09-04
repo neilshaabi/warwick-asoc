@@ -1,11 +1,11 @@
 /* Custom variables */
 :root {
-    --accent-color: #ff4545;
-    --dark-accent: #dd2323;
-    --mid-grey: #222;
+    --accent-primary: #ff4545;
+    --accent-dark: #dd2323;
     --dark-grey: #111;
+    --mid-grey: #222;
+    --light-grey: rgba(255, 255, 255, 0.55);
     /* --dark-grey: #000012; */
-    --grey-font: rgba(255, 255, 255, 0.55);
     --content-width: 80%;
 }
 
@@ -80,13 +80,13 @@ p {
 }
 
 a {
-    color: var(--accent-color);
+    color: var(--accent-primary);
     text-decoration: none;
     transition: all .15s ease;
 }
 
 a:hover {
-    color: var(--dark-accent);
+    color: var(--accent-dark);
 }
 
 
@@ -102,7 +102,7 @@ a:hover {
     background: var(--mid-grey);
     font-size: 0.9rem;
     margin: 10px 0;
-    border-color: var(--grey-font);
+    border-color: var(--light-grey);
 }
 
 .form-control:focus {
@@ -142,17 +142,17 @@ input:-webkit-autofill:focus {
 
 .btn-primary {
     color: white;
-    background: var(--accent-color);
+    background: var(--accent-primary);
 }
 
 .btn-primary:hover,
 .btn-primary:disabled {
-    background: var(--dark-accent);
+    background: var(--accent-dark);
 }
 
 .btn-primary:focus,
 .btn-primary:active  {
-    background-color: var(--dark-accent);
+    background-color: var(--accent-dark);
 }
 
 
@@ -184,7 +184,7 @@ input:-webkit-autofill:focus {
 
 .container .description,
 .container .description a {
-    color: var(--grey-font);
+    color: var(--light-grey);
     text-align: left;
     font-size: 0.8rem;
     margin-bottom: 10px;
@@ -241,7 +241,7 @@ input:-webkit-autofill:focus {
 }
 
 #membership-page ul li {
-    border-bottom: solid 1px var(--grey-font);
+    border-bottom: solid 1px var(--light-grey);
     padding: 5px 0;
 }
 
@@ -255,10 +255,10 @@ input:-webkit-autofill:focus {
 #membership-page .container .membership-toggles .toggle {
     height: auto; 
     width: 50%; 
-    color: var(--grey-font);
+    color: var(--light-grey);
     background: inherit;
     border: 2px solid transparent;
-    border-bottom: 2px solid var(--grey-font);
+    border-bottom: 2px solid var(--light-grey);
     padding: 7px;
     margin-top: -7px;
 }
@@ -351,7 +351,7 @@ input:-webkit-autofill:focus {
 }
 
 #team-page .team-swiper .swiper-slide .swiper-text .role {
-    color: var(--grey-font);
+    color: var(--light-grey);
     font-size: 1rem;
     font-weight: 400;
 }
@@ -400,7 +400,7 @@ input:-webkit-autofill:focus {
 }
 
 .flashed-message {
-    color: var(--grey-font);
+    color: var(--light-grey);
     background: var(--dark-grey);
     border: none;
     z-index: 99;
