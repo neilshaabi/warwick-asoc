@@ -8,8 +8,8 @@ from flask_mail import Mail
 from itsdangerous import URLSafeTimedSerializer
 from markupsafe import escape
 from datetime import date
-from db_schema import db, User, dbinit
 
+from db_schema import db, User, dbinit
 from utils import isValidID, isValidPassword, sendEmailWithToken, sendContactEmail
 
 app = Flask(__name__)
@@ -58,13 +58,14 @@ mail = Mail(app)
 # Instantiate serialiser for email verification
 s = URLSafeTimedSerializer(app.config["SECRET_KEY"])
 
-# Set up stripe payment gateway
-stripe_keys = {
-    "secret_key": os.environ["STRIPE_SECRET_KEY"],
-    "publishable_key": os.environ["STRIPE_PUBLISHABLE_KEY"],
-    "endpoint_secret": os.environ["STRIPE_ENDPOINT_SECRET"]
-}
-stripe.api_key = stripe_keys["secret_key"]
+
+# Set up Stripe payment gateway
+app.config.update(dict(
+    STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"],
+    STRIPE_PUBLISHABLE_KEY = os.environ["STRIPE_PUBLISHABLE_KEY"],
+    STRIPE_ENDPOINT_SECRET = os.environ["STRIPE_ENDPOINT_SECRET"]
+))
+stripe.api_key = app.config["STRIPE_SECRET_KEY"]
 
 
 # Logs user out
@@ -300,8 +301,6 @@ def membership():
         # Validate student ID
         if membership_type == "Student" and not isValidID(student_id):
             return jsonify(error="Invalid Student ID")
-        
-        stripe.api_key = stripe_keys["secret_key"]
 
         # Create new Checkout Session to handle membership purchases
         try:
@@ -328,7 +327,7 @@ def membership():
                 }
             )
             return jsonify({
-                "checkout_public_key" : stripe_keys["publishable_key"],
+                "checkout_public_key" : app.config["STRIPE_PUBLISHABLE_KEY"],
                 "checkout_session_id" : checkout_session["id"]
                 })
 
@@ -351,7 +350,7 @@ def stripe_webhook():
 
     payload = request.get_data(as_text=True)
     sig_header = request.headers.get("Stripe-Signature")
-    endpoint_secret = stripe_keys["endpoint_secret"]
+    endpoint_secret = app.config["STRIPE_ENDPOINT_SECRET"]
 
     try:
         event = stripe.Webhook.construct_event(
