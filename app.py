@@ -165,16 +165,18 @@ def login():
         return render_template("login.html")
 
 
-# TODO: comment 
+# Displays page with email verification instructions, sends verification email
 @app.route("/verify-email", methods=["GET", "POST"])
 def verify_email():
 
-    # TODO: comment    
+    # Get user with email stored in session
     user = User.query.filter_by(email=session["email"]).first() if "email" in session else None
+
+    # Redirect if the email address is invalid or already verified
     if not user or user.verified:
         return redirect('/')
 
-    # TODO: HAVE A SEPARATE ROUTE WHICH ONLY SENDS THE EMAIL AND REDIRECTS TO THIS PAGE, HAVE THIS PAGE ONLY ACCCEPT GET REQUESTS, STORE THE USER'S NAME IN THE SESSION TOO
+    # Sends verification email to user (POST used to utilise AJAX)
     if request.method == 'POST':
         sendEmailWithToken(s, mail, user.first_name, user.email, "Email Verification")
         return ""
@@ -182,7 +184,7 @@ def verify_email():
         return render_template("verify-email.html", email=session["email"])
     
 
-# TODO: comment 
+# Directed to by link in verification emails, handles email verification using token
 @app.route("/email-verification/<token>")
 def email_verification(token):
     
@@ -206,7 +208,7 @@ def email_verification(token):
     return redirect('/')
      
 
-# TODO: comment 
+# Handles password resets by sending emails and updating the database
 @app.route("/reset-password", methods=["GET", "POST"])
 def reset_request():
 
@@ -268,7 +270,7 @@ def reset_request():
         return render_template("reset-request.html")
 
 
-# TODO: comment 
+# Directed to by link in password reset emails, displays page to update password
 @app.route("/reset-password/<token>")
 def reset_password(token):
 
@@ -289,7 +291,7 @@ def index():
     return render_template("index.html")
 
 
-# Allows users to select a membership to purchase
+# Handles membership selection, uses Stripe API to accept payments
 @app.route("/membership", methods=["GET", "POST"])
 def membership():
 
