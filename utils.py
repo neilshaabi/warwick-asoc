@@ -58,6 +58,6 @@ def getMsg(token, subject):
 # Sends an email with a token-generated link
 def sendContactEmail(mail, name, email, subject, body):
 
-    msg = Message(("Contact Form Submission: " + subject), recipients=[email], bcc=["neil.shaabi@warwick.ac.uk"]) # bcc=["officialwarwickasiansociety@gmail.com"], #TODO: make reply_to work
+    msg = Message(("Contact Form Submission: " + subject), recipients=[email], bcc=["officialwarwickasiansociety@gmail.com"])
     msg.html = render_template("email.html", name=name, body=body, contact=True)
     mail.send(msg)
