@@ -3,4 +3,4 @@
 __pycache__/*
 .venv/*
 asoc.sqlite
-app/__pycache__/*
+backend/__pycache__/*
