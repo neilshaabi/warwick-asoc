@@ -1,76 +1,13 @@
-from os import environ
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
-from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import LoginManager, login_user, current_user, logout_user, login_required
-from flask_mail import Mail
-from itsdangerous import URLSafeTimedSerializer
-from markupsafe import escape
 from datetime import date
+from flask import render_template, request, redirect, url_for, session, flash, jsonify
+from flask_login import login_user, current_user, logout_user, login_required
+from markupsafe import escape
+from werkzeug.security import check_password_hash, generate_password_hash
 
-import stripe
+from app import app
+from app.db import db, User
+from app.utils import isValidID, isValidPassword, sendEmailWithToken, sendContactEmail
 
-from db_schema import db, User, dbinit
-from utils import isValidID, isValidPassword, sendEmailWithToken, sendContactEmail
-
-
-#-------------------------------- SETUP & CONFIG --------------------------------#
-
-app = Flask(__name__)
-
-app.config.update(
-    SECRET_KEY = environ["SECRET_KEY"], # Randomly generated with os.urandom(12).hex()
-    TEMPLATES_AUTO_RELOAD = True,
-    SQLALCHEMY_DATABASE_URI = "sqlite:///asoc.sqlite",
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-)
-
-# Set up Flask mail
-app.config.update(
-    MAIL_SERVER = 'smtppro.zoho.eu',
-    MAIL_PORT = 465,
-    MAIL_USE_SSL = True,
-    MAIL_USE_TLS = False,
-    MAIL_USERNAME = 'no-reply@warwick-asoc.co.uk',
-    MAIL_PASSWORD = environ["MAIL_PASSWORD"],
-    MAIL_DEFAULT_SENDER = 'no-reply@warwick-asoc.co.uk',
-    MAIL_SUPPRESS_SEND = False
-)
-mail = Mail(app)
-
-# Instantiate serialiser for email verification
-s = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-
-# Set up Stripe payment gateway
-app.config.update(
-    STRIPE_SECRET_KEY = environ["STRIPE_SECRET_KEY"],
-    STRIPE_PUBLISHABLE_KEY = environ["STRIPE_PUBLISHABLE_KEY"],
-    STRIPE_ENDPOINT_SECRET = environ["STRIPE_ENDPOINT_SECRET"]
-)
-stripe.api_key = app.config["STRIPE_SECRET_KEY"]
-
-# Set up flask login manager
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "/"
-login_manager.login_message = None
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-# Initialise the database so it can connect with our app
-db.init_app(app)
-
-# Reset database - drop and create all tables, insert test data
-resetdb = True
-if resetdb:
-    with app.app_context():        
-        db.drop_all()
-        db.create_all()
-        dbinit()
-
-
-#-------------------------------- ROUTES --------------------------------#
 
 # Logs user out
 @app.route("/logout")
@@ -118,7 +55,7 @@ def register():
             db.session.commit()
 
             # Send verification email and redirect to home page
-            sendEmailWithToken(s, mail, user.first_name, user.email, "Email Verification")
+            sendEmailWithToken(serialiser, mail, user.first_name, user.email, "Email Verification")
             session["email"] = email
             return url_for('verify_email')
             
@@ -178,7 +115,7 @@ def verify_email():
 
     # Sends verification email to user (POST used to utilise AJAX)
     if request.method == 'POST':
-        sendEmailWithToken(s, mail, user.first_name, user.email, "Email Verification")
+        sendEmailWithToken(serialiser, mail, user.first_name, user.email, "Email Verification")
         return ""
     else:
         return render_template("verify-email.html", email=session["email"])
@@ -190,7 +127,7 @@ def email_verification(token):
     
     # Get email from token
     try:
-        email = s.loads(token, max_age=86400) # Each token is valid for 24 hours
+        email = serialiser.loads(token, max_age=86400) # Each token is valid for 24 hours
     
         # Mark user as verified
         user = User.query.filter_by(email=email).first()
@@ -229,7 +166,7 @@ def reset_request():
             
             # Send reset email
             else:
-                sendEmailWithToken(s, mail, user.first_name, user.email, "Password Reset")
+                sendEmailWithToken(serialiser, mail, user.first_name, user.email, "Password Reset")
                 flash('Password reset instructions sent to {}'.format(email))
                 return url_for('index')
 
@@ -276,7 +213,7 @@ def reset_password(token):
 
     # Get email from token
     try:
-        email = s.loads(token, max_age=86400) # Each token is valid for 24 hours
+        email = serialiser.loads(token, max_age=86400) # Each token is valid for 24 hours
         return render_template("reset-password.html", email=email)
 
     # Invalid/expired token
@@ -289,116 +226,6 @@ def reset_password(token):
 @app.route("/")
 def index():
     return render_template("index.html")
-
-
-# Handles membership selection, uses Stripe API to accept payments
-@app.route("/membership", methods=["GET", "POST"])
-def membership():
-
-    if request.method == "POST":
-        
-        # Get form data
-        membership_type = request.form.get("membership_type")
-        student_id = request.form.get("student_id") or "none"
-
-        # Validate student ID
-        if membership_type == "Student" and not isValidID(student_id):
-            return jsonify(error="Invalid Student ID")
-
-        # Create new Checkout Session to handle membership purchases
-        try:
-            
-            # See Stripe API docs: https://stripe.com/docs/api/checkout/sessions/create
-            checkout_session = stripe.checkout.Session.create(
-                mode = "payment",
-                payment_method_types = ["card"],
-                success_url = (url_for("success", _external=True) + "?session_id={CHECKOUT_SESSION_ID}" + "&membership=" + membership_type),
-                cancel_url = url_for("cancelled", _external=True),
-                client_reference_id = current_user.id,
-                line_items = [{
-                    "quantity" : "1",
-                    "price_data" : {
-                        "unit_amount" : "500",
-                        "currency" : "gbp",
-                        "product_data" : { 
-                            "name" : membership_type + " Membership"
-                        },
-                    }
-                }],
-                metadata = {
-                    "student_id" : student_id
-                }
-            )
-            return jsonify({
-                "checkout_public_key" : app.config["STRIPE_PUBLISHABLE_KEY"],
-                "checkout_session_id" : checkout_session["id"]
-                })
-
-        except Exception as e:
-            return jsonify(error=str(e))
-
-    # Request method is GET
-    else:
-        if current_user.is_authenticated:
-            membership = User.query.filter_by(id=current_user.id).first().membership
-        else:
-            membership = None
-
-        return render_template("membership.html", authenticated=current_user.is_authenticated, membership=membership)
-
-
-# Endpoint to handle successful payments
-@app.route("/stripe-webhook", methods=["POST"])
-def stripe_webhook():
-
-    payload = request.get_data(as_text=True)
-    sig_header = request.headers.get("Stripe-Signature")
-    endpoint_secret = app.config["STRIPE_ENDPOINT_SECRET"]
-
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
-        )
-
-    except ValueError as e:
-        return "Invalid payload", 400
-
-    except stripe.error.SignatureVerificationError as e:
-        return "Invalid signature", 400
-
-    # If checkout was successful
-    if event["type"] == "checkout.session.completed":
-
-        # Retrieve checkout info
-        session = event["data"]["object"]
-        line_items = stripe.checkout.Session.list_line_items(session['id'], limit=1)
-        membership_type = line_items['data'][0]['description'].split()[0]
-
-        # Update user's membership status in database
-        user = User.query.filter_by(id=session['client_reference_id']).first()
-
-        user.membership = membership_type
-        if membership_type == 'Student':
-            user.student_id = session['metadata']['student_id']
-        db.session.commit()
- 
-    return "Success", 200
-
-
-# Successful payments
-@app.route("/success")
-@login_required
-def success():
-    membership_type = request.args.get("membership")
-    flash("Success! " + membership_type + " membership purchased")
-    return redirect('/')
-
-
-# Cancellation of payments
-@app.route("/cancelled")
-def cancelled():
-    flash("Membership purchase request cancelled")
-    return redirect('/')
 
 
 # Displays events page
@@ -500,7 +327,7 @@ def settings():
                 db.session.commit()
                 
                 logout_user()
-                sendEmailWithToken(s, mail, user.first_name, user.email, "Email Verification")
+                sendEmailWithToken(serialiser, mail, user.first_name, user.email, "Email Verification")
                 # flash('Success! Email verification instructions sent to {}'.format(email))
                 # return url_for('index')
                 session["email"] = email
