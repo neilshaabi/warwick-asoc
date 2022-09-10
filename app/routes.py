@@ -4,7 +4,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import app
+from app import app, mail, serialiser
 from app.db import db, User
 from app.utils import isValidID, isValidPassword, sendEmailWithToken, sendContactEmail
 
