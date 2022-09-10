@@ -1,9 +1,8 @@
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
-from werkzeug.security import generate_password_hash
 from datetime import date
+from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash
 
-# Create database interface
 db = SQLAlchemy()
 
 # Model of a user for  database
@@ -36,5 +35,4 @@ def dbinit():
         # User('neilshaabi@gmail.com', generate_password_hash('n'), 'Neil', 'Shaabi', date.today(), "Student", 2138843, True)
     ]
     db.session.add_all(user_list)
-    
     db.session.commit()
