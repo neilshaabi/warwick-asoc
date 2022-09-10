@@ -12,7 +12,7 @@ from app.utils import isValidID
 def membership():
 
     if request.method == "POST":
-        
+
         # Get form data
         membership_type = request.form.get("membership_type")
         student_id = request.form.get("student_id") or "none"
@@ -25,32 +25,37 @@ def membership():
         try:
 
             stripe.api_key = app.config["STRIPE_SECRET_KEY"]
-            
+
             # See Stripe API docs: https://stripe.com/docs/api/checkout/sessions/create
             checkout_session = stripe.checkout.Session.create(
-                mode = "payment",
-                payment_method_types = ["card"],
-                success_url = (url_for("success", _external=True) + "?session_id={CHECKOUT_SESSION_ID}" + "&membership=" + membership_type),
-                cancel_url = url_for("cancelled", _external=True),
-                client_reference_id = current_user.id,
-                line_items = [{
-                    "quantity" : "1",
-                    "price_data" : {
-                        "unit_amount" : "500",
-                        "currency" : "gbp",
-                        "product_data" : { 
-                            "name" : membership_type + " Membership"
+                mode="payment",
+                payment_method_types=["card"],
+                success_url=(
+                    url_for("success", _external=True)
+                    + "?session_id={CHECKOUT_SESSION_ID}"
+                    + "&membership="
+                    + membership_type
+                ),
+                cancel_url=url_for("cancelled", _external=True),
+                client_reference_id=current_user.id,
+                line_items=[
+                    {
+                        "quantity": "1",
+                        "price_data": {
+                            "unit_amount": "500",
+                            "currency": "gbp",
+                            "product_data": {"name": membership_type + " Membership"},
                         },
                     }
-                }],
-                metadata = {
-                    "student_id" : student_id
+                ],
+                metadata={"student_id": student_id},
+            )
+            return jsonify(
+                {
+                    "checkout_public_key": app.config["STRIPE_PUBLISHABLE_KEY"],
+                    "checkout_session_id": checkout_session["id"],
                 }
             )
-            return jsonify({
-                "checkout_public_key" : app.config["STRIPE_PUBLISHABLE_KEY"],
-                "checkout_session_id" : checkout_session["id"]
-                })
 
         except Exception as e:
             return jsonify(error=str(e))
@@ -62,7 +67,11 @@ def membership():
         else:
             membership = None
 
-        return render_template("membership.html", authenticated=current_user.is_authenticated, membership=membership)
+        return render_template(
+            "membership.html",
+            authenticated=current_user.is_authenticated,
+            membership=membership,
+        )
 
 
 # Endpoint to handle successful payments
@@ -74,9 +83,7 @@ def stripe_webhook():
     endpoint_secret = app.config["STRIPE_ENDPOINT_SECRET"]
 
     try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
-        )
+        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
 
     except ValueError as e:
         return "Invalid payload", 400
@@ -89,17 +96,17 @@ def stripe_webhook():
 
         # Retrieve checkout info
         session = event["data"]["object"]
-        line_items = stripe.checkout.Session.list_line_items(session['id'], limit=1)
-        membership_type = line_items['data'][0]['description'].split()[0]
+        line_items = stripe.checkout.Session.list_line_items(session["id"], limit=1)
+        membership_type = line_items["data"][0]["description"].split()[0]
 
         # Update user's membership status in database
-        user = User.query.filter_by(id=session['client_reference_id']).first()
+        user = User.query.filter_by(id=session["client_reference_id"]).first()
 
         user.membership = membership_type
-        if membership_type == 'Student':
-            user.student_id = session['metadata']['student_id']
+        if membership_type == "Student":
+            user.student_id = session["metadata"]["student_id"]
         db.session.commit()
- 
+
     return "Success", 200
 
 
@@ -109,11 +116,11 @@ def stripe_webhook():
 def success():
     membership_type = request.args.get("membership")
     flash("Success! " + membership_type + " membership purchased")
-    return redirect('/')
+    return redirect("/")
 
 
 # Cancellation of payments
 @app.route("/cancelled")
 def cancelled():
     flash("Membership purchase request cancelled")
-    return redirect('/')
+    return redirect("/")

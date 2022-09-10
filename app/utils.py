@@ -5,12 +5,14 @@ from flask_mail import Message
 def isValidPassword(password):
 
     # Password must be at least 8 characters and contain at least one digit, uppercase and lowercase letter
-    if (len(password) < 8) or (
-        not any(char.isdigit() for char in password)) or (
-        not any(char.isupper() for char in password)) or (
-        not any(char.islower() for char in password)):
+    if (
+        (len(password) < 8)
+        or (not any(char.isdigit() for char in password))
+        or (not any(char.isupper() for char in password))
+        or (not any(char.islower() for char in password))
+    ):
         return False
-    else:   
+    else:
         return True
 
 
@@ -28,13 +30,19 @@ def isValidID(id_str):
 
 # Sends an email with a token-generated link
 def sendEmailWithToken(s, mail, name, email, subject):
-    
+
     # Generate email contents based on subject
     token = s.dumps(email)
     msgInfo = getMsg(token, subject)
 
     msg = Message(subject, recipients=[email])
-    msg.html = render_template("email.html", name=name, body=msgInfo[0], btn_link=msgInfo[1], btn_text=msgInfo[2])
+    msg.html = render_template(
+        "email.html",
+        name=name,
+        body=msgInfo[0],
+        btn_link=msgInfo[1],
+        btn_text=msgInfo[2],
+    )
     mail.send(msg)
 
 
@@ -58,6 +66,10 @@ def getMsg(token, subject):
 # Sends an email with a token-generated link
 def sendContactEmail(mail, name, email, subject, body):
 
-    msg = Message(("Contact Form Submission: " + subject), recipients=[email], bcc=["officialwarwickasiansociety@gmail.com"])
+    msg = Message(
+        ("Contact Form Submission: " + subject),
+        recipients=[email],
+        bcc=["officialwarwickasiansociety@gmail.com"],
+    )
     msg.html = render_template("email.html", name=name, body=body, contact=True)
     mail.send(msg)

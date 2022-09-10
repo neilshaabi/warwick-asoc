@@ -11,7 +11,7 @@ app.config.from_object("app.config.DevelopmentConfig")
 # Set up database
 db.init_app(app)
 if app.config["RESET_DB"]:
-    with app.app_context():        
+    with app.app_context():
         db.drop_all()
         db.create_all()
 
@@ -25,9 +25,11 @@ login_manager.init_app(app)
 login_manager.login_view = "/"
 login_manager.login_message = None
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 from app import routes
 from app import membership_routes

@@ -30,7 +30,9 @@ def register():
         password = request.form.get("password")
 
         # Ensure full name was entered
-        if (not first_name or first_name.isspace()) or (not last_name or last_name.isspace()):
+        if (not first_name or first_name.isspace()) or (
+            not last_name or last_name.isspace()
+        ):
             error = "Please enter your full name"
 
         # Ensure email was entered
@@ -47,20 +49,31 @@ def register():
 
         # Successful registration
         else:
-            
+
             # Insert new user into database
             email = email.lower()
-            user = User(email, generate_password_hash(password), first_name.capitalize(), last_name.capitalize(), date.today(), None, None, False)
+            user = User(
+                email,
+                generate_password_hash(password),
+                first_name.capitalize(),
+                last_name.capitalize(),
+                date.today(),
+                None,
+                None,
+                False,
+            )
             db.session.add(user)
             db.session.commit()
 
             # Send verification email and redirect to home page
-            sendEmailWithToken(serialiser, mail, user.first_name, user.email, "Email Verification")
+            sendEmailWithToken(
+                serialiser, mail, user.first_name, user.email, "Email Verification"
+            )
             session["email"] = email
-            return url_for('verify_email')
-            
-        return jsonify({'error' : error})
-    
+            return url_for("verify_email")
+
+        return jsonify({"error": error})
+
     # Request method is GET
     else:
         logout_user()
@@ -76,26 +89,26 @@ def login():
         # Get form data
         email = request.form.get("email").lower()
         password = request.form.get("password")
-        
+
         # Find user with this email
         user = User.query.filter_by(email=email).first()
 
         # Check if user with this email does not exist or if password is incorrect
         if user is None or not check_password_hash(user.password_hash, password):
             error = "Incorrect email/password"
-        
+
         # Check if user's email has been verified
         elif not user.verified:
             session["email"] = email
-            return url_for('verify_email')
-        
+            return url_for("verify_email")
+
         # Log user in and redirect to home page
         else:
             login_user(user)
-            return url_for('index')
+            return url_for("index")
 
-        return jsonify({'error' : error})
-    
+        return jsonify({"error": error})
+
     # Request method is GET
     else:
         logout_user()
@@ -107,28 +120,36 @@ def login():
 def verify_email():
 
     # Get user with email stored in session
-    user = User.query.filter_by(email=session["email"]).first() if "email" in session else None
+    user = (
+        User.query.filter_by(email=session["email"]).first()
+        if "email" in session
+        else None
+    )
 
     # Redirect if the email address is invalid or already verified
     if not user or user.verified:
-        return redirect('/')
+        return redirect("/")
 
     # Sends verification email to user (POST used to utilise AJAX)
-    if request.method == 'POST':
-        sendEmailWithToken(serialiser, mail, user.first_name, user.email, "Email Verification")
+    if request.method == "POST":
+        sendEmailWithToken(
+            serialiser, mail, user.first_name, user.email, "Email Verification"
+        )
         return ""
     else:
         return render_template("verify-email.html", email=session["email"])
-    
+
 
 # Directed to by link in verification emails, handles email verification using token
 @app.route("/email-verification/<token>")
 def email_verification(token):
-    
+
     # Get email from token
     try:
-        email = serialiser.loads(token, max_age=86400) # Each token is valid for 24 hours
-    
+        email = serialiser.loads(
+            token, max_age=86400
+        )  # Each token is valid for 24 hours
+
         # Mark user as verified
         user = User.query.filter_by(email=email).first()
         user.verified = True
@@ -136,14 +157,16 @@ def email_verification(token):
 
         # Log in user
         login_user(user)
-        flash('Success! Your email address has been verified')
+        flash("Success! Your email address has been verified")
 
     # Invalid/expired token
     except:
-        flash("Invalid or expired verification link, please sign in to request a new link")
+        flash(
+            "Invalid or expired verification link, please sign in to request a new link"
+        )
 
-    return redirect('/')
-     
+    return redirect("/")
+
 
 # Handles password resets by sending emails and updating the database
 @app.route("/reset-password", methods=["GET", "POST"])
@@ -153,24 +176,26 @@ def reset_request():
 
         # Form submitted to request a password reset
         if request.form.get("form-type") == "request":
-        
+
             # Get form data
             email = request.form.get("email").lower()
-            
+
             # Find user with this email
             user = User.query.filter_by(email=email).first()
 
             # Check if user with this email does not exist
             if user is None:
                 error = "No account found with this email address"
-            
+
             # Send reset email
             else:
-                sendEmailWithToken(serialiser, mail, user.first_name, user.email, "Password Reset")
-                flash('Password reset instructions sent to {}'.format(email))
-                return url_for('index')
+                sendEmailWithToken(
+                    serialiser, mail, user.first_name, user.email, "Password Reset"
+                )
+                flash("Password reset instructions sent to {}".format(email))
+                return url_for("index")
 
-            return jsonify({'error' : error})
+            return jsonify({"error": error})
 
         # Form submitted to reset password
         elif request.form.get("form-type") == "reset":
@@ -179,7 +204,7 @@ def reset_request():
             email = request.form.get("email")
             password = request.form.get("password")
             password_confirmation = request.form.get("password_confirmation")
-            
+
             # Ensure a valid password was entered
             if not isValidPassword(password):
                 error = "Please enter a valid password"
@@ -187,7 +212,7 @@ def reset_request():
             # Ensure password and confirmation match
             elif password != password_confirmation:
                 error = "Passwords do not match"
-            
+
             # Successful reset
             else:
 
@@ -197,11 +222,11 @@ def reset_request():
                 db.session.commit()
 
                 # Redirect to login page
-                flash('Success! Your password has been reset')
-                return url_for('index')
-            
-            return jsonify({'error' : error})
-    
+                flash("Success! Your password has been reset")
+                return url_for("index")
+
+            return jsonify({"error": error})
+
     # Request method is GET
     else:
         return render_template("reset-request.html")
@@ -213,13 +238,15 @@ def reset_password(token):
 
     # Get email from token
     try:
-        email = serialiser.loads(token, max_age=86400) # Each token is valid for 24 hours
+        email = serialiser.loads(
+            token, max_age=86400
+        )  # Each token is valid for 24 hours
         return render_template("reset-password.html", email=email)
 
     # Invalid/expired token
     except:
         flash("Invalid or expired reset link, please request another password reset")
-        return redirect('/')
+        return redirect("/")
 
 
 # Displays home page
@@ -243,7 +270,7 @@ def team():
 # Displays contact page
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
-    
+
     if request.method == "POST":
 
         # Get form data
@@ -257,22 +284,22 @@ def contact():
 
         elif not email or email.isspace():
             error = "Please enter your email"
-        
+
         elif not subject or subject.isspace():
             error = "Please enter a subject"
-        
+
         elif not message or message.isspace():
             error = "Please enter a message"
 
         # Successful form submission
         else:
-            
+
             # Send email and redirect to home page
             sendContactEmail(mail, name, email, subject, message)
-            flash('Success! Message sent from {}'.format(email))
-            return url_for('index')
-        
-        return jsonify({'error' : error})
+            flash("Success! Message sent from {}".format(email))
+            return url_for("index")
+
+        return jsonify({"error": error})
 
     else:
         return render_template("contact.html")
@@ -294,7 +321,9 @@ def settings():
         email_confirmation = request.form.get("email_confirmation").lower()
         student_id = request.form.get("student_id")
 
-        if (not first_name or first_name.isspace()) or (not last_name or last_name.isspace()):
+        if (not first_name or first_name.isspace()) or (
+            not last_name or last_name.isspace()
+        ):
             error = "Please enter your full name"
 
         elif not email or email.isspace():
@@ -304,42 +333,46 @@ def settings():
             error = "Emails do not match"
 
         # Ensure a valid student ID was entered if the user holds a student membership
-        elif (user.membership == 'Student') and (not isValidID(student_id)):
+        elif (user.membership == "Student") and (not isValidID(student_id)):
             error = "Invalid student ID"
-        
+
         # Ensure a different user with same email does not already exist
-        elif (email != user.email) and (User.query.filter_by(email=email.lower()).first() is not None):
+        elif (email != user.email) and (
+            User.query.filter_by(email=email.lower()).first() is not None
+        ):
             error = "This email address is already in use"
 
         # Successful update
         else:
-            
+
             # Update user's info into database
             user.first_name = first_name
             user.last_name = last_name
             user.student_id = int(student_id) if student_id else None
             db.session.commit()
-            
+
             # Send verification email if user changes email
             if email != user.email:
                 user.email = email
                 user.verified = False
                 db.session.commit()
-                
+
                 logout_user()
-                sendEmailWithToken(serialiser, mail, user.first_name, user.email, "Email Verification")
+                sendEmailWithToken(
+                    serialiser, mail, user.first_name, user.email, "Email Verification"
+                )
                 # flash('Success! Email verification instructions sent to {}'.format(email))
                 # return url_for('index')
                 session["email"] = email
-                return url_for('verify_email')
-            
+                return url_for("verify_email")
+
             # Flash success message and redirect to home page
             else:
-                flash('Success! Account details updated')
-                return url_for('index')
+                flash("Success! Account details updated")
+                return url_for("index")
 
-        return jsonify({'error' : error})
-    
+        return jsonify({"error": error})
+
     # Request method is GET
     else:
         return render_template("settings.html", user=user)
