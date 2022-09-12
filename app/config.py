@@ -7,13 +7,13 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Flask Mail setup
-    MAIL_SERVER = 'smtppro.zoho.eu',
+    MAIL_SERVER = "smtppro.zoho.eu",
     MAIL_PORT = 465,
     MAIL_USE_SSL = True,
     MAIL_USE_TLS = False,
-    MAIL_USERNAME = 'no-reply@warwick-asoc.co.uk',
+    MAIL_USERNAME = "no-reply@warwick-asoc.co.uk",
     MAIL_PASSWORD = environ["MAIL_PASSWORD"],
-    MAIL_DEFAULT_SENDER = 'no-reply@warwick-asoc.co.uk',
+    MAIL_DEFAULT_SENDER = "no-reply@warwick-asoc.co.uk",
     MAIL_SUPPRESS_SEND = False
     
     # Stripe Checkout setup
