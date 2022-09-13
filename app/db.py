@@ -40,7 +40,7 @@ class User(UserMixin, db.Model):
 
 
 # Insert dummy data into tables
-def dbinit():
+def insertTestData():
     user_list = [
         User(
             "neilshaabi@gmail.com",
