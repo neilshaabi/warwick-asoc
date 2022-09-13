@@ -3,7 +3,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from itsdangerous import URLSafeTimedSerializer
 
-from app.db import db, User
+from app.db import db, User, insertTestData
 
 app = Flask(__name__)
 app.config.from_object("app.config.DevelopmentConfig")
@@ -14,6 +14,7 @@ if app.config["RESET_DB"]:
     with app.app_context():
         db.drop_all()
         db.create_all()
+        insertTestData()
 
 # Instantiate mail object and serialiser for email verification
 mail = Mail(app)
