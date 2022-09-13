@@ -24,8 +24,8 @@
 
                 <!-- Student membership info -->
                 <div id="student-info" class="membership-info">
-                    <p><strong>Eligibility:</strong> Current Uni of Warwick students</p>
-                    <p><strong>Price:</strong> £5.00</p>
+                    <p><strong>Eligibility: </strong>Current Uni of Warwick students</p>
+                    <p><strong>Price: </strong>£{{ '%0.2f' % membership_prices["Student"] }}</p>
                     <div class="form-floating">
                         <input type="text" id="student_id" name="student_id" placeholder="Student ID" class="form-control">
                         <label for="student_id">Student ID</label>
@@ -34,8 +34,8 @@
 
                 <!-- Associate membership info -->
                 <div id="associate-info" class="membership-info hidden">
-                    <p><strong>Eligibility:</strong> All applicants</p>
-                    <p><strong>Price:</strong> £5.00</p>
+                    <p><strong>Eligibility: </strong>All applicants</p>
+                    <p><strong>Price: </strong>£{{ '%0.2f' % membership_prices["Associate"] }}</p>
                 </div>
 
                 <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
