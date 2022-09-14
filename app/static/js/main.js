@@ -34,12 +34,12 @@ $(document).ready(function(){
         
         direction: 'horizontal',
         grabCursor: 'true',
-        spaceBetween: 20,
+        spaceBetween: 25,
         slidesPerView: 3,
         loop: true,
 
         autoplay: {
-            delay: 3000,
+            delay: 2500,
             disableOnInteraction: false,
         },
     
