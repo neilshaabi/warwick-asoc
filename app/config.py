@@ -26,8 +26,7 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
     RESET_DB = False
-    # TODO: CHANGE THIS TO POSTGRES WHEN USING HEROKU
-    SQLALCHEMY_DATABASE_URI = "sqlite:///asoc.sqlite"
+    SQLALCHEMY_DATABASE_URI = environ["DATABASE_URL"]
 
 
 # Config values for running app in development
