@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.config.from_object("app.config.ProductionConfig")
 
 # Set up database
+db.init_app(app)
 if app.config["RESET_DB"]:
-    db.init_app(app)
     with app.app_context():
         db.drop_all()
         db.create_all()
