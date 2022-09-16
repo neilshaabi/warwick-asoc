@@ -221,7 +221,7 @@ input:-webkit-autofill:focus {
     height: 100%;
 }
 
-#home-page .home-container {
+#home-page .home-body {
     padding: 60px;
     position: absolute;
     top: 50%;
