@@ -157,6 +157,13 @@ input:-webkit-autofill:focus {
 
 /* Containers */
 
+.page-header {
+    color: white;
+    padding: 30px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
 .container {
     color: white;
     background: var(--mid-grey);
@@ -373,24 +380,6 @@ input:-webkit-autofill:focus {
 
 .hidden {
     display: none;
-}
-
-.invisible {
-    visibility: hidden;
-}
-
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.page-header {
-    color: white;
-    padding: 30px;
-    padding-bottom: 20px;
-    text-align: center;
 }
 
 .alert {
