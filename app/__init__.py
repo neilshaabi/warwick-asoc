@@ -6,7 +6,7 @@ from itsdangerous import URLSafeTimedSerializer
 from app.db import db, User, insertTestData
 
 app = Flask(__name__)
-app.config.from_object("app.config.DevelopmentConfig")
+app.config.from_object("app.config.ProductionConfig")
 
 # Set up database
 db.init_app(app)
