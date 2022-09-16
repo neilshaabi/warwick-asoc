@@ -7,7 +7,7 @@
 {% block main %}
 
     <div class="page-header">
-        <h2>Account settings</h2>
+        <h2>Account Settings</h2>
         <p>View and update your personal details</p>
     </div>
 
@@ -35,20 +35,18 @@
                     <label for="student_id">Student ID</label>
                 </div>
             {% endif %}
-            <div class="description row" style="margin: 15px 0;">
-                <div class="col" style="text-align: left; padding: 0;">
-                    <a href="/reset-password">Reset Password</a>
-                </div>
-                <div class="col" style="text-align: right; padding: 0;">
-                    Membership: <span id="membership-type">{{ user.membership }}</span>
-                </div>
-            </div>
+            <p class="description" style="margin: 15px 0;">
+                Membership: <span id="membership-type">{{ user.membership }}</span>
+            </p>
             <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
             <button type="submit" class="btn btn-primary">
                 <span class="btn-text">Save Changes</span>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
                 <span class="visually-hidden">Loading...</span>
             </button>
+            <p class="description" style="text-align:center">
+                <a href="/reset-password">Reset Password</a>
+            </p>
         </form>
     </div>
 
