@@ -389,7 +389,7 @@ input:-webkit-autofill:focus {
 .page-header {
     color: white;
     padding: 30px;
-    padding-top: 50px;
+    padding-bottom: 20px;
     text-align: center;
 }
 
