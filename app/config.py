@@ -26,7 +26,7 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
     RESET_DB = False
-    SQLALCHEMY_DATABASE_URI = environ["DATABASE_URL"]
+    SQLALCHEMY_DATABASE_URI = environ["DATABASE_URL"].replace("postgres://", "postgresql://", 1)
 
 
 # Config values for running app in development
