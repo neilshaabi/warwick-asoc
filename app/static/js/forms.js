@@ -144,7 +144,7 @@ $(document).ready(function(){
 
         // Get student ID if it exists
         var student_id = null;
-        if ($('#membership-type').html() == 'Student') {
+        if ($('.btn-primary:submit').attr('data-membership') == 'Student') {
             student_id = $('#student_id').val();
         }
 
@@ -178,11 +178,11 @@ $(document).ready(function(){
         showLoadingBtn(true);
         
         // Displays error message if user is not logged in or already a member
-        if ($('#membership-btn').attr('data-authenticated') == "False") {
+        if ($('.btn-primary:submit').attr('data-authenticated') == "False") {
             showLoadingBtn(false);
             $('#error-alert').html("Please <a href='/login'>sign in</a> to purchase a membership").show();
             return;
-        } else if ($('#membership-btn').attr('data-membership') != "None") {
+        } else if ($('.btn-primary:submit').attr('data-membership') != "None") {
             showLoadingBtn(false);
             $('#error-alert').html("You have already purchased a membership").show();
             return;
