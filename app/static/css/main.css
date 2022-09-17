@@ -285,7 +285,6 @@ input:-webkit-autofill:focus {
 }
 
 #events-page .calendar-agenda {
-    height: 90%;
     display: none;
 }
 
