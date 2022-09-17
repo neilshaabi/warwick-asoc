@@ -6,12 +6,11 @@
 
 {% block main %}
 
-    <div class="page-header">
-        <h2>Account Settings</h2>
-        <p>View and update your personal details</p>
-    </div>
+    <div class="page-header"></div>
 
     <div class="container">
+        <h3>Account settings</h3>
+        <p>View and update your personal details</p>
         <form id="settings-form">
             <div class="form-floating">
                 <input type="text" id="first_name" placeholder="First name" value="{{ user.first_name }}" class="form-control">
@@ -35,11 +34,8 @@
                     <label for="student_id">Student ID</label>
                 </div>
             {% endif %}
-            <p class="description" style="margin: 15px 0;">
-                Membership: <span id="membership-type">{{ user.membership }}</span>
-            </p>
             <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" data-membership="{{ user.membership }}">
                 <span class="btn-text">Save Changes</span>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
                 <span class="visually-hidden">Loading...</span>
