@@ -6,7 +6,7 @@ from app import app
 from app.db import db, User
 from app.utils import isValidID
 
-membership_prices = {"Student": 5.00, "Associate": 5.00 }
+membership_prices = {"Student": 5.00, "Associate": 5.00}
 
 # Handles membership selection, uses Stripe API to accept payments
 @app.route("/membership", methods=["GET", "POST"])
@@ -43,7 +43,9 @@ def membership():
                     {
                         "quantity": "1",
                         "price_data": {
-                            "unit_amount": int(100 * (membership_prices[membership_type])),
+                            "unit_amount": int(
+                                100 * (membership_prices[membership_type])
+                            ),
                             "currency": "gbp",
                             "product_data": {"name": membership_type + " Membership"},
                         },

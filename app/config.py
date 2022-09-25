@@ -3,7 +3,7 @@ from os import environ
 # Default config values
 class Config(object):
     TESTING = False
-    SECRET_KEY = environ["SECRET_KEY"] # Randomly generated with os.urandom(12).hex()
+    SECRET_KEY = environ["SECRET_KEY"]  # Randomly generated with os.urandom(12).hex()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Flask Mail setup
@@ -15,7 +15,7 @@ class Config(object):
     MAIL_PASSWORD = environ["MAIL_PASSWORD"]
     MAIL_DEFAULT_SENDER = "no-reply@warwick-asoc.co.uk"
     MAIL_SUPPRESS_SEND = False
-    
+
     # Stripe Checkout setup
     STRIPE_SECRET_KEY = environ["STRIPE_SECRET_KEY"]
     STRIPE_PUBLISHABLE_KEY = environ["STRIPE_PUBLISHABLE_KEY"]
@@ -26,7 +26,9 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
     RESET_DB = False
-    SQLALCHEMY_DATABASE_URI = environ["DATABASE_URL"].replace("postgres://", "postgresql://", 1)
+    SQLALCHEMY_DATABASE_URI = environ["DATABASE_URL"].replace(
+        "postgres://", "postgresql://", 1
+    )
 
 
 # Config values for running app in development
@@ -34,4 +36,3 @@ class DevelopmentConfig(Config):
     DEBUG = True
     RESET_DB = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///asoc.sqlite"
-    
