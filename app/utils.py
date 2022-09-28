@@ -20,7 +20,7 @@ def isValidPassword(password):
 def isValidID(id_str):
     try:
         student_id = int(id_str)
-        if (student_id < 1000000) or (student_id > 2200000):
+        if (student_id < 1000000) or (student_id > 2299999):
             return False
         else:
             return True
