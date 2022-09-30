@@ -61,6 +61,7 @@ def register():
                 None,
                 None,
                 False,
+                False,
             )
             db.session.add(user)
             db.session.commit()

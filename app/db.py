@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     membership = db.Column(db.Text)
     student_id = db.Column(db.Integer)
     verified = db.Column(db.Boolean)
+    is_exec = db.Column(db.Boolean)
 
     def __init__(
         self,
@@ -28,6 +29,7 @@ class User(UserMixin, db.Model):
         membership,
         student_id,
         verified,
+        is_exec,
     ):
         self.email = email
         self.password_hash = password_hash
@@ -37,6 +39,7 @@ class User(UserMixin, db.Model):
         self.membership = membership
         self.student_id = student_id
         self.verified = verified
+        self.is_exec = is_exec
 
 
 # Insert dummy data into tables
@@ -51,8 +54,8 @@ def insertTestData():
             None,
             None,
             True,
+            False,
         )
-        # User('neilshaabi@gmail.com', generate_password_hash('n'), 'Neil', 'Shaabi', date.today(), "Student", 2138843, True)
     ]
     db.session.add_all(user_list)
     db.session.commit()
