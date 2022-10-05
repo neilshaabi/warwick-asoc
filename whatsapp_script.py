@@ -38,5 +38,5 @@ Non-exec memberships: {len(nonExecMembers)}/{len(nonExec)}\n"""
 
 # Send stats to ASOC Tech group chat
 print("Sending message to ASOC Tech group chat...")
-sendwhatmsg_to_group_instantly("Btzj1dCFWKq2RvldJDMf5U", msg)
+sendwhatmsg_to_group_instantly("<WhatsApp Group ID>", msg)
 print("Message sent!\n")
