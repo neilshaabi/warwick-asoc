@@ -8,15 +8,17 @@ filename = f"asoc_{today}.csv"
 
 # Retrieve data from heroku postgres db, write to csv file
 system(
-    f"heroku pg:psql -a warwick-asoc \
-        -c \"\copy ( \
-        SELECT first_name, last_name, membership, student_id, is_exec, verified  \
-        FROM users \
-        WHERE verified \
-        ORDER BY is_exec desc, membership, first_name \
-            ) \
-        TO '~/Desktop/{filename}' \
-        WITH CSV DELIMITER ',' HEADER;\""
+    f"""
+    heroku pg:psql -a warwick-asoc -c 
+    \copy (
+        SELECT first_name, last_name, membership, student_id, is_exec, verified
+        FROM users
+        WHERE verified
+        ORDER BY is_exec desc, membership, first_name
+    )
+    TO '~/Desktop/{filename}'
+    WITH CSV DELIMITER ',' HEADER;"
+"""
 )
 
 # Process data into individual categories
