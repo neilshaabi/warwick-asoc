@@ -3,3 +3,4 @@
 .venv/*
 asoc.sqlite
 app/__pycache__/*
+whatsapp_script.py
