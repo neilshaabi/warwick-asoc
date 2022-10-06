@@ -5,6 +5,7 @@ import pandas as pd
 
 today = date.today().strftime("%d-%m-%Y")
 filename = f"asoc_{today}.csv"
+filepath = f"~/Desktop/{filename}"
 
 # Retrieve data from heroku postgres db, write to csv file
 system(
@@ -15,7 +16,7 @@ system(
         WHERE verified \
         ORDER BY is_exec desc, membership, first_name \
             ) \
-        TO '~/Desktop/{filename}' \
+        TO '{filepath}' \
         WITH CSV DELIMITER ',' HEADER;\""
 )
 
@@ -38,5 +39,8 @@ Non-exec memberships: {len(nonExecMembers)}/{len(nonExec)}\n"""
 
 # Send stats to ASOC Tech group chat
 print("Sending message to ASOC Tech group chat...")
-sendwhatmsg_to_group_instantly("<WhatsApp Group ID>", msg)
+sendwhatmsg_to_group_instantly("", msg)
 print("Message sent!\n")
+
+# Delete CSV file
+system(f"rm -rf {filepath}")
