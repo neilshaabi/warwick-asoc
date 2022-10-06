@@ -4,3 +4,4 @@
 asoc.sqlite
 app/__pycache__/*
 whatsapp_script.py
+PyWhatKit_DB.txt
