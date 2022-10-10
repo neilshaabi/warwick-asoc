@@ -177,14 +177,10 @@ $(document).ready(function(){
         event.preventDefault();
         showLoadingBtn(true);
         
-        // Displays error message if user is not logged in or already a member
+        // Displays error message if user is not logged in
         if ($('.btn-primary:submit').attr('data-authenticated') == "False") {
             showLoadingBtn(false);
             $('#error-alert').html("Please <a href='/login'>sign in</a> to purchase a membership").show();
-            return;
-        } else if ($('.btn-primary:submit').attr('data-membership') != "None") {
-            showLoadingBtn(false);
-            $('#error-alert').html("You have already purchased a membership").show();
             return;
         }
 

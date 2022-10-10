@@ -15,36 +15,44 @@
         
         <div class="container">
 
-            <div class="membership-toggles">
-                <button id="student-toggle" class="toggle active-toggle">Student</button>
-                <button id="associate-toggle" class="toggle">Associate</button>
-            </div>
-            
-            <form id="membership-form">
+            {% if membership %}
+                <p style="text-align:center;">
+                    You have purchased a <strong>{{ membership }}</strong> membership
+                </p>
+                
+            {% else %}
 
-                <!-- Student membership info -->
-                <div id="student-info" class="membership-info">
-                    <p><strong>Eligibility: </strong>Current Uni of Warwick students</p>
-                    <p><strong>Price: </strong>£{{ '%0.2f' % membership_prices["Student"] }}</p>
-                    <div class="form-floating">
-                        <input type="text" id="student_id" name="student_id" placeholder="Student ID (e.g. 2138842)" class="form-control">
-                        <label for="student_id">Student ID (e.g. 2138842)</label>
+                <div class="membership-toggles">
+                    <button id="student-toggle" class="toggle active-toggle">Student</button>
+                    <button id="associate-toggle" class="toggle">Associate</button>
+                </div>
+                
+                <form id="membership-form">
+
+                    <!-- Student membership info -->
+                    <div id="student-info" class="membership-info">
+                        <p><strong>Eligibility: </strong>Current Uni of Warwick students</p>
+                        <p><strong>Price: </strong>£{{ '%0.2f' % membership_prices["Student"] }}</p>
+                        <div class="form-floating">
+                            <input type="text" id="student_id" name="student_id" placeholder="Student ID (e.g. 2138842)" class="form-control">
+                            <label for="student_id">Student ID (e.g. 2138842)</label>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Associate membership info -->
-                <div id="associate-info" class="membership-info hidden">
-                    <p><strong>Eligibility: </strong>All applicants</p>
-                    <p><strong>Price: </strong>£{{ '%0.2f' % membership_prices["Associate"] }}</p>
-                </div>
+                    <!-- Associate membership info -->
+                    <div id="associate-info" class="membership-info hidden">
+                        <p><strong>Eligibility: </strong>All applicants</p>
+                        <p><strong>Price: </strong>£{{ '%0.2f' % membership_prices["Associate"] }}</p>
+                    </div>
 
-                <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
-                <button type="submit" class="btn btn-primary" data-authenticated="{{ authenticated }}" data-membership="{{ membership }}">
-                    <span class="btn-text">Select</span>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
-                    <span class="visually-hidden">Loading...</span>
-                </button>
-            </form>
+                    <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+                    <button type="submit" class="btn btn-primary" data-authenticated="{{ authenticated }}">
+                        <span class="btn-text">Select</span>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        <span class="visually-hidden">Loading...</span>
+                    </button>
+                </form>
+            {% endif %}
             <ul>
                 <li>Discounted event tickets</li>
                 <li>Exclusive social events</li>
