@@ -51,8 +51,8 @@ def insertTestData():
             "Neil",
             "Shaabi",
             date.today(),
-            None,
-            None,
+            "Student",
+            2138843,
             True,
             False,
         )
