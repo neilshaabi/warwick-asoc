@@ -284,8 +284,9 @@ input:-webkit-autofill:focus {
     border-width: 0;
 }
 
-#events-page .calendar-agenda {
+#events-page .calendar-container .calendar-agenda {
     display: none;
+    height: 50vh !important;
 }
 
 
