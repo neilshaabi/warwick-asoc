@@ -17,7 +17,13 @@
 
             {% if membership %}
                 <p style="text-align:center;">
-                    You have purchased a <strong>{{ membership }}</strong> membership
+                    You have purchased 
+                    {% if membership == "Student" %}
+                        a 
+                    {% elif membership == "Associate" %}
+                        an  
+                    {% endif %}
+                    <strong>{{ membership }}</strong> membership
                 </p>
                 
             {% else %}
