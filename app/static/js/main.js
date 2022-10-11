@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
     // Toggle active state for navbar link when selected
     var pathname = window.location.pathname;
@@ -12,11 +12,10 @@ $(document).ready(function(){
 
     // Set home page height to window height - navbar
     $('#home-page').css('max-height', window.innerHeight - '56px');
-    
 
     // Toggle between viewing student and associate membership info
     $('.membership-toggles').on('click', function(event) {
-        
+
         // Hide both sections initially
         $('.membership-info').hide();
 
@@ -34,7 +33,7 @@ $(document).ready(function(){
 
     // Team page swiper
     const teamSwiper = new Swiper('.team-swiper', {
-        
+
         direction: 'horizontal',
         grabCursor: 'true',
         spaceBetween: 25,
@@ -45,7 +44,7 @@ $(document).ready(function(){
             delay: 2500,
             disableOnInteraction: false,
         },
-    
+
         pagination: {
             el: '.swiper-pagination',
             dynamicBullets: true,

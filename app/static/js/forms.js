@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
     // Toggles loading button
     function showLoadingBtn(isLoading) {
@@ -20,27 +20,30 @@ $(document).ready(function(){
         showLoadingBtn(true);
 
         $.post(
-            '/register', 
-            {'first_name' : $('#first_name').val(), 'last_name' : $('#last_name').val(), 
-             'email' : $('#email').val(), 'password' : $('#password').val()}, 
+            '/register', {
+                'first_name': $('#first_name').val(),
+                'last_name': $('#last_name').val(),
+                'email': $('#email').val(),
+                'password': $('#password').val()
+            },
             function(data) {
-            
+
                 // Display error message if unsuccessful
                 if (data.error) {
                     showLoadingBtn(false);
                     $('#error-alert').html(data.error).show();
-                } 
-                
+                }
+
                 // Reload page if successful
                 else {
                     window.location = data;
-                    
+
                 }
             }
         );
         event.preventDefault();
     });
-    
+
 
     // Login handler using AJAX
     $('#login-form').on('submit', function(event) {
@@ -48,16 +51,18 @@ $(document).ready(function(){
         showLoadingBtn(true);
 
         $.post(
-            '/login', 
-            {'email' : $('#email').val(), 'password' : $('#password').val()}, 
+            '/login', {
+                'email': $('#email').val(),
+                'password': $('#password').val()
+            },
             function(data) {
-            
+
                 // Display error message if unsuccessful
                 if (data.error) {
                     showLoadingBtn(false);
                     $('#error-alert').html(data.error).show();
-                } 
-                
+                }
+
                 // Redirect to home page if successful
                 else {
                     window.location = data;
@@ -74,8 +79,7 @@ $(document).ready(function(){
         showLoadingBtn(true);
 
         $.post(
-            '/verify-email', 
-            {}, 
+            '/verify-email', {},
             function(data) {
                 showLoadingBtn(false);
             }
@@ -88,18 +92,20 @@ $(document).ready(function(){
     $('#reset-request-form').on('submit', function(event) {
 
         showLoadingBtn(true);
-        
+
         $.post(
-            '/reset-password', 
-            {'form-type' : 'request', 'email' : $('#email').val()}, 
+            '/reset-password', {
+                'form-type': 'request',
+                'email': $('#email').val()
+            },
             function(data) {
-            
+
                 // Display error message if unsuccessful
                 if (data.error) {
                     showLoadingBtn(false);
                     $('#error-alert').html(data.error).show();
-                } 
-                
+                }
+
                 // Redirect to home page if successful
                 else {
                     window.location = data;
@@ -116,17 +122,20 @@ $(document).ready(function(){
         showLoadingBtn(true)
 
         $.post(
-            '/reset-password', 
-            {'form-type' : 'reset', 'email' : $('#email').val(),
-             'password' : $('#password').val(), 'password_confirmation' : $('#password_confirmation').val()}, 
+            '/reset-password', {
+                'form-type': 'reset',
+                'email': $('#email').val(),
+                'password': $('#password').val(),
+                'password_confirmation': $('#password_confirmation').val()
+            },
             function(data) {
-            
+
                 // Display error message if unsuccessful
                 if (data.error) {
                     showLoadingBtn(false)
                     $('#error-alert').html(data.error).show();
-                } 
-                
+                }
+
                 // Redirect to home page if successful
                 else {
                     window.location = data;
@@ -149,18 +158,21 @@ $(document).ready(function(){
         }
 
         $.post(
-            '/settings', 
-            {'first_name' : $('#first_name').val(), 'last_name' : $('#last_name').val(), 
-             'email' : $('#email').val(), 'email_confirmation' : $('#email_confirmation').val(), 
-             'student_id' : student_id}, 
+            '/settings', {
+                'first_name': $('#first_name').val(),
+                'last_name': $('#last_name').val(),
+                'email': $('#email').val(),
+                'email_confirmation': $('#email_confirmation').val(),
+                'student_id': student_id
+            },
             function(data) {
-            
+
                 // Display error message if unsuccessful
                 if (data.error) {
                     showLoadingBtn(false);
                     $('#error-alert').html(data.error).show();
-                } 
-                
+                }
+
                 // Reload page if successful
                 else {
                     window.location = data;
@@ -170,13 +182,13 @@ $(document).ready(function(){
         event.preventDefault();
     });
 
-    
+
     // Membership selection handler using AJAX
     $('#membership-form').on('submit', function(event) {
 
         event.preventDefault();
         showLoadingBtn(true);
-        
+
         // Displays error message if user is not logged in
         if ($('.btn-primary:submit').attr('data-authenticated') == "False") {
             showLoadingBtn(false);
@@ -188,16 +200,18 @@ $(document).ready(function(){
         if ($('#student-info').is(":visible")) {
             var membership_type = 'Student';
             var student_id = $('#student_id').val();
-        } else { 
+        } else {
             var membership_type = 'Associate';
         }
-     
+
         // Get Checkout Session ID and redirect to Stripe Checkout
         $.post(
-            '/membership',
-            {'membership_type' : membership_type, 'student_id' : student_id},
+            '/membership', {
+                'membership_type': membership_type,
+                'student_id': student_id
+            },
             function(data) {
-                
+
                 // Display error message if unsuccessful
                 if (data.error) {
                     showLoadingBtn(false);
@@ -206,7 +220,9 @@ $(document).ready(function(){
                 } else {
                     $('#error-alert').hide();
                     const stripe = Stripe(data.checkout_public_key);
-                    return stripe.redirectToCheckout({ sessionId : data.checkout_session_id })
+                    return stripe.redirectToCheckout({
+                        sessionId: data.checkout_session_id
+                    })
                 }
             }
         );
@@ -218,17 +234,20 @@ $(document).ready(function(){
         showLoadingBtn(true)
 
         $.post(
-            '/contact', 
-            {'name' : $('#name').val(), 'email' : $('#email').val(),
-             'subject' : $('#subject').val(), 'message' : $('#message').val()}, 
+            '/contact', {
+                'name': $('#name').val(),
+                'email': $('#email').val(),
+                'subject': $('#subject').val(),
+                'message': $('#message').val()
+            },
             function(data) {
-            
+
                 // Display error message if unsuccessful
                 if (data.error) {
                     showLoadingBtn(false)
                     $('#error-alert').html(data.error).show();
-                } 
-                
+                }
+
                 // Redirect to home page if successful
                 else {
                     window.location = data;
