@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 
 from app import app
 from app.db import db, User
-from app.utils import isValidID
+from app.utils import isValidStudentID
 
 membership_prices = {"Student": 5.00, "Associate": 5.00}
 
@@ -19,7 +19,7 @@ def membership():
         student_id = request.form.get("student_id") or "none"
 
         # Validate student ID
-        if membership_type == "Student" and not isValidID(student_id):
+        if membership_type == "Student" and not isValidStudentID(student_id):
             return jsonify(error="Invalid Student ID")
 
         # Create new Checkout Session to handle membership purchases

@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import app, mail, serialiser
 from app.db import db, User
-from app.utils import isValidID, isValidPassword, sendEmailWithToken, sendContactEmail
+from app.utils import isValidStudentID, isValidPassword, sendEmailWithToken, sendContactEmail
 
 
 # Logs user out
@@ -334,7 +334,7 @@ def settings():
             error = "Emails do not match"
 
         # Ensure a valid student ID was entered if the user holds a student membership
-        elif (user.membership == "Student") and (not isValidID(student_id)):
+        elif (user.membership == "Student") and (not isValidStudentID(student_id)):
             error = "Invalid student ID"
 
         # Ensure a different user with same email does not already exist
