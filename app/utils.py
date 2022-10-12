@@ -17,13 +17,10 @@ def isValidPassword(password):
 
 
 # Returns if a given string of a student ID is valid
-def isValidID(id_str):
+def isValidStudentID(student_id_str):
     try:
-        student_id = int(id_str)
-        if (student_id < 1000000) or (student_id > 2299999):
-            return False
-        else:
-            return True
+        student_id = int(student_id_str)
+        return (student_id > 1000000) and (student_id < 9999999)
     except:
         return False
 
