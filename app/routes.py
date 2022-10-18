@@ -394,11 +394,7 @@ def settings():
 @login_required
 def member_list():
 
-    is_exec = (
-        User.query.with_entities(User.is_exec).filter_by(id=current_user.id).first()[0]
-    )
-
-    if not is_exec:
+    if not current_user.is_exec:
         return redirect("/")
 
     now = datetime.now().strftime("%H:%M %d/%m/%Y")
