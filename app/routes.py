@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from flask import render_template, request, redirect, url_for, session, flash, jsonify
 from flask_login import login_user, current_user, logout_user, login_required
 from markupsafe import escape
@@ -6,7 +6,12 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import app, mail, serialiser
 from app.db import db, User
-from app.utils import isValidStudentID, isValidPassword, sendEmailWithToken, sendContactEmail
+from app.utils import (
+    isValidStudentID,
+    isValidPassword,
+    sendEmailWithToken,
+    sendContactEmail,
+)
 
 
 # Logs user out
@@ -106,6 +111,11 @@ def login():
         # Log user in and redirect to home page
         else:
             login_user(user)
+            current_user.is_exec = (
+                User.query.with_entities(User.is_exec)
+                .filter_by(id=current_user.id)
+                .first()[0]
+            )
             return url_for("index")
 
         return jsonify({"error": error})
@@ -377,3 +387,27 @@ def settings():
     # Request method is GET
     else:
         return render_template("settings.html", user=user)
+
+
+# Displays list of members (only accessible by exec members)
+@app.route("/member-list")
+@login_required
+def member_list():
+
+    is_exec = (
+        User.query.with_entities(User.is_exec).filter_by(id=current_user.id).first()[0]
+    )
+
+    if not is_exec:
+        return redirect("/")
+
+    now = datetime.now().strftime("%H:%M %d/%m/%Y")
+
+    members = (
+        User.query.with_entities(User.first_name, User.last_name, User.student_id)
+        .filter(User.membership != None)
+        .order_by(User.first_name)
+        .all()
+    )
+
+    return render_template("member-list.html", now=now, members=members)

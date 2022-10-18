@@ -54,8 +54,19 @@ def insertTestData():
             "Student",
             2138843,
             True,
+            True,
+        ),
+        User(
+            "neil.shaabi@warwick.ac.uk",
+            generate_password_hash("n"),
+            "John",
+            "Doe",
+            date.today(),
+            "Associate",
+            None,
+            True,
             False,
-        )
+        ),
     ]
     db.session.add_all(user_list)
     db.session.commit()

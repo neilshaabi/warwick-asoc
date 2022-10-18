@@ -390,6 +390,33 @@ input:-webkit-autofill:focus {
 }
 
 
+/* Member list page */
+
+#member-list-page #member-list {
+    color: white;
+    width: var(--content-width);
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+#member-list-page #member-list th {
+    font-weight: 600;
+    padding: 10px;
+}
+
+#member-list-page #member-list tr {
+    border: solid 1px #aaa;
+}
+
+#member-list-page #member-list tr:hover {
+    background: var(--mid-grey);
+}
+
+#member-list-page #member-list td {
+    padding: 10px;
+}
+
+
 /* Miscellaneous */
 
 .hidden {

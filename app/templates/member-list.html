@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Member List
+{% endblock %}
+
+{% block main %}
+
+    <div id="member-list-page">
+
+        <div class="page-header">
+            <h2>ASOC Memberships</h2>
+            <p>Correct as at: {{ now }}</p>
+        </div>
+
+        <table id="member-list">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Student ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ member.first_name }}</td>
+                        <td>{{ member.last_name }}</td>
+                        <td>{{ member.student_id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+        
+{% endblock %}
