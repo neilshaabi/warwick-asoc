@@ -372,8 +372,6 @@ def settings():
                 sendEmailWithToken(
                     serialiser, mail, user.first_name, user.email, "Email Verification"
                 )
-                # flash('Success! Email verification instructions sent to {}'.format(email))
-                # return url_for('index')
                 session["email"] = email
                 return url_for("verify_email")
 
@@ -402,7 +400,7 @@ def member_list():
     members = (
         User.query.with_entities(User.first_name, User.last_name, User.student_id)
         .filter(User.membership != None)
-        .order_by(User.first_name)
+        .order_by(User.first_name, User.last_name)
         .all()
     )
 
