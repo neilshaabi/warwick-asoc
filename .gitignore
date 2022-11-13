@@ -1,8 +1,6 @@
-
 .DS_Store
 .venv/*
 asoc.sqlite
 app/__pycache__/*
 send_data.py
-PyWhatKit_DB.txt
 email_newsletter.py
