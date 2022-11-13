@@ -3,5 +3,5 @@
 .venv/*
 asoc.sqlite
 app/__pycache__/*
-whatsapp_script.py
+send_data.py
 PyWhatKit_DB.txt
