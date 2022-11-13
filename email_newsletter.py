@@ -1,10 +1,10 @@
-from smtplib import SMTP_SSL
 from os import system
+from smtplib import SMTP_SSL
 from email.message import EmailMessage
 
 # Sender email credentials
 SEND_FROM = "no-reply@warwick-asoc.co.uk"
-EMAIL_PASSWORD = "<password>"
+EMAIL_PASSWORD = ""
 
 FILEPATH = f"asoc_emails.csv"
 
@@ -19,7 +19,7 @@ system(
 # Create message object
 msg = EmailMessage()
 msg["From"] = SEND_FROM
-msg["To"] = "neilshaabi@gmail.com"
+msg["To"] = "anandtanisha@hotmail.com"
 msg["Subject"] = "ASOC Member Email Addresses"
 msg.set_content(
     """
