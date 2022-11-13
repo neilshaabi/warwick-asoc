@@ -9,6 +9,7 @@ EMAIL_PASSWORD = ""
 FILEPATH = f"asoc_emails.csv"
 
 # Retrieve data from heroku postgres db, write to csv file
+print("\nRetrieving data...")
 system(
     f"heroku pg:psql -a warwick-asoc \
         -c \"\copy \
@@ -35,10 +36,12 @@ with open(FILEPATH, "rb") as f:
     msg.add_attachment(f.read(), maintype="csv", subtype="csv", filename=FILEPATH)
 
 # Create server with SSL option to login and send email
+print("\nSending email...")
 server = SMTP_SSL("smtppro.zoho.eu", 465)
 server.login(SEND_FROM, EMAIL_PASSWORD)
 server.send_message(msg)
 server.quit()
+print("\nEmail sent!\n")
 
 # Delete csv file
 system(f"rm -rf {FILEPATH}")
