@@ -2,5 +2,3 @@
 .venv/*
 asoc.sqlite
 app/__pycache__/*
-send_data.py
-email_newsletter.py
