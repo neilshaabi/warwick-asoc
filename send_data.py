@@ -10,7 +10,7 @@ filepath = f"~/Desktop/asoc_{today}.csv"
 system(
     f"heroku pg:psql -a warwick-asoc \
         -c \"\copy ( \
-        SELECT first_name, last_name, membership, student_id, is_exec, verified  \
+        SELECT first_name, last_name, membership, student_id, is_exec, verified \
         FROM users \
         ORDER BY is_exec desc, membership, first_name \
             ) \
@@ -29,22 +29,22 @@ execMembers = pd.merge(members, exec, how="inner")
 nonExecMembers = pd.merge(members, nonExec, how="inner")
 
 # Format statistics
-msg = f"""\n*ASOC User Stats ({today})*
-(This is an automated message)\n
-Verified users: {len(verified)}
-Non-verified users: {len(df) - len(verified)}
-Total members: {len(members)}
+msg = f"""*ASOC User Stats ({today})*
+(This is an automated message)
+\n
+Total members: {len(members)}/{len(verified)}
 Exec memberships: {len(execMembers)}/{len(exec)}
-Non-exec memberships: {len(nonExecMembers)}/{len(nonExec)}\n"""
+Non-exec memberships: {len(nonExecMembers)}/{len(nonExec)}
+Non-verified users: {len(df) - len(verified)}\n"""
 
 
 # Send stats to ASOC Tech group chat
 print("Sending message to ASOC Tech group chat...")
-pywhatkit.sendwhatmsg_to_group_instantly("", msg)
+pywhatkit.sendwhatmsg_to_group_instantly("<group_link>", msg)
 
 # Print message
 print("Message sent:")
 print(msg)
 
-# Delete CSV file
+# Delete csv file
 system(f"rm -rf {filepath}")
