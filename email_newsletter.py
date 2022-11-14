@@ -41,7 +41,7 @@ server = SMTP_SSL("smtppro.zoho.eu", 465)
 server.login(SEND_FROM, EMAIL_PASSWORD)
 server.send_message(msg)
 server.quit()
-print("\nEmail sent!\n")
+print("Email sent!\n")
 
 # Delete csv file
 system(f"rm -rf {FILEPATH}")
