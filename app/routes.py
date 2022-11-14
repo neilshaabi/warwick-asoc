@@ -272,6 +272,12 @@ def events():
     return render_template("events.html")
 
 
+# Displays news page
+@app.route("/news")
+def news():
+    return render_template("news.html")
+
+
 # Displays team page
 @app.route("/team")
 def team():

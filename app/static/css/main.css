@@ -310,22 +310,26 @@ input:-webkit-autofill:focus {
 }
 
 
-/* Team page */
+/* News and team pages */
 
+#news-page .news-swiper,
 #team-page .team-swiper {
     width: calc(var(--content-width) - 50px);
     margin: 0 auto;
     padding-bottom: 50px;
 }
 
+#news-page .news-swiper .swiper-pagination-bullet,
 #team-page .team-swiper .swiper-pagination-bullet {
     background: white;
 }
 
+#news-page .news-swiper .swiper-slide,
 #team-page .team-swiper .swiper-slide {
     width: 100px;
 }
 
+#news-page .news-swiper .swiper-slide .content,
 #team-page .team-swiper .swiper-slide .content {
     color: white;
     height: 100%;
@@ -336,40 +340,68 @@ input:-webkit-autofill:focus {
     align-items: center;
 }
 
-@media only screen and (max-height: 415px) {
+@media only screen and (min-width: 992px) {
 
+    #news-page .news-swiper {
+        width: calc(var(--content-width) - 500px);
+    }
+}
+
+@media only screen and (max-height: 415px) {
+    
+    #news-page .news-swiper .swiper-slide .content,
     #team-page .team-swiper .swiper-slide .content {
         flex-direction: row;
     }
 
+    #news-page .news-swiper .swiper-slide .swiper-text,
     #team-page .team-swiper .swiper-slide .swiper-text {
         padding: 14px !important;
     }
 
 }
 
+#news-page .news-swiper .swiper-slide .content .swiper-img,
 #team-page .team-swiper .swiper-slide .content .swiper-img {
     height: 50vh;
     width: 100%;
 }
 
-#team-page .team-swiper .swiper-slide .swiper-img img {
+#news-page .news-swiper .swiper-slide .content .swiper-img {
+    overflow-y: auto;
+}
+
+#news-page .news-swiper .swiper-slide .swiper-img img,
+#team-page .team-swiper .swiper-slide .swiper-img img
+ {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
+#news-page .news-swiper .swiper-slide .swiper-img img {
+    height: auto;
+    object-position: center top;
+}
+
+#news-page .news-swiper .swiper-slide .swiper-text, 
 #team-page .team-swiper .swiper-slide .swiper-text {
     width: 100%;
     padding: 14px 0;
+    text-align: center;
+}
+
+#team-page .team-swiper .swiper-slide .swiper-text {
     text-align: left;
 }
 
+#news-page .news-swiper .swiper-slide .swiper-text .name,
 #team-page .team-swiper .swiper-slide .swiper-text .name {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
+#news-page .news-swiper .swiper-slide .swiper-text .role,
 #team-page .team-swiper .swiper-slide .swiper-text .role {
     color: var(--light-grey);
     font-size: 1rem;
