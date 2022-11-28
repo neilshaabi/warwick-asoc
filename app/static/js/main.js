@@ -37,7 +37,7 @@ $(document).ready(function() {
         grabCursor: 'true',
         spaceBetween: 25,
         // slidesPerView: 3,
-        slidesPerView: 1,
+        slidesPerView: 2,
         // loop: true,
 
         // autoplay: {
@@ -57,11 +57,11 @@ $(document).ready(function() {
             },
             700: {
                 // slidesPerView: 2
-                slidesPerView: 1
+                slidesPerView: 2
             },
             1150: {
                 // slidesPerView: 3
-                slidesPerView: 1
+                slidesPerView: 2
             }
         }
     });
