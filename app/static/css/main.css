@@ -329,6 +329,15 @@ input:-webkit-autofill:focus {
     width: 100px;
 }
 
+#team-page .team-toggle {
+    color: var(--light-grey);
+    cursor: pointer;
+}
+
+#team-page .active-toggle {
+    color: white;
+}
+
 #news-page .news-swiper .swiper-slide .content,
 #team-page .team-swiper .swiper-slide .content {
     color: white;

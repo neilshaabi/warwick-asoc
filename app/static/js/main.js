@@ -16,32 +16,38 @@ $(document).ready(function() {
     // Toggle between viewing student and associate membership info
     $('.membership-toggles').on('click', function(event) {
 
+        // Do nothing if selected toggle is already active
+        if ($(event.target).hasClass('active-toggle')) {
+            return;
+        }
+
         // Hide both sections initially
         $('.membership-info').hide();
 
         // Hide error message
         $('#error-alert').hide();
 
-        // Show section whose id contains the
+        // Show section whose id contains the matching membership type
         var id = (event.target.id).split('-')[0];
         $(".membership-info[id^='" + id + "']").show();
 
-        $('.toggle').removeClass('active-toggle');
+        // Update styling of selected toggle
+        $('.team-toggle').removeClass('active-toggle');
         $(event.target).addClass('active-toggle');
     });
 
+    // Toggle between viewing exec and frep photos
     $('.team-toggle').on('click', function(event) {
 
         // Hide both sections initially
         $('.team-swiper').hide();
 
-
-        // Show section whose id contains the
+        // Show swiper whose id contains the matching exec type
         var id = (event.target.id).split('-')[0];
-        console.log(id);
         $(".team-swiper[id^='" + id + "']").show();
 
-        $('.toggle').removeClass('active-toggle');
+        // Update styling of selected toggle
+        $('.team-toggle').removeClass('active-toggle');
         $(event.target).addClass('active-toggle');
     });
 
