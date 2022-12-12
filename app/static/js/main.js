@@ -16,16 +16,22 @@ $(document).ready(function() {
     // Toggle between viewing student and associate membership info
     $('.membership-toggles').on('click', function(event) {
 
+        // Do nothing if selected toggle is already active
+        if ($(event.target).hasClass('active-toggle')) {
+            return;
+        }
+
         // Hide both sections initially
         $('.membership-info').hide();
 
         // Hide error message
         $('#error-alert').hide();
 
-        // Show section whose id contains the
+        // Show section whose id contains the matching membership type
         var id = (event.target.id).split('-')[0];
         $(".membership-info[id^='" + id + "']").show();
 
+        // Update styling of selected toggle
         $('.toggle').removeClass('active-toggle');
         $(event.target).addClass('active-toggle');
     });
