@@ -30,6 +30,21 @@ $(document).ready(function() {
         $(event.target).addClass('active-toggle');
     });
 
+    $('.team-toggle').on('click', function(event) {
+
+        // Hide both sections initially
+        $('.team-swiper').hide();
+
+
+        // Show section whose id contains the
+        var id = (event.target.id).split('-')[0];
+        console.log(id);
+        $(".team-swiper[id^='" + id + "']").show();
+
+        $('.toggle').removeClass('active-toggle');
+        $(event.target).addClass('active-toggle');
+    });
+
     // News page swiper
     const newsSwiper = new Swiper('.news-swiper', {
 
