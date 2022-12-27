@@ -32,7 +32,22 @@ $(document).ready(function() {
         $(".membership-info[id^='" + id + "']").show();
 
         // Update styling of selected toggle
-        $('.toggle').removeClass('active-toggle');
+        $('.team-toggle').removeClass('active-toggle');
+        $(event.target).addClass('active-toggle');
+    });
+
+    // Toggle between viewing exec and frep photos
+    $('.team-toggle').on('click', function(event) {
+
+        // Hide both sections initially
+        $('.team-swiper').hide();
+
+        // Show swiper whose id contains the matching exec type
+        var id = (event.target.id).split('-')[0];
+        $(".team-swiper[id^='" + id + "']").show();
+
+        // Update styling of selected toggle
+        $('.team-toggle').removeClass('active-toggle');
         $(event.target).addClass('active-toggle');
     });
 
