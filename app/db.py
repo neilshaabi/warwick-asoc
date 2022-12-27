@@ -44,7 +44,7 @@ class User(UserMixin, db.Model):
 
 # Model of a team member (exec/frep) for database
 class TeamMember(db.Model):
-    __tablename__ = "teamMember"
+    __tablename__ = "team_members"
     id = db.Column(db.Integer, primary_key=True)
     order = db.Column(db.Integer)
     memberType = db.Column(db.Text)
