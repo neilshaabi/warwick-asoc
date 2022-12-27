@@ -17,444 +17,52 @@
             </p>
         </div>
 
+        <!-- Execs -->
         <div id="exec-swiper" class="swiper team-swiper">
             <div class="swiper-wrapper">
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/rishi.jpeg" alt="Rishi Jobanputra">
-                            <div class="team-img-overlay">
-                                <p>
-                                    sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing
-                                </p>
+                {% for member in execs %}
+                    <div class="swiper-slide">
+                        <div class="content">
+                            <div class="swiper-img">
+                                <img src="static/img/exec/{{ member.img }}" alt="{{ member.name }}">
+                                <div class="team-img-overlay">
+                                    <p>{{ member.bio }}</p>
+                                </div>
+                            </div>
+                            <div class="swiper-text">
+                                <div class="name">{{ member.name }}</div>
+                                <div class="role">{{ member.role }}</div>
                             </div>
                         </div>
-                        <div class="swiper-text">
-                            <div class="name">Rishi Jobanputra</div>
-                            <div class="role">Co-President</div>
-                        </div>
                     </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/vishali.jpeg" alt="Vishali Poojara">
-                            <div class="team-img-overlay">
-                                <p>
-                                    sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing
-                                </p>
-                            </div>
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Vishali Poojara</div>
-                            <div class="role">Co-President</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/bela.jpeg" alt="Bela Bhagat">
-                            <div class="team-img-overlay">
-                                <p>
-                                    sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing
-                                </p>
-                            </div>
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Bela Bhagat</div>
-                            <div class="role">Vice-President and Secretary</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/ish.jpeg" alt="Ish Mann">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Ish Mann</div>
-                            <div class="role">Ball Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/meera.jpeg" alt="Meera Thakrar">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Meera Thakrar</div>
-                            <div class="role">Ball Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/kush.jpeg" alt="Kush Nathwani">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Kush Nathwani</div>
-                            <div class="role">Careers Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/tanisha.jpeg" alt="Tanisha Anand">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Tanisha Anand</div>
-                            <div class="role">Careers Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/aashni.jpeg" alt="Aashni Thakrar">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Aashni Thakrar</div>
-                            <div class="role">Charities Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/saiesha.jpeg" alt="Saiesha Suri">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Saiesha Suri</div>
-                            <div class="role">Charities Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/sahil.jpeg" alt="Sahil Gupta">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Sahil Gupta</div>
-                            <div class="role">Diversity and Inclusion Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/shivam.jpeg" alt="Shivam Depala">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Shivam Depala</div>
-                            <div class="role">Events Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/surina.jpeg" alt="Surina Rumpal">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Surina Rumpal</div>
-                            <div class="role">Events Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/neilm.jpeg" alt="Neil Mitra">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Neil Mitra</div>
-                            <div class="role">Marketing Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/pranav.jpeg" alt="Pranav Mattipalli">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Pranav Mattipalli</div>
-                            <div class="role">Marketing Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/rohan.jpeg" alt="Rohan Patel">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Rohan Patel</div>
-                            <div class="role">Marketing Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/avi.jpeg" alt="Avi Modi">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Avi Modi</div>
-                            <div class="role">Speakers Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/rhia.jpeg" alt="Rhia Shah">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Rhia Shah</div>
-                            <div class="role">Sports Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/khush.jpeg" alt="Khush Pau">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Khush Pau</div>
-                            <div class="role">Sports Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/neils.jpeg" alt="Neil Shaabi">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Neil Shaabi</div>
-                            <div class="role">Technology Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/adam.jpeg" alt="Adam Syed">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Adam Syed</div>
-                            <div class="role">Technology Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/arjav.jpeg" alt="Arjav Vora">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Arjav Vora</div>
-                            <div class="role">Tour Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/lyla.jpeg" alt="Lyla Younis">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Lyla Younis</div>
-                            <div class="role">Tour Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/gaurav.jpeg" alt="Gaurav Pant">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Gaurav Pant</div>
-                            <div class="role">Treasurer</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/exec/jai.jpeg" alt="Jai Tapuria">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Jai Tapuria</div>
-                            <div class="role">Welfare Coordinator</div>
-                        </div>
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
             <div class="swiper-pagination"></div>
         </div>
 
 
+        <!-- Freps -->
         <div id="frep-swiper" class="swiper team-swiper hidden">
             <div class="swiper-wrapper">
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/riki.jpeg" alt="Riki Bains">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Riki Bains</div>
-                            <div class="role">Careers Representative</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/priya.jpeg" alt="Priya Shah">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Priya Shah</div>
-                            <div class="role">Charities Representative</div>
+                {% for member in freps %}
+                    <div class="swiper-slide">
+                        <div class="content">
+                            <div class="swiper-img">
+                                <img src="static/img/freps/{{ member.img }}" alt="{{ member.name }}">
+                                <div class="team-img-overlay">
+                                    <p>{{ member.bio }}</p>
+                                </div>
+                            </div>
+                            <div class="swiper-text">
+                                <div class="name">{{ member.name }}</div>
+                                <div class="role">{{ member.role }}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/zoey.jpeg" alt="Zoey Jaffri">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Zoey Jaffri</div>
-                            <div class="role">Diversity and Inclusion Representative</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/maanya.jpeg" alt="Maanya Gupta">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Maanya Gupta</div>
-                            <div class="role">Events Representative</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/nikisha.jpeg" alt="Nikisha Patel">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Nikisha Patel</div>
-                            <div class="role">Marketing Representative</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/krish.jpeg" alt="Krish Mamtora">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Krish Mamtora</div>
-                            <div class="role">Speakers Representative</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/aaren.jpeg" alt="Aaren Patel">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Aaren Patel</div>
-                            <div class="role">Sports Representative</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/parth.jpeg" alt="Parth S. Poudel">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Parth S. Poudel</div>
-                            <div class="role">Technology Representative</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/jai.jpeg" alt="Jai Saha">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Jai Saha</div>
-                            <div class="role">Tour Representative</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/img/freps/jay.jpeg" alt="Jay Masani">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Jay Masani</div>
-                            <div class="role">Welfare Representative</div>
-                        </div>
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
             <div class="swiper-pagination"></div>
         </div>
-
 
     </div>
 

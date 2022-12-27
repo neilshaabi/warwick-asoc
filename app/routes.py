@@ -5,7 +5,7 @@ from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import app, mail, serialiser
-from app.db import db, User
+from app.db import db, User, TeamMember
 from app.utils import (
     isValidStudentID,
     isValidPassword,
@@ -281,7 +281,9 @@ def news():
 # Displays team page
 @app.route("/team")
 def team():
-    return render_template("team.html")
+    execs = TeamMember.query.filter_by(memberType="exec").order_by(TeamMember.order).all()
+    freps = TeamMember.query.filter_by(memberType="frep").order_by(TeamMember.order).all()
+    return render_template("team.html", execs=execs, freps=freps)
 
 
 # Displays contact page
