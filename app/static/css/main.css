@@ -408,6 +408,47 @@ input:-webkit-autofill:focus {
     font-weight: 400;
 }
 
+#team-page .team-swiper .swiper-slide .swiper-img .img_overlay{
+    position: absolute;
+    top :0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+    backdrop-filter: blur(0.1em);
+}
+
+#team-page .team-swiper .swiper-slide .swiper-img .img_overlay:hover{
+    opacity: 1;
+}
+
+#team-page .team-swiper .swiper-slide .swiper-img .img_overlay .img_title{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#team-page .team-swiper .swiper-slide .swiper-img .img_overlay p{
+    font-size: 1.25em;
+    margin-top: 0.25em;
+}
+
+#team-page .team-swiper .swiper-slide .swiper-img .img_overlay > * {
+    transform: translateY(25px);
+    transition: transform 0.5s;
+}
+
+#team-page .team-swiper .swiper-slide .swiper-img .img_overlay:hover > * {
+    transform: translateY(0px);
+}
+
 
 /* Contact page */
 
