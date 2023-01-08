@@ -34,5 +34,5 @@ class ProductionConfig(Config):
 # Config values for running app in development
 class DevelopmentConfig(Config):
     DEBUG = True
-    RESET_DB = environ["RESET_DB"] or True
+    RESET_DB = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///asoc.sqlite"
