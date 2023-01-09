@@ -57,8 +57,7 @@ $(document).ready(function() {
         direction: 'horizontal',
         grabCursor: 'true',
         spaceBetween: 25,
-        // slidesPerView: 3,
-        slidesPerView: 2,
+        slidesPerView: 3,
         // loop: true,
 
         // autoplay: {
@@ -77,12 +76,10 @@ $(document).ready(function() {
                 slidesPerView: 1
             },
             700: {
-                // slidesPerView: 2
                 slidesPerView: 2
             },
             1150: {
-                // slidesPerView: 3
-                slidesPerView: 2
+                slidesPerView: 3
             }
         }
     });
