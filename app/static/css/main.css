@@ -464,8 +464,15 @@ input:-webkit-autofill:focus {
 
 /* Member list page */
 
+#member-list-page #search {
+    width: 400px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
 #member-list-page #member-list {
     color: white;
+    font-size: 0.9rem;
     width: var(--content-width);
     margin: 0 auto;
     border-collapse: collapse;

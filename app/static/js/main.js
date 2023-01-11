@@ -117,4 +117,36 @@ $(document).ready(function() {
         }
     });
 
+
+    // Member list search bar
+    $("#search").keyup(function() {
+    
+        var input = $("#search").val().toLowerCase();
+        var rows = $("tbody > tr");
+
+        // Show all rows initially
+        $(rows).show();
+        
+        // Do not hide any rows if search term is empty
+        if (input == "") {
+            return;
+        }
+
+        // Iterate through all rows
+        for (var i = 0; i < rows.length; i++) {
+
+            var thisRow = rows[i];
+            var cells = thisRow.getElementsByTagName('td');
+
+            var fullName = (cells[1].innerText + " " + cells[2].innerText).toLowerCase();
+            var studentID = cells[3].innerText;
+
+            // Hide row if it does not contain the search term
+            if (!fullName.includes(input) && !studentID.includes(input)) {
+                $(thisRow).hide();
+            }
+        }
+        
+      });
+
 });
