@@ -119,7 +119,7 @@ $(document).ready(function() {
 
 
     // Member list search bar
-    $("#search").on('keyup input', function() {
+    $("#search").on('input', function() {
     
         var input = $("#search").val().toLowerCase();
         var rows = $("tbody > tr");
