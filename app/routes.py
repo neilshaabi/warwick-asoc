@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for, session, flash, j
 from flask_login import login_user, current_user, logout_user, login_required
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
+import os
 
 from app import app, mail, serialiser
 from app.db import db, User, TeamMember
@@ -12,6 +13,7 @@ from app.utils import (
     sendEmailWithToken,
     sendContactEmail,
 )
+
 
 
 # Logs user out
@@ -272,6 +274,21 @@ def events():
     return render_template("events.html")
 
 
+# Displays Gallery page
+@app.route("/gallery")
+def gallery():
+    return render_template("gallery.html")
+
+# Displays photos page
+@app.route("/photos/<event_name>/<event_date>", methods=["GET", "POST"])
+def photos(event_name,event_date):
+        eventName = str(event_name)
+        filePath = os.path.dirname(__file__) #gets the path for the directory of the current file
+        eventDate = str(event_date)
+        imageFiles = os.listdir(filePath+"/static/img/"+eventName) #gets the list of files on the directory of the path
+        return render_template("photos.html",event_name=eventName,event_date=eventDate,files=imageFiles)
+
+       
 # Displays news page
 @app.route("/news")
 def news():

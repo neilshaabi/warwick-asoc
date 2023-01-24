@@ -120,4 +120,37 @@ $(document).ready(function() {
         }
     });
 
+    //photos-swiper
+    const photosSwiper = new Swiper('.photos-swiper', {
+
+        direction: 'horizontal',
+        grabCursor: 'true',
+        spaceBetween: 25,
+        slidesPerView: 3,
+        loop: true,
+
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+
+        pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true,
+            clickable: true,
+        },
+
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            700: {
+                slidesPerView: 2
+            },
+            1150: {
+                slidesPerView: 3
+            }
+        }
+    });
+
 });
