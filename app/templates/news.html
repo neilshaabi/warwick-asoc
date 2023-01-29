@@ -16,41 +16,19 @@
         <div class="swiper news-swiper">
             <div class="swiper-wrapper">
 
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/newsletters/newsletter_1.png" alt="Newsletter 1">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Newsletter 1</div>
-                            <div class="role">Term 1: Week 7</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/newsletters/newsletter_2.png" alt="Newsletter 2">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Newsletter 2</div>
-                            <div class="role">Term 1: Week 9</div>
+                {% for newsletter in newsletters %}
+                    <div class="swiper-slide">
+                        <div class="content">
+                            <div class="swiper-img">
+                                <img src="static/newsletters/{{ newsletter[0] }}" alt="Newsletter 1">
+                            </div>
+                            <div class="swiper-text">
+                                <div class="name">Newsletter {{ loop.index + 1 }}</div>
+                                <div class="role">{{ newsletter[1] }}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="static/newsletters/newsletter_3.png" alt="Newsletter 3">
-                        </div>
-                        <div class="swiper-text">
-                            <div class="name">Newsletter 3</div>
-                            <div class="role">Term 2: Week 1</div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
 
             </div>
             <div class="swiper-pagination"></div>
