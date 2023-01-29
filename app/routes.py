@@ -15,7 +15,6 @@ from app.utils import (
 )
 
 
-
 # Logs user out
 @app.route("/logout")
 def logout():
@@ -279,16 +278,19 @@ def events():
 def gallery():
     return render_template("gallery.html")
 
-# Displays photos page
-@app.route("/photos/<event_name>/<event_date>", methods=["GET", "POST"])
-def photos(event_name,event_date):
-        eventName = str(event_name)
-        filePath = os.path.dirname(__file__) #gets the path for the directory of the current file
-        eventDate = str(event_date)
-        imageFiles = os.listdir(filePath+"/static/img/"+eventName) #gets the list of files on the directory of the path
-        return render_template("photos.html",event_name=eventName,event_date=eventDate,files=imageFiles)
 
-       
+# Displays photos page
+@app.route("/photos/<eventName>/<eventDate>", methods=["GET", "POST"])
+def photos(eventName, eventDate):
+
+    # Get filenames of images stored in corresponding event folder
+    filePath = os.path.dirname(__file__)
+    files = os.listdir(filePath + "/static/img/" + eventName)
+    return render_template(
+        "photos.html", event_name=eventName, event_date=eventDate, files=files
+    )
+
+
 # Displays news page
 @app.route("/news")
 def news():
@@ -298,8 +300,12 @@ def news():
 # Displays team page
 @app.route("/team")
 def team():
-    execs = TeamMember.query.filter_by(memberType="exec").order_by(TeamMember.order).all()
-    freps = TeamMember.query.filter_by(memberType="frep").order_by(TeamMember.order).all()
+    execs = (
+        TeamMember.query.filter_by(memberType="exec").order_by(TeamMember.order).all()
+    )
+    freps = (
+        TeamMember.query.filter_by(memberType="frep").order_by(TeamMember.order).all()
+    )
     return render_template("team.html", execs=execs, freps=freps)
 
 

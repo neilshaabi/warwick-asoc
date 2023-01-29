@@ -1,59 +1,57 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Membership
+    Gallery
 {% endblock %}
 
 {% block main %}
-<div id="gallery-page">
-    <div class="page-header">
-        <h1> Gallery </h1>
-        <p>Relive memories from this year</p>
-    </div>
 
-    <div class="gallery-container container-fluid">
-        <div class="row event">
-            <div class="event-photos col-lg-6">
-                <img src="static/img/exec/rishi.jpeg" alt="event photo" style='height: 100%; width: 100%; object-fit: contain'>
-            </div>
-            <div class="event-details col-lg-6">
-                <h1> Event </h1>
-                <p class="Dates"> Dates </p>
-                <a href="/photos/event1/01-02-03" class="btn btn-primary"> View </a>
-            </div>
+    <div id="gallery-page">
+        
+        <div class="page-header">
+            <h1>Gallery</h1>
+            <p>Relive your favourite memories from this year</p>
         </div>
 
-
-        <div class="row event">
-            <div class="event-details col-lg-6">
-                <h1> Event </h1>
-                <p class="Dates"> Dates </p>
-                <a href="/photos/event2/01-02-03" class="btn btn-primary"> View </a>
-            </div>
-            <div class="event-photos col-lg-6">
-                <img src="static/img/exec/rishi.jpeg" alt="event photo" style='height: 100%; width: 100%; object-fit: contain'>
-            </div>
-
-        </div>
-
-
-        <div class="row event">
-            <div class="event-photos col-lg-6">
-                <img src="static/img/exec/rishi.jpeg" alt="event photo" style='height: 100%; width: 100%; object-fit: contain'>
+            <div class="gallery-container container-fluid">
                 
-            </div>
-            <div class="event-details col-lg-6">
-                <h1> Event </h1>
-                <p class="Dates"> Dates </p>
-                <a href="/photos/event3/01-02-03" class="btn btn-primary"> View </a>
-         
-            </div>
+                <div class="row event">
+                    <div class="event-thumbnail col-lg-6">
+                        <img src="static/img/exec/rishi.jpeg" alt="event photo" style='height: 100%; width: 100%; object-fit: contain'>
+                    </div>
+                    <div class="event-details col-lg-6">
+                        <h2>Event</h2>
+                        <p class="subtitle">Dates</p>
+                        <a href="/photos/event1/01-02-03" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+
+
+                <div class="row event">
+                    <div class="event-details col-lg-6">
+                        <h2>Event</h2>
+                        <p class="subtitle">Dates</p>
+                        <a href="/photos/event2/01-02-03" class="btn btn-primary">View</a>
+                    </div>
+                    <div class="event-thumbnail col-lg-6">
+                        <img src="static/img/exec/rishi.jpeg" alt="event photo" style='height: 100%; width: 100%; object-fit: contain'>
+                    </div>
+                </div>
+
+
+                <div class="row event">
+                    <div class="event-thumbnail col-lg-6">
+                        <img src="static/img/exec/rishi.jpeg" alt="event photo" style='height: 100%; width: 100%; object-fit: contain'>
+                    </div>
+                    <div class="event-details col-lg-6">
+                        <h2>Event</h2>
+                        <p class="subtitle">Dates</p>
+                        <a href="/photos/event3/01-02-03" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+
         </div>
 
     </div>
-
-</div>
-
-
 
 {% endblock %}

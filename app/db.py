@@ -52,6 +52,7 @@ class TeamMember(db.Model):
     role = db.Column(db.Text)
     bio = db.Column(db.Text)
     img = db.Column(db.Text)
+
     def __init__(
         self,
         order,
@@ -71,7 +72,7 @@ class TeamMember(db.Model):
 
 # Insert dummy data into tables
 def insertTestData():
-    
+
     # # Sample list of users
     # users = [
     #     User(
@@ -107,7 +108,7 @@ def insertTestData():
             "Rishi Jobanputra",
             "Co-President",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "rishi.jpeg"
+            "rishi.jpeg",
         ),
         TeamMember(
             2,
@@ -115,7 +116,7 @@ def insertTestData():
             "Vishali Poojara",
             "Co-President",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "vishali.jpeg"
+            "vishali.jpeg",
         ),
         TeamMember(
             3,
@@ -123,7 +124,7 @@ def insertTestData():
             "Bela Bhagata",
             "Vice-President and Secretary",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "bela.jpeg"
+            "bela.jpeg",
         ),
         TeamMember(
             4,
@@ -131,7 +132,7 @@ def insertTestData():
             "Ish Mann",
             "Ball Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "ish.jpeg"
+            "ish.jpeg",
         ),
         TeamMember(
             5,
@@ -139,7 +140,7 @@ def insertTestData():
             "Meera Thakrar",
             "Ball Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "meera.jpeg"
+            "meera.jpeg",
         ),
         TeamMember(
             6,
@@ -147,7 +148,7 @@ def insertTestData():
             "Kush Nathwani",
             "Careers Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "kush.jpeg"
+            "kush.jpeg",
         ),
         TeamMember(
             7,
@@ -155,7 +156,7 @@ def insertTestData():
             "Tanisha Anand",
             "Careers Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "tanisha.jpeg"
+            "tanisha.jpeg",
         ),
         TeamMember(
             8,
@@ -163,7 +164,7 @@ def insertTestData():
             "Aashni Thakrar",
             "Charities Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "aashni.jpeg"
+            "aashni.jpeg",
         ),
         TeamMember(
             9,
@@ -171,7 +172,7 @@ def insertTestData():
             "Saiesha Suri",
             "Charities Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "saiesha.jpeg"
+            "saiesha.jpeg",
         ),
         TeamMember(
             10,
@@ -179,7 +180,7 @@ def insertTestData():
             "Sahil Gupta",
             "Diversity and Inclusion Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "sahil.jpeg"
+            "sahil.jpeg",
         ),
         TeamMember(
             11,
@@ -187,7 +188,7 @@ def insertTestData():
             "Shivam Depala",
             "Events Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "shivam.jpeg"
+            "shivam.jpeg",
         ),
         TeamMember(
             12,
@@ -195,7 +196,7 @@ def insertTestData():
             "Surina Rumpal",
             "Events Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "surina.jpeg"
+            "surina.jpeg",
         ),
         TeamMember(
             13,
@@ -203,7 +204,7 @@ def insertTestData():
             "Neil Mitra",
             "Marketing Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "neilm.jpeg"
+            "neilm.jpeg",
         ),
         TeamMember(
             14,
@@ -211,7 +212,7 @@ def insertTestData():
             "Pranav Mattipalli",
             "Marketing Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "pranav.jpeg"
+            "pranav.jpeg",
         ),
         TeamMember(
             15,
@@ -219,7 +220,7 @@ def insertTestData():
             "Rohan Patel",
             "Marketing Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "rohan.jpeg"
+            "rohan.jpeg",
         ),
         TeamMember(
             16,
@@ -227,7 +228,7 @@ def insertTestData():
             "Avi Modi",
             "Speakers Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "avi.jpeg"
+            "avi.jpeg",
         ),
         TeamMember(
             17,
@@ -235,7 +236,7 @@ def insertTestData():
             "Rhia Shah",
             "Sports Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "rhia.jpeg"
+            "rhia.jpeg",
         ),
         TeamMember(
             18,
@@ -243,7 +244,7 @@ def insertTestData():
             "Khush Pau",
             "Sports Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "khush.jpeg"
+            "khush.jpeg",
         ),
         TeamMember(
             19,
@@ -251,7 +252,7 @@ def insertTestData():
             "Neil Shaabi",
             "Technology Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "neils.jpeg"
+            "neils.jpeg",
         ),
         TeamMember(
             20,
@@ -259,7 +260,7 @@ def insertTestData():
             "Adam Syed",
             "Technology Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "adam.jpeg"
+            "adam.jpeg",
         ),
         TeamMember(
             21,
@@ -267,7 +268,7 @@ def insertTestData():
             "Arjav Vora",
             "Tour Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "arjav.jpeg"
+            "arjav.jpeg",
         ),
         TeamMember(
             22,
@@ -275,7 +276,7 @@ def insertTestData():
             "Lyla Younis",
             "Tour Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "lyla.jpeg"
+            "lyla.jpeg",
         ),
         TeamMember(
             23,
@@ -283,7 +284,7 @@ def insertTestData():
             "Gaurav Pant",
             "Treasurer",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "gaurav.jpeg"
+            "gaurav.jpeg",
         ),
         TeamMember(
             24,
@@ -291,11 +292,10 @@ def insertTestData():
             "Jai Tapuria",
             "Welfare Coordinator",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "jai.jpeg"
+            "jai.jpeg",
         ),
     ]
     db.session.add_all(execs)
-
 
     # List of freps
     freps = [
@@ -305,7 +305,7 @@ def insertTestData():
             "Riki Bains",
             "Careers Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "riki.jpeg"
+            "riki.jpeg",
         ),
         TeamMember(
             2,
@@ -313,7 +313,7 @@ def insertTestData():
             "Priya Shah",
             "Charities Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "priya.jpeg"
+            "priya.jpeg",
         ),
         TeamMember(
             3,
@@ -321,7 +321,7 @@ def insertTestData():
             "Zoey Jaffri",
             "Diversity and Inclusion Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "zoey.jpeg"
+            "zoey.jpeg",
         ),
         TeamMember(
             4,
@@ -329,7 +329,7 @@ def insertTestData():
             "Maanya Gupta",
             "Events Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "maanya.jpeg"
+            "maanya.jpeg",
         ),
         TeamMember(
             5,
@@ -337,7 +337,7 @@ def insertTestData():
             "Nikisha Patel",
             "Marketing Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "nikisha.jpeg"
+            "nikisha.jpeg",
         ),
         TeamMember(
             6,
@@ -345,7 +345,7 @@ def insertTestData():
             "Krish Mamtora",
             "Speakers Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "krish.jpeg"
+            "krish.jpeg",
         ),
         TeamMember(
             7,
@@ -353,7 +353,7 @@ def insertTestData():
             "Aaren Patel",
             "Sports Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "aaren.jpeg"
+            "aaren.jpeg",
         ),
         TeamMember(
             8,
@@ -361,7 +361,7 @@ def insertTestData():
             "Parth S. Poudel",
             "Technology Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "parth.jpeg"
+            "parth.jpeg",
         ),
         TeamMember(
             9,
@@ -369,7 +369,7 @@ def insertTestData():
             "Jai Saha",
             "Tour Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "jai.jpeg"
+            "jai.jpeg",
         ),
         TeamMember(
             10,
@@ -377,8 +377,8 @@ def insertTestData():
             "Jay Masani",
             "Welfare Representative",
             "sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing",
-            "jay.jpeg"
-        ),   
+            "jay.jpeg",
+        ),
     ]
     db.session.add_all(freps)
 

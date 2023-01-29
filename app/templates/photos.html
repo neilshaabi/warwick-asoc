@@ -1,32 +1,33 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Membership
+    {{ event_name + " Photos" }}
 {% endblock %}
 
 {% block main %}
 
-<div id="photos-page">
-    <div class="page-header">
-        <h1> {{ event_name }} </h1>
-        <p>{{ event_date }}</p>
-    </div>
-    
-    <div class="swiper photos-swiper">
-        <div class="swiper-wrapper">
-            {%for file in files%}
-                <div class="swiper-slide">
-                    <div class="content">
-                        <div class="swiper-img">
-                            <img src="/static/img/{{ event_name }}/{{ file }}" alt="event">
+    <div id="photos-page">
+        
+        <div class="page-header">
+            <h1>{{ event_name }}</h1>
+            <p>{{ event_date }}</p>
+        </div>
+        
+        <div class="swiper photos-swiper">
+            <div class="swiper-wrapper">
+                {% for file in files %}
+                    <div class="swiper-slide">
+                        <div class="content">
+                            <div class="swiper-img">
+                                <img src="/static/img/{{ event_name }}/{{ file }}" alt="Image from event">
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-pagination"></div>
-    </div>
 
-</div>
+    </div>
 
 {% endblock %}
