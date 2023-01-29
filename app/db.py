@@ -72,32 +72,32 @@ class TeamMember(db.Model):
 # Insert dummy data into tables
 def insertTestData():
     
-    # # Sample list of users
-    # users = [
-    #     User(
-    #         "neilshaabi@gmail.com",
-    #         generate_password_hash("n"),
-    #         "Neil",
-    #         "Shaabi",
-    #         date.today(),
-    #         "Student",
-    #         2138843,
-    #         True,
-    #         True,
-    #     ),
-    #     User(
-    #         "neil.shaabi@warwick.ac.uk",
-    #         generate_password_hash("n"),
-    #         "John",
-    #         "Doe",
-    #         date.today(),
-    #         "Associate",
-    #         None,
-    #         True,
-    #         False,
-    #     ),
-    # ]
-    # db.session.add_all(users)
+    # Sample list of users
+    users = [
+        User(
+            "neilshaabi@gmail.com",
+            generate_password_hash("n"),
+            "Neil",
+            "Shaabi",
+            date.today(),
+            "Student",
+            2138843,
+            True,
+            True,
+        ),
+        User(
+            "neil.shaabi@warwick.ac.uk",
+            generate_password_hash("n"),
+            "John",
+            "Doe",
+            date.today(),
+            "Associate",
+            None,
+            True,
+            False,
+        ),
+    ]
+    db.session.add_all(users)
 
     # List of exec members
     execs = [

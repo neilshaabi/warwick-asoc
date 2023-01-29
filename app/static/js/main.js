@@ -57,18 +57,17 @@ $(document).ready(function() {
         direction: 'horizontal',
         grabCursor: 'true',
         spaceBetween: 25,
-        // slidesPerView: 3,
-        slidesPerView: 2,
-        // loop: true,
+        slidesPerView: 3,
+        loop: true,
 
-        // autoplay: {
-        //     delay: 2500,
-        //     disableOnInteraction: false,
-        // },
+        autoplay: {
+             delay: 2500,
+             disableOnInteraction: false,
+        },
 
         pagination: {
             el: '.swiper-pagination',
-            // dynamicBullets: true,
+            dynamicBullets: true,
             clickable: true,
         },
 
@@ -77,12 +76,10 @@ $(document).ready(function() {
                 slidesPerView: 1
             },
             700: {
-                // slidesPerView: 2
                 slidesPerView: 2
             },
             1150: {
-                // slidesPerView: 3
-                slidesPerView: 2
+                slidesPerView: 3
             }
         }
     });
@@ -120,7 +117,7 @@ $(document).ready(function() {
         }
     });
 
-    //photos-swiper
+    // Photo page swiper
     const photosSwiper = new Swiper('.photos-swiper', {
 
         direction: 'horizontal',
@@ -152,5 +149,36 @@ $(document).ready(function() {
             }
         }
     });
+
+    // Member list search bar
+    $("#search").on('input', function() {
+    
+        var input = $("#search").val().toLowerCase();
+        var rows = $("tbody > tr");
+
+        // Show all rows initially
+        $(rows).show();
+        
+        // Do not hide any rows if search term is empty
+        if (input == "") {
+            return;
+        }
+
+        // Iterate through all rows
+        for (var i = 0; i < rows.length; i++) {
+
+            var thisRow = rows[i];
+            var cells = thisRow.getElementsByTagName('td');
+
+            var fullName = (cells[1].innerText + " " + cells[2].innerText).toLowerCase();
+            var studentID = cells[3].innerText;
+
+            // Hide row if it does not contain the search term
+            if (!fullName.includes(input) && !studentID.includes(input)) {
+                $(thisRow).hide();
+            }
+        }
+        
+      });
 
 });
