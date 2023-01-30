@@ -275,14 +275,25 @@ def events():
 # Displays news page
 @app.route("/news")
 def news():
-    return render_template("news.html")
+    newsletters = [
+        ("newsletter_1.png", "Term 1: Week 7"),
+        ("newsletter_2.png", "Term 1: Week 9"),
+        ("newsletter_3.png", "Term 2: Week 1"),
+        ("newsletter_4.png", "Term 2: Week 4"),
+    ]
+
+    return render_template("news.html", newsletters=newsletters)
 
 
 # Displays team page
 @app.route("/team")
 def team():
-    execs = TeamMember.query.filter_by(memberType="exec").order_by(TeamMember.order).all()
-    freps = TeamMember.query.filter_by(memberType="frep").order_by(TeamMember.order).all()
+    execs = (
+        TeamMember.query.filter_by(memberType="exec").order_by(TeamMember.order).all()
+    )
+    freps = (
+        TeamMember.query.filter_by(memberType="frep").order_by(TeamMember.order).all()
+    )
     return render_template("team.html", execs=execs, freps=freps)
 
 

@@ -57,17 +57,17 @@ $(document).ready(function() {
         direction: 'horizontal',
         grabCursor: 'true',
         spaceBetween: 25,
-        slidesPerView: 3,
-        // loop: true,
+        slidesPerView: 2,
+        loop: true,
 
-        // autoplay: {
-        //     delay: 2500,
-        //     disableOnInteraction: false,
-        // },
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
 
         pagination: {
             el: '.swiper-pagination',
-            // dynamicBullets: true,
+            dynamicBullets: true,
             clickable: true,
         },
 
@@ -77,9 +77,6 @@ $(document).ready(function() {
             },
             700: {
                 slidesPerView: 2
-            },
-            1150: {
-                slidesPerView: 3
             }
         }
     });
