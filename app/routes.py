@@ -285,9 +285,18 @@ def photos(eventName, eventDate):
 
     # Get filenames of images stored in corresponding event folder
     filePath = os.path.dirname(__file__)
-    files = os.listdir(filePath + "/static/img/" + eventName)
+    files = os.listdir(filePath + "/static/img/events/" + eventName)
+
+    # Format date
+    dateSplit = [int(d) for d in eventDate.split("-")]
+    formattedDate = date(day=dateSplit[0], month=dateSplit[1], year=dateSplit[2]).strftime('%A %d %B %Y')
+
+    # Format event name
+    eventNameSplit = eventName.split("_")
+    formattedEventName = (" ".join(eventNameSplit)).title()
+
     return render_template(
-        "photos.html", event_name=eventName, event_date=eventDate, files=files
+        "photos.html", event_name=formattedEventName, event_date=formattedDate, folder_name=eventName, files=files
     )
 
 
