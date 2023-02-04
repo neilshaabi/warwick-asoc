@@ -123,7 +123,7 @@ $(document).ready(function() {
         direction: 'horizontal',
         grabCursor: 'true',
         spaceBetween: 25,
-        slidesPerView: 3,
+        slidesPerView: "1",
         loop: true,
 
         autoplay: {
@@ -137,17 +137,7 @@ $(document).ready(function() {
             clickable: true,
         },
 
-        breakpoints: {
-            0: {
-                slidesPerView: 1
-            },
-            700: {
-                slidesPerView: 2
-            },
-            1150: {
-                slidesPerView: 3
-            }
-        }
+
     });
 
     // Member list search bar
