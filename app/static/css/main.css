@@ -317,17 +317,21 @@ input:-webkit-autofill:focus {
     max-width: 70%;
 }
 
-#gallery-page .gallery-container .event {
-    padding: 4%;
+#gallery-page .gallery-container .event-container {
     max-height: 30%;
 }
 
-#gallery-page .gallery-container .event .event-thumbnail {
+#gallery-page .gallery-container .row > *  {
+    padding: 0;
+}
+
+#gallery-page .gallery-container .event-container .event-thumbnail {
     height: 50vh;
     background-color: var(--mid-grey);                                        
 }
 
-#gallery-page .gallery-container .event .event-details {
+#gallery-page .gallery-container .event-container .event-details {
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -407,21 +411,12 @@ input:-webkit-autofill:focus {
 }
 
 #news-page .news-swiper .swiper-slide .content .swiper-img,
-#team-page .team-swiper .swiper-slide .content .swiper-img{
+#team-page .team-swiper .swiper-slide .content .swiper-img {
     height: 50vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-#photos-page .photos-swiper .swiper-slide .content .swiper-img{
-    height: 50vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
 }
 
 #news-page .news-swiper .swiper-slide .content .swiper-img {
@@ -434,14 +429,6 @@ input:-webkit-autofill:focus {
     width: 100%;
     object-fit: cover;
   
-}
-
-#photos-page .photos-swiper .swiper-slide .content .swiper-img img {
-    height: 100%;
-    width: 100%;
-    width: auto;
-    
-
 }
 
 #news-page .news-swiper .swiper-slide .swiper-img img {
@@ -502,6 +489,31 @@ input:-webkit-autofill:focus {
 
 #team-page .team-swiper .swiper-slide .swiper-img .team-img-overlay:hover > * {
     transform: translateY(0px);
+}
+
+
+/* Photos page */
+
+#photos-page a {
+    color: var(--light-grey);
+}
+
+#photos-page a:hover {
+    color: white;
+}
+
+#photos-page .photos-swiper .swiper-slide .content .swiper-img {
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#photos-page .photos-swiper .swiper-slide .content .swiper-img img {
+    height: 100%;
+    width: 100%;
+    width: auto;
 }
 
 
