@@ -327,7 +327,8 @@ input:-webkit-autofill:focus {
 
 #gallery-page .gallery-container .event-container .event-thumbnail {
     height: 50vh;
-    background-color: var(--mid-grey);                                        
+    background-color: var(--mid-grey);
+                                         
 }
 
 #gallery-page .gallery-container .event-container .event-details {
@@ -514,6 +515,30 @@ input:-webkit-autofill:focus {
     height: 100%;
     width: 100%;
     width: auto;
+}
+
+
+
+@media only screen and (max-width: 685px) {
+
+    #photos-page .photos-swiper {
+        width: calc(90%);
+        margin: 0 auto;
+        padding-bottom: 50px;
+
+    }
+
+    #photos-page .photos-swiper .swiper-slide{
+        width: fit-content;
+    }
+
+    #photos-page .photos-swiper .swiper-slide .content .swiper-img img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+
+
 }
 
 
