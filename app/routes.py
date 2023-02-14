@@ -289,7 +289,7 @@ def photos(eventName, eventDate):
 
     # Format date
     dateSplit = [int(d) for d in eventDate.split("-")]
-    formattedDate = date(day=dateSplit[0], month=dateSplit[1], year=dateSplit[2]).strftime('%A %d %B %Y')
+    formattedDate = date(day=dateSplit[0], month=dateSplit[1], year=dateSplit[2]).strftime('%d %B %Y')
 
     # Format event name
     eventNameSplit = eventName.split("_")
