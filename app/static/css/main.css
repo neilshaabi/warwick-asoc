@@ -415,9 +415,6 @@ input:-webkit-autofill:focus {
 #team-page .team-swiper .swiper-slide .content .swiper-img {
     height: 50vh;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #news-page .news-swiper .swiper-slide .content .swiper-img {
@@ -514,10 +511,9 @@ input:-webkit-autofill:focus {
 #photos-page .photos-swiper .swiper-slide .content .swiper-img img {
     height: 100%;
     width: 100%;
-    width: auto;
+    object-fit: contain;
+    
 }
-
-
 
 @media only screen and (max-width: 685px) {
 
@@ -525,7 +521,6 @@ input:-webkit-autofill:focus {
         width: calc(90%);
         margin: 0 auto;
         padding-bottom: 50px;
-
     }
 
     #photos-page .photos-swiper .swiper-slide{
@@ -537,8 +532,6 @@ input:-webkit-autofill:focus {
         width: 100%;
         object-fit: contain;
     }
-
-
 }
 
 
