@@ -31,7 +31,7 @@ nonExecMembers = pd.merge(members, nonExec, how="inner")
 # Format statistics
 msg = f"""*ASOC User Stats ({today})*
 (This is an automated message)
-\n
+
 Total members: {len(members)}/{len(verified)}
 Exec memberships: {len(execMembers)}/{len(exec)}
 Non-exec memberships: {len(nonExecMembers)}/{len(nonExec)}
@@ -40,7 +40,7 @@ Non-verified users: {len(df) - len(verified)}\n"""
 
 # Send stats to ASOC Tech group chat
 print("Sending message to ASOC Tech group chat...")
-pywhatkit.sendwhatmsg_to_group_instantly("<group_link>", msg)
+pywhatkit.sendwhatmsg_to_group_instantly("Btzj1dCFWKq2RvldJDMf5U", msg)
 
 # Print message
 print("Message sent:")

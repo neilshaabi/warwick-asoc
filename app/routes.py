@@ -303,7 +303,14 @@ def photos(eventName, eventDate):
 # Displays news page
 @app.route("/news")
 def news():
-    return render_template("news.html")
+    newsletters = [
+        ("newsletter_1.png", "Term 1: Week 7"),
+        ("newsletter_2.png", "Term 1: Week 9"),
+        ("newsletter_3.png", "Term 2: Week 1"),
+        ("newsletter_4.png", "Term 2: Week 4"),
+    ]
+
+    return render_template("news.html", newsletters=newsletters)
 
 
 # Displays team page

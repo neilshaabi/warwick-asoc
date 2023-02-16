@@ -57,12 +57,12 @@ $(document).ready(function() {
         direction: 'horizontal',
         grabCursor: 'true',
         spaceBetween: 25,
-        slidesPerView: 3,
+        slidesPerView: 2,
         loop: true,
 
         autoplay: {
-             delay: 2500,
-             disableOnInteraction: false,
+            delay: 2500,
+            disableOnInteraction: false,
         },
 
         pagination: {
@@ -77,13 +77,10 @@ $(document).ready(function() {
             },
             700: {
                 slidesPerView: 2
-            },
-            1150: {
-                slidesPerView: 3
             }
         }
     });
-    
+
     // Team page swiper
     const teamSwiper = new Swiper('.team-swiper', {
 
@@ -136,19 +133,17 @@ $(document).ready(function() {
             dynamicBullets: true,
             clickable: true,
         },
-
-
     });
 
     // Member list search bar
     $("#search").on('input', function() {
-    
+
         var input = $("#search").val().toLowerCase();
         var rows = $("tbody > tr");
 
         // Show all rows initially
         $(rows).show();
-        
+
         // Do not hide any rows if search term is empty
         if (input == "") {
             return;
@@ -168,7 +163,7 @@ $(document).ready(function() {
                 $(thisRow).hide();
             }
         }
-        
-      });
+
+    });
 
 });

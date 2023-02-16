@@ -72,7 +72,7 @@ class TeamMember(db.Model):
 
 # Insert dummy data into tables
 def insertTestData():
-    
+
     # Sample list of users
     users = [
         User(
