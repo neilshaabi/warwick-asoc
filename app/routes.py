@@ -280,7 +280,7 @@ def gallery():
 
 
 # Displays photos page
-@app.route("/photos/<eventName>/<eventDate>", methods=["GET", "POST"])
+@app.route("/photos-<eventName>-<eventDate>", methods=["GET", "POST"])
 def photos(eventName, eventDate):
 
     # Get filenames of images stored in corresponding event folder
@@ -288,7 +288,7 @@ def photos(eventName, eventDate):
     files = os.listdir(filePath + "/static/img/events/" + eventName)
 
     # Format date
-    dateSplit = [int(d) for d in eventDate.split("-")]
+    dateSplit = [int(d) for d in eventDate.split("_")]
     formattedDate = date(day=dateSplit[0], month=dateSplit[1], year=dateSplit[2]).strftime('%d %B %Y')
 
     # Format event name
