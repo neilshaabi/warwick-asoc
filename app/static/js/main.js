@@ -27,12 +27,12 @@ $(document).ready(function() {
         // Hide error message
         $('#error-alert').hide();
 
-        // Show section whose id contains the matching membership type
+        // // Show section whose id contains the matching membership type
         var id = (event.target.id).split('-')[0];
         $(".membership-info[id^='" + id + "']").show();
 
-        // Update styling of selected toggle
-        $('.team-toggle').removeClass('active-toggle');
+        // // Update styling of selected toggle
+        $('.toggle').removeClass('active-toggle');
         $(event.target).addClass('active-toggle');
     });
 
