@@ -45,6 +45,7 @@ source .venv/bin/activate
 
 ```
 export FLASK_DEBUG=True
+export FLASK_ENV=development
 export SECRET_KEY=e617f901bb846ad01eb6aa446b1c203f
 export DATABASE_URL= 
 export MAIL_PASSWORD=

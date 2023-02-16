@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ event_name + " Photos" }}
+{% endblock %}
+
+{% block main %}
+
+    <div id="photos-page">
+        
+        <div class="page-header">
+            <h2>{{ event_name }}</h2>
+            <p>{{ event_date }} | <a href=https://drive.google.com/drive/folders/1YOZdwn7olcPF8scJ1NEEhyyBkE-cSUnj>Google Drive</a></p>
+        </div>
+        
+        <div class="swiper photos-swiper">
+            <div class="swiper-wrapper">
+                {% for file in files %}
+                    <div class="swiper-slide">
+                        <div class="content">
+                            <div class="swiper-img">
+                                <img src="/static/img/events/{{ folder_name }}/{{ file }}" alt="Image from event">
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+
+{% endblock %}
