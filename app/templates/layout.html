@@ -36,7 +36,7 @@
         {% block head %}{% endblock %}
 
         <title>{% block title %}{% endblock %} | Warwick ASOC</title>
-        <link rel="icon" type="image/svg" href="static/img/logos/favicon.png">
+        <link rel="icon" type="image/svg" href="{{ url_for('static', filename='img/logos/favicon.png') }}">
 
     </head>
     <body>
