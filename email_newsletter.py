@@ -4,7 +4,7 @@ from email.message import EmailMessage
 
 # Sender email credentials
 SEND_FROM = "no-reply@warwick-asoc.co.uk"
-EMAIL_PASSWORD = ""
+EMAIL_PASSWORD = "asoc4life!"
 
 FILEPATH = f"asoc_emails.csv"
 
