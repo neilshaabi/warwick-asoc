@@ -1,4 +1,5 @@
 import stripe
+from datetime import date
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import current_user, login_required
 
@@ -107,6 +108,7 @@ def stripe_webhook():
         user = User.query.filter_by(id=session["client_reference_id"]).first()
 
         user.membership = membership_type
+        user.member_since = date.today()
         if membership_type == "Student":
             user.student_id = session["metadata"]["student_id"]
         db.session.commit()
