@@ -18,6 +18,7 @@ class User(UserMixin, db.Model):
     student_id = db.Column(db.Integer)
     verified = db.Column(db.Boolean)
     is_exec = db.Column(db.Boolean)
+    member_since = db.Column(db.Date)
 
     def __init__(
         self,
@@ -30,6 +31,7 @@ class User(UserMixin, db.Model):
         student_id,
         verified,
         is_exec,
+        member_since,
     ):
         self.email = email
         self.password_hash = password_hash
@@ -40,6 +42,7 @@ class User(UserMixin, db.Model):
         self.student_id = student_id
         self.verified = verified
         self.is_exec = is_exec
+        self.member_since = member_since
 
 
 # Model of a team member (exec/frep) for database
@@ -85,6 +88,7 @@ def insertTestData():
             2138843,
             True,
             True,
+            date.today(),
         ),
         User(
             "neil.shaabi@warwick.ac.uk",
@@ -96,6 +100,7 @@ def insertTestData():
             None,
             True,
             False,
+            None,
         ),
     ]
     db.session.add_all(users)

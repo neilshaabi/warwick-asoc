@@ -289,14 +289,20 @@ def photos(eventName, eventDate):
 
     # Format date
     dateSplit = [int(d) for d in eventDate.split("_")]
-    formattedDate = date(day=dateSplit[0], month=dateSplit[1], year=dateSplit[2]).strftime('%d %B %Y')
+    formattedDate = date(
+        day=dateSplit[0], month=dateSplit[1], year=dateSplit[2]
+    ).strftime("%d %B %Y")
 
     # Format event name
     eventNameSplit = eventName.split("_")
     formattedEventName = (" ".join(eventNameSplit)).title()
 
     return render_template(
-        "photos.html", event_name=formattedEventName, event_date=formattedDate, folder_name=eventName, files=files
+        "photos.html",
+        event_name=formattedEventName,
+        event_date=formattedDate,
+        folder_name=eventName,
+        files=files,
     )
 
 
@@ -452,4 +458,24 @@ def member_list():
         .all()
     )
 
-    return render_template("member-list.html", now=now, members=members)
+    return render_template("member-list.html", caa=now, members=members)
+
+
+# Displays list of members with memberships before voting deadline (only accessible by exec members)
+@app.route("/elections-member-list")
+@login_required
+def elections_member_list():
+
+    if not current_user.is_exec:
+        return redirect("/")
+
+    deadline = "23:59 10/03/2023"
+
+    members = (
+        User.query.with_entities(User.first_name, User.last_name, User.student_id)
+        .filter(User.membership != None, User.member_since < "2023-03-11")
+        .order_by(User.first_name, User.last_name)
+        .all()
+    )
+
+    return render_template("member-list.html", caa=deadline, members=members)

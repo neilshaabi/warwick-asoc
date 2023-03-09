@@ -74,8 +74,9 @@ The production database served by Heroku can be interacted with via [Heroku data
 
 Common transactions (executed in a Terminal window from any directory):
 - Select all users: `heroku pg:psql -a warwick-asoc -c "SELECT * FROM users;"`
-- Update membership status of specific user: `heroku pg:psql -a warwick-asoc -c "UPDATE users SET membership='Student', student_id=2107085 WHERE email='testing@gmail.com';"`
+- Update membership status of specific user: `heroku pg:psql -a warwick-asoc -c "UPDATE users SET membership='Student', student_id=2111111 WHERE email='testing@gmail.com';"`
 - Delete unverified users: `heroku pg:psql -a warwick-asoc -c "DELETE FROM users WHERE NOT verified AND date_joined < date_trunc('day', now() - interval '0.5 month');"`
+- Add column to table: `heroku pg:psql -a warwick-asoc -c "ALTER TABLE users ADD member_since DATE;"`
 
 
 ### Database Backups
