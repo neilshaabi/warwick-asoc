@@ -1,18 +1,13 @@
 from datetime import date, datetime
-from flask import render_template, request, redirect, url_for, session, flash, jsonify
-from flask_login import login_user, current_user, logout_user, login_required
+from flask import render_template, redirect, url_for, flash, jsonify, request, session
+from flask_login import login_user, logout_user, login_required, current_user
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
 import os
 
-from app import app, mail, serialiser
-from app.db import db, User, TeamMember
-from app.utils import (
-    isValidStudentID,
-    isValidPassword,
-    sendEmailWithToken,
-    sendContactEmail,
-)
+from app import *
+from app.db import *
+from app.utils import *
 
 
 # Logs user out
@@ -316,6 +311,7 @@ def news():
         ("newsletter_3.png", "Term 2: Week 1"),
         ("newsletter_4.png", "Term 2: Week 4"),
         ("newsletter_5.png", "Term 2: Week 7"),
+        ("newsletter_6.png", "Term 2: Week 10"),
     ]
 
     return render_template("news.html", newsletters=newsletters)
