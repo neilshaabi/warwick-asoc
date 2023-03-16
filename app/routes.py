@@ -275,33 +275,6 @@ def gallery():
     return render_template("gallery.html")
 
 
-# Displays photos page
-@app.route("/photos-<eventName>-<eventDate>", methods=["GET", "POST"])
-def photos(eventName, eventDate):
-
-    # Get filenames of images stored in corresponding event folder
-    filePath = os.path.dirname(__file__)
-    files = os.listdir(filePath + "/static/img/events/" + eventName)
-
-    # Format date
-    dateSplit = [int(d) for d in eventDate.split("_")]
-    formattedDate = date(
-        day=dateSplit[0], month=dateSplit[1], year=dateSplit[2]
-    ).strftime("%d %B %Y")
-
-    # Format event name
-    eventNameSplit = eventName.split("_")
-    formattedEventName = (" ".join(eventNameSplit)).title()
-
-    return render_template(
-        "photos.html",
-        event_name=formattedEventName,
-        event_date=formattedDate,
-        folder_name=eventName,
-        files=files,
-    )
-
-
 # Displays news page
 @app.route("/news")
 def news():
@@ -456,23 +429,3 @@ def member_list():
     )
 
     return render_template("member-list.html", caa=now, members=members)
-
-
-# Displays list of members with memberships before voting deadline (only accessible by exec members)
-@app.route("/elections-member-list")
-@login_required
-def elections_member_list():
-
-    if not current_user.is_exec:
-        return redirect("/")
-
-    deadline = "23:59 10/03/2023"
-
-    members = (
-        User.query.with_entities(User.first_name, User.last_name, User.student_id)
-        .filter(User.membership != None, User.member_since < "2023-03-11")
-        .order_by(User.first_name, User.last_name)
-        .all()
-    )
-
-    return render_template("member-list.html", caa=deadline, members=members)
