@@ -5,8 +5,8 @@ Web application for Warwick Asian Society built with Flask, viewable at [www.war
 
 | S/N |       Name      |          Period         |               Email               |
 |:---:|:---------------:|:-----------------------:|:---------------------------------:|
-|  1  | Neil Shaabi     | July 2022 - present  | neil.shaabi@warwick.ac.uk         |
-|  2  | Adam Syed       | July 2022 - present  | adam.syed.1@warwick.ac.uk         |
+|  1  | Neil Shaabi     | July 2022 - April 2023  | neil.shaabi@warwick.ac.uk         |
+|  2  | Adam Syed       | July 2022 - April 2023  | adam.syed.1@warwick.ac.uk         |
 |  3  | Parth S. Poudel | December 2022 - present | parth.sharma-poudel@warwick.ac.uk |
 |  4  | Kaylan Raja     | April 2023 - present    | kaylan.raja@warwick.ac.uk         |
 
@@ -44,6 +44,8 @@ This repository contains several Python scripts used to automate recurring proce
 
 ### Local Set Up and Running Instructions
 
+Note: steps 1-2 are only required to be executed when running the application for the first time
+
 1. In a Terminal window, execute the following from within the `warwick-asoc/` directory:
 
 ```
@@ -51,9 +53,13 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-2. Change configuration settings:
-- In `app/__init__.py`, change `ProductionConfig` to `DevelopmentConfig`
-- Note: this must be **reverted before deployment**
+2. Install the required Python modules into the virtual environment:
+
+```
+pip install -r requirements.txt
+```
+
+- Note: the `requirements.txt` file can be generated/updated by executing `pip freeze > requirements.txt` from within the virtual environment
 
 3. Export the following environment variables via the Terminal:
 
@@ -67,16 +73,21 @@ export STRIPE_SECRET_KEY=
 export STRIPE_PUBLISHABLE_KEY= 
 export STRIPE_ENDPOINT_SECRET= 
 ```
+
 - Notes:
   - The Stripe API keys must be provided to enable payment functionality
   - In development, reloading the server will reset the database by default. To prevent this, execute the following: `export RESET_DB=false`
   - In production, the environment variables can be updated in Heroku via the [settings](https://dashboard.heroku.com/apps/warwick-asoc/settings) page
 
-4. Run the application:
+4. Change configuration settings:
+- In `app/__init__.py`, change `ProductionConfig` to `DevelopmentConfig`
+- Note: this must be **reverted before deployment**
+
+5. Run the application:
 ```
 flask run
 ```
-- Note: if the port is already in use, use the following command instead:
+- Note: if the port is already in use (e.g. `OSError: [Errno 48] Address already in use`), use the following command instead:
 ```
 flask run --host=0.0.0.0 --port=80
 ```
@@ -88,7 +99,7 @@ flask run --host=0.0.0.0 --port=80
     - Naming convention: `name/feature-being-worked-on` (e.g. `neil/add-events-page`)
 - Make edits from new branch
 - Make Pull Request (PR) when code is ready to be reviewed
-    - Use the `black` formatter before submitting a PR
+    - Use the black formatter before submitting a PR (command: `black .`)
     - Try to keep PRs short (< 100 new lines of code)
     - If necessary, make multiple PRs for easy review
 - Make necessary changes suggested by reviewer
