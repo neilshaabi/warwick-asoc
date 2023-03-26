@@ -9,12 +9,11 @@ from app.utils import isValidStudentID
 
 membership_prices = {"Student": 5.00, "Associate": 5.00}
 
+
 # Handles membership selection, uses Stripe API to accept payments
 @app.route("/membership", methods=["GET", "POST"])
 def membership():
-
     if request.method == "POST":
-
         # Get form data
         membership_type = request.form.get("membership_type")
         student_id = request.form.get("student_id") or "none"
@@ -25,7 +24,6 @@ def membership():
 
         # Create new Checkout Session to handle membership purchases
         try:
-
             stripe.api_key = app.config["STRIPE_SECRET_KEY"]
 
             # See Stripe API docs: https://stripe.com/docs/api/checkout/sessions/create
@@ -82,7 +80,6 @@ def membership():
 # Endpoint to handle successful payments
 @app.route("/stripe-webhook", methods=["POST"])
 def stripe_webhook():
-
     payload = request.get_data(as_text=True)
     sig_header = request.headers.get("Stripe-Signature")
     endpoint_secret = app.config["STRIPE_ENDPOINT_SECRET"]
@@ -98,7 +95,6 @@ def stripe_webhook():
 
     # If checkout was successful
     if event["type"] == "checkout.session.completed":
-
         # Retrieve checkout info
         session = event["data"]["object"]
         line_items = stripe.checkout.Session.list_line_items(session["id"], limit=1)

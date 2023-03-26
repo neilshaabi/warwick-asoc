@@ -1,5 +1,6 @@
 from os import environ
 
+
 # Default config values
 class Config(object):
     TESTING = False

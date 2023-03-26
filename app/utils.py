@@ -1,9 +1,9 @@
 from flask import render_template, url_for
 from flask_mail import Message
 
+
 # Returns whether a given password meets the security requirements
 def isValidPassword(password):
-
     # Password must be at least 8 characters and contain at least one digit, uppercase and lowercase letter
     if (
         (len(password) < 8)
@@ -27,7 +27,6 @@ def isValidStudentID(student_id_str):
 
 # Sends an email with a token-generated link
 def sendEmailWithToken(s, mail, name, email, subject):
-
     # Generate email contents based on subject
     token = s.dumps(email)
     msgInfo = getMsg(token, subject)
@@ -45,7 +44,6 @@ def sendEmailWithToken(s, mail, name, email, subject):
 
 # Returns a dictionary with text to include in an email depending on the subject
 def getMsg(token, subject):
-
     if subject == "Email Verification":
         body = "Thanks for joining the Warwick ASOC community! To access your account, please verify your email address using the link below."
         route = "email_verification"
@@ -62,7 +60,6 @@ def getMsg(token, subject):
 
 # Sends an email with a token-generated link
 def sendContactEmail(mail, name, email, subject, body):
-
     msg = Message(
         ("Contact Form Submission: " + subject),
         recipients=[email],

@@ -3,7 +3,6 @@ from flask import render_template, redirect, url_for, flash, jsonify, request, s
 from flask_login import login_user, logout_user, login_required, current_user
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
-import os
 
 from app import *
 from app.db import *
@@ -21,9 +20,7 @@ def logout():
 # Allows users to register for an account
 @app.route("/register", methods=["GET", "POST"])
 def register():
-
     if request.method == "POST":
-
         # Get form data
         first_name = escape(request.form.get("first_name"))
         last_name = escape(request.form.get("last_name"))
@@ -50,7 +47,6 @@ def register():
 
         # Successful registration
         else:
-
             # Insert new user into database
             email = email.lower()
             user = User(
@@ -86,9 +82,7 @@ def register():
 # Logs user in if credentials are valid
 @app.route("/login", methods=["GET", "POST"])
 def login():
-
     if request.method == "POST":
-
         # Get form data
         email = request.form.get("email").lower()
         password = request.form.get("password")
@@ -126,7 +120,6 @@ def login():
 # Displays page with email verification instructions, sends verification email
 @app.route("/verify-email", methods=["GET", "POST"])
 def verify_email():
-
     # Get user with email stored in session
     user = (
         User.query.filter_by(email=session["email"]).first()
@@ -151,7 +144,6 @@ def verify_email():
 # Directed to by link in verification emails, handles email verification using token
 @app.route("/email-verification/<token>")
 def email_verification(token):
-
     # Get email from token
     try:
         email = serialiser.loads(
@@ -179,12 +171,9 @@ def email_verification(token):
 # Handles password resets by sending emails and updating the database
 @app.route("/reset-password", methods=["GET", "POST"])
 def reset_request():
-
     if request.method == "POST":
-
         # Form submitted to request a password reset
         if request.form.get("form-type") == "request":
-
             # Get form data
             email = request.form.get("email").lower()
 
@@ -207,7 +196,6 @@ def reset_request():
 
         # Form submitted to reset password
         elif request.form.get("form-type") == "reset":
-
             # Get form data
             email = request.form.get("email")
             password = request.form.get("password")
@@ -223,7 +211,6 @@ def reset_request():
 
             # Successful reset
             else:
-
                 # Update user's password in database
                 user = User.query.filter_by(email=email).first()
                 user.password_hash = generate_password_hash(password)
@@ -243,7 +230,6 @@ def reset_request():
 # Directed to by link in password reset emails, displays page to update password
 @app.route("/reset-password/<token>")
 def reset_password(token):
-
     # Get email from token
     try:
         email = serialiser.loads(
@@ -305,9 +291,7 @@ def team():
 # Displays contact page
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
-
     if request.method == "POST":
-
         # Get form data
         name = request.form.get("name").title()
         email = request.form.get("email").lower()
@@ -328,7 +312,6 @@ def contact():
 
         # Successful form submission
         else:
-
             # Send email and redirect to home page
             sendContactEmail(mail, name, email, subject, message)
             flash("Success! Message sent from {}".format(email))
@@ -344,11 +327,9 @@ def contact():
 @app.route("/settings", methods=["GET", "POST"])
 @login_required
 def settings():
-
     user = User.query.filter_by(id=current_user.id).first()
 
     if request.method == "POST":
-
         # Get form data
         first_name = escape(request.form.get("first_name"))
         last_name = escape(request.form.get("last_name"))
@@ -379,7 +360,6 @@ def settings():
 
         # Successful update
         else:
-
             # Update user's info into database
             user.first_name = first_name
             user.last_name = last_name
@@ -415,7 +395,6 @@ def settings():
 @app.route("/member-list")
 @login_required
 def member_list():
-
     if not current_user.is_exec:
         return redirect("/")
 
