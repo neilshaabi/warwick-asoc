@@ -40,7 +40,7 @@ Non-verified users: {len(df) - len(verified)}\n"""
 
 # Send stats to ASOC Tech group chat
 print("Sending message to ASOC Tech group chat...")
-pywhatkit.sendwhatmsg_to_group_instantly("Btzj1dCFWKq2RvldJDMf5U", msg)
+pywhatkit.sendwhatmsg_to_group_instantly("<WhatsApp group invite link>", msg)
 
 # Print message
 print("Message sent:")
