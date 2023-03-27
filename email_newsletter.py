@@ -4,7 +4,7 @@ from email.message import EmailMessage
 
 # Sender email credentials
 SEND_FROM = "no-reply@warwick-asoc.co.uk"
-EMAIL_PASSWORD = "asoc4life!"
+EMAIL_PASSWORD = "<password>"
 
 FILEPATH = f"asoc_emails.csv"
 
@@ -20,7 +20,7 @@ system(
 # Create message object
 msg = EmailMessage()
 msg["From"] = SEND_FROM
-msg["To"] = "anandtanisha@hotmail.com"
+msg["To"] = "<newsletter_editor>"
 msg["Subject"] = "ASOC Member Email Addresses"
 msg.set_content(
     """
