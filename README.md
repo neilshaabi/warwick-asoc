@@ -1,16 +1,6 @@
 # warwick-asoc
 Web application for Warwick Asian Society built with Flask, viewable at [www.warwick-asoc.co.uk](www.warwick-asoc.co.uk).
 
-## Contributors
-
-| S/N |       Name      |          Period         |               Email               |
-|:---:|:---------------:|:-----------------------:|:---------------------------------:|
-|  1  | Neil Shaabi     | July 2022 - April 2023  | neil.shaabi@warwick.ac.uk         |
-|  2  | Adam Syed       | July 2022 - April 2023  | adam.syed.1@warwick.ac.uk         |
-|  3  | Parth S. Poudel | December 2022 - present | parth.sharma-poudel@warwick.ac.uk |
-|  4  | Kaylan Raja     | April 2023 - present    | kaylan.raja@warwick.ac.uk         |
-
-
 ## About
 
 ### Software Architecture
