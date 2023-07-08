@@ -1,5 +1,5 @@
 # warwick-asoc
-Web application for Warwick Asian Society built with Flask, viewable at [www.warwick-asoc.co.uk](www.warwick-asoc.co.uk).
+Web application for Warwick Asian Society built with Flask.
 
 ## About
 
